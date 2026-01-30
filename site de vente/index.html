@@ -1,12 +1,409 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=siteDeVente2.html">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Redirection — CQFD</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre. Parcourez nos pièces et ajoutez vos favoris.">
+  <title>CQFD</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #cart.open { display: block; }
+    #cart {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    #cart-items li { margin-bottom: 8px; }
+    .remove-btn {
+      margin-left: 10px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 2px 6px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <p>Redirection vers <a href="./siteDeVente2.html">la page principale</a>. Si la redirection automatique ne fonctionne pas, cliquez sur le lien.</p>
+  <header>
+    <h1>CQFD</h1>
+    <p>œuvres uniques à vendre</p>
+    <nav aria-label="Navigation principale">
+      <a href="#">Accueil</a>
+      <a href="html/contact.html">Contact</a>
+      <a href="#" onclick="toggleCart()" role="button" aria-pressed="false">⭐️ Favoris (<span id="cart-count" aria-live="polite">0</span>)</a>
+    </nav>
+  </header>
+
+  <section class="controls" aria-hidden="false">
+    <div class="controls-inner">
+      <label for="search">🔎 Rechercher :</label>
+      <input id="search" type="search" placeholder="Rechercher un produit, ex: Lego" aria-label="Rechercher des produits">
+
+      <label for="sort">Trier :</label>
+      <select id="sort" aria-label="Trier les produits">
+        <option value="default">Par défaut</option>
+        <option value="price-asc">Prix : bas → haut</option>
+        <option value="price-desc">Prix : haut → bas</option>
+        <option value="name-asc">Nom A → Z</option>
+        <option value="name-desc">Nom Z → A</option>
+      </select>
+
+      <div id="results-count" aria-live="polite" style="margin-left: 1rem;">0 produits</div>
+    </div>
+  </section>
+
+  <main class="gallery" aria-label="Liste des produits">
+    <article class="card" data-title="Bear Brick lumineux" data-price="100">
+      <a href="html/produit1.html">
+        <picture>
+          <source type="image/avif" srcset="photo/ourson lumineus/ours bleu-400.avif 400w, photo/ourson lumineus/ours bleu-800.avif 800w, photo/ourson lumineus/ours bleu-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/ourson lumineus/ours bleu-400.webp 400w, photo/ourson lumineus/ours bleu-800.webp 800w, photo/ourson lumineus/ours bleu-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/ourson lumineus/ours bleu-400.webp" srcset="photo/ourson lumineus/ours bleu-400.webp 400w, photo/ourson lumineus/ours bleu-800.webp 800w" alt="Bear Brick lumineux" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Bear Brick lumineux</h2>
+      </a>
+      <p class="price">100€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Bear Brick lumineux aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Lego" data-price="250">
+      <a href="html/produit2.html">
+        <picture>
+          <source type="image/avif" srcset="photo/lego/lego devanr-400.avif 400w, photo/lego/lego devanr-800.avif 800w, photo/lego/lego devanr-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/lego/lego devanr-400.webp 400w, photo/lego/lego devanr-800.webp 800w, photo/lego/lego devanr-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/lego/lego devanr-400.webp" srcset="photo/lego/lego devanr-400.webp 400w, photo/lego/lego devanr-800.webp 800w" alt="Lego" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Lego</h2>
+      </a>
+      <p class="price">250€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Lego aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Yoshi" data-price="100">
+      <a href="html/produit3.html">
+        <picture>
+          <source type="image/avif" srcset="photo/yochi/yochi devant-400.avif 400w, photo/yochi/yochi devant-800.avif 800w, photo/yochi/yochi devant-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/yochi/yochi devant-400.webp 400w, photo/yochi/yochi devant-800.webp 800w, photo/yochi/yochi devant-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/yochi/yochi devant-400.webp" srcset="photo/yochi/yochi devant-400.webp 400w, photo/yochi/yochi devant-800.webp 800w" alt="Yoshi" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Yoshi</h2>
+      </a>
+      <p class="price">100€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Yoshi aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Fox N°5" data-price="250">
+      <a href="html/produit4.html">
+        <picture>
+          <source type="image/avif" srcset="photo/renard/renard devant-400.avif 400w, photo/renard/renard devant-800.avif 800w, photo/renard/renard devant-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/renard/renard devant-400.webp 400w, photo/renard/renard devant-800.webp 800w, photo/renard/renard devant-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/renard/renard devant-400.webp" srcset="photo/renard/renard devant-400.webp 400w, photo/renard/renard devant-800.webp 800w" alt="Fox N°5" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Fox N°5</h2>
+      </a>
+      <p class="price">250€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Fox N°5 aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Bear Brick 50cm" data-price="150">
+      <a href="html/produit5.html">
+        <picture>
+          <source type="image/avif" srcset="photo/LV/LV devant-400.avif 400w, photo/LV/LV devant-800.avif 800w, photo/LV/LV devant-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/LV/LV devant-400.webp 400w, photo/LV/LV devant-800.webp 800w, photo/LV/LV devant-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/LV/LV devant-400.webp" srcset="photo/LV/LV devant-400.webp 400w, photo/LV/LV devant-800.webp 800w" alt="Bear Brick 50cm" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Bear Brick 50cm</h2>
+      </a>
+      <p class="price">150€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Bear Brick 50cm aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Bear Brick Black And Gold" data-price="150">
+      <a href="html/produit6.html">
+        <picture>
+          <source type="image/avif" srcset="photo/Bear Brick Black And Gold/face-400.avif 400w, photo/Bear Brick Black And Gold/face-800.avif 800w, photo/Bear Brick Black And Gold/face-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/Bear Brick Black And Gold/face-400.webp 400w, photo/Bear Brick Black And Gold/face-800.webp 800w, photo/Bear Brick Black And Gold/face-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/Bear Brick Black And Gold/face-400.webp" srcset="photo/Bear Brick Black And Gold/face-400.webp 400w, photo/Bear Brick Black And Gold/face-800.webp 800w" alt="Bear Brick Black And Gold" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Bear Brick Black And Gold</h2>
+      </a>
+      <p class="price">150€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Bear Brick Black And Gold aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Légo XXL" data-price="150">
+      <a href="html/produit7.html">
+        <picture>
+          <source type="image/avif" srcset="photo/légo XXL/dev-400.avif 400w, photo/légo XXL/dev-800.avif 800w, photo/légo XXL/dev-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/légo XXL/dev-400.webp 400w, photo/légo XXL/dev-800.webp 800w, photo/légo XXL/dev-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/légo XXL/dev-400.webp" srcset="photo/légo XXL/dev-400.webp 400w, photo/légo XXL/dev-800.webp 800w" alt="Légo XXL" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Légo XXL</h2>
+      </a>
+      <p class="price">150€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Légo XXL aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Lego XXL (playmobil)" data-price="150">
+      <a href="html/produit8.html">
+        <picture>
+          <source type="image/avif" srcset="photo/playmobil/diag-400.avif 400w, photo/playmobil/diag-800.avif 800w, photo/playmobil/diag-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/playmobil/diag-400.webp 400w, photo/playmobil/diag-800.webp 800w, photo/playmobil/diag-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/playmobil/diag-400.webp" srcset="photo/playmobil/diag-400.webp 400w, photo/playmobil/diag-800.webp 800w" alt="Lego XXL (playmobil)" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Lego XXL</h2>
+      </a>
+      <p class="price">150€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Lego XXL (playmobil) aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Panneau" data-price="150">
+      <a href="html/produit9.html">
+        <picture>
+          <source type="image/avif" srcset="photo/panneau/dev-400.avif 400w, photo/panneau/dev-800.avif 800w, photo/panneau/dev-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="photo/panneau/dev-400.webp 400w, photo/panneau/dev-800.webp 800w, photo/panneau/dev-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="photo/panneau/dev-400.webp" srcset="photo/panneau/dev-400.webp 400w, photo/panneau/dev-800.webp 800w" alt="Panneau" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Panneau</h2>
+      </a>
+      <p class="price">150€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Panneau aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Ours lumineux" data-price="150">
+      <a href="html/produit10.html">
+        <picture>
+          <source type="image/webp" srcset="photo/bear brick rolex/dev.jpg.webp">
+          <img loading="lazy" decoding="async" src="photo/bear brick rolex/dev.jpg" alt="Ours lumineux" width="400" height="400">
+        </picture>
+        <h2 class="link-h2">Ours lumineux</h2>
+      </a>
+      <p class="price">150€</p>
+      <button type="button" class="fav-btn" aria-label="Ajouter Ours lumineux aux favoris">Ajouter aux favoris</button>
+    </article>
+
+    <!-- Versions répétées supprimées for clarity -->
+  </main>
+
+  <aside id="cart">
+    <h3>⭐️ Vos Favoris</h3>
+    <ul id="cart-items"></ul>
+    <p>Total : <span id="cart-total">0</span> €</p>
+    <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
+  </aside>
+
+  <footer>
+    <p>&copy; 2025 CQFD. Ce Qu'il Fallait Dessiner.</p>
+  </footer>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function addToCart(button) {
+      const card = button.closest('.card');
+      if (!card) return;
+      const title = card.dataset.title;
+      const price = parseFloat(card.dataset.price) || 0;
+
+      // éviter les doublons
+      if (cart.some(item => item.title === title)) {
+        alert(title + " est déjà dans vos favoris.");
+        return;
+      }
+
+      cart.push({ title, price });
+      saveCart();
+      updateCartDisplay();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+
+      if (!cartItems || !cartTotal || !cartCount) return;
+
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.title} - ${item.price} €`;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Supprimer';
+        removeBtn.className = 'remove-btn';
+        removeBtn.setAttribute('aria-label', 'Supprimer ' + item.title);
+        removeBtn.onclick = () => removeFromCart(index);
+        removeBtn.type = 'button';
+
+        li.appendChild(removeBtn);
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = cart.length;
+      // annonce pour lecteurs d'écran
+      cartCount.setAttribute('aria-live', 'polite');
+    }
+
+    function toggleCart() {
+      const cartPanel = document.getElementById('cart');
+      if (cartPanel) cartPanel.classList.toggle('open');
+      // update aria-pressed on the favorites button
+      const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
+      if (favBtn && cartPanel) favBtn.setAttribute('aria-pressed', String(cartPanel.classList.contains('open')));
+      if (cartPanel && cartPanel.classList.contains('open')) {
+        cartPanel.querySelector('a, button, [tabindex]')?.focus();
+      }
+    }
+
+    // raccourci clavier: 'f' pour ouvrir les favoris
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'f' && !e.metaKey && !e.ctrlKey) {
+        toggleCart();
+      }
+    });
+
+    // délégation: boutons Ajouter
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.fav-btn')) {
+        addToCart(e.target);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      updateCartDisplay();
+      initGalleryControls();
+    });
+
+    /* ---------------- Gallery search / sort / pagination ---------------- */
+    const PAGE_SIZE = 8;
+    let currentPage = 1;
+
+    function initGalleryControls() {
+      const search = document.getElementById('search');
+      const sort = document.getElementById('sort');
+      search.addEventListener('input', () => { currentPage = 1; applyFilters(); });
+      sort.addEventListener('change', () => { currentPage = 1; applyFilters(); });
+      renderPagination();
+      applyFilters();
+    }
+
+    function getAllCards() {
+      return Array.from(document.querySelectorAll('.gallery .card'));
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      const sortVal = document.getElementById('sort').value;
+      const all = getAllCards();
+
+      let filtered = all.filter(card => {
+        const title = (card.dataset.title || '').toLowerCase();
+        const price = String(card.dataset.price || '');
+        return title.includes(q) || price.includes(q);
+      });
+
+      // sorting
+      if (sortVal === 'price-asc') filtered.sort((a,b)=> parseFloat(a.dataset.price)-parseFloat(b.dataset.price));
+      if (sortVal === 'price-desc') filtered.sort((a,b)=> parseFloat(b.dataset.price)-parseFloat(a.dataset.price));
+      if (sortVal === 'name-asc') filtered.sort((a,b)=> (a.dataset.title || '').localeCompare(b.dataset.title || ''));
+      if (sortVal === 'name-desc') filtered.sort((a,b)=> (b.dataset.title || '').localeCompare(a.dataset.title || ''));
+
+      renderPage(filtered, currentPage);
+      renderPagination(filtered.length);
+
+      document.getElementById('results-count').textContent = `${filtered.length} produit(s)`;
+    }
+
+    function renderPage(items, page) {
+      const start = (page - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+      const visible = items.slice(start, end);
+
+      // hide all
+      getAllCards().forEach(c => c.classList.add('hidden'));
+      visible.forEach(c => c.classList.remove('hidden'));
+
+      // if no items, show a message
+      let emptyNotice = document.getElementById('empty-notice');
+      if (!emptyNotice) {
+        emptyNotice = document.createElement('div');
+        emptyNotice.id = 'empty-notice';
+        emptyNotice.style.padding = '20px';
+        emptyNotice.style.textAlign = 'center';
+        document.querySelector('.gallery').parentNode.insertBefore(emptyNotice, document.querySelector('.gallery'));
+      }
+      emptyNotice.textContent = items.length === 0 ? 'Aucun produit trouvé.' : '';
+    }
+
+    function renderPagination(totalItems = null) {
+      const pagination = document.getElementById('pagination');
+      if (!pagination) {
+        const p = document.createElement('div');
+        p.id = 'pagination';
+        p.className = 'pagination';
+        document.querySelector('.gallery').after(p);
+      }
+      const allFiltered = totalItems === null ? document.querySelectorAll('.gallery .card:not(.hidden)') : null;
+      // compute pages based on filtered length if provided
+      const length = totalItems !== null ? totalItems : (allFiltered ? allFiltered.length : getAllCards().length);
+      const pages = Math.max(1, Math.ceil(length / PAGE_SIZE));
+
+      const pEl = document.getElementById('pagination');
+      pEl.innerHTML = '';
+
+      for (let i=1;i<=pages;i++){
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = i===currentPage ? 'page-btn active' : 'page-btn';
+        btn.textContent = i;
+        btn.onclick = () => { currentPage = i; applyFilters(); };
+        pEl.appendChild(btn);
+      }
+    }
+
+    document.addEventListener('click', (e) => {
+      if (e.target.classList && e.target.classList.contains('page-btn')) {
+        currentPage = parseInt(e.target.textContent, 10) || 1;
+        applyFilters();
+      }
+    });
+
+    /* keyboard accessibility: allow numbers to jump to page */
+    document.addEventListener('keypress', (e) => {
+      if (e.key >= '1' && e.key <= '9' && document.activeElement.tagName !== 'INPUT') {
+        const page = parseInt(e.key,10);
+        currentPage = page;
+        applyFilters();
+      }
+    });
+
+    /* expose function for tests */
+    window.__cqfd = { applyFilters };
+
+  </script>
+  </script>
 </body>
 </html>
