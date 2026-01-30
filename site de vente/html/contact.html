@@ -39,12 +39,12 @@
     <h1>Contact</h1>
     <nav>
         <a href="../index.html">Accueil</a>
-        <a href="#cart" role="link" aria-label="Voir vos favoris">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+        <a href="#cart" id="cart-toggle" role="button" aria-label="Voir vos favoris" aria-expanded="false" aria-controls="cart">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
 
   <main>
-    <aside id="cart" class="open" role="region" aria-label="Vos favoris">
+    <aside id="cart" role="region" aria-label="Vos favoris" aria-hidden="true" tabindex="-1">
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
@@ -195,6 +195,25 @@
 
     // expose functions for product pages
     window.addToCartFromProduct = addToCartFromProduct;
+
+    // toggle cart visibility on contact page
+    (function(){
+      const cartToggle = document.getElementById('cart-toggle');
+      const cartEl = document.getElementById('cart');
+      if (cartToggle && cartEl) {
+        // ensure hidden by default
+        cartEl.classList.remove('open');
+        cartEl.setAttribute('aria-hidden', 'true');
+        cartToggle.setAttribute('aria-expanded', 'false');
+        cartToggle.addEventListener('click', (e) => {
+          e.preventDefault();
+          const open = cartEl.classList.toggle('open');
+          cartEl.setAttribute('aria-hidden', String(!open));
+          cartToggle.setAttribute('aria-expanded', String(open));
+          if (open) cartEl.focus();
+        });
+      }
+    })();
 
     // show current cart
     window.addEventListener('load', updateCartDisplay);
