@@ -10,8 +10,9 @@
         background-image: url("../photo/design-eclaboussure-aquarelle-peinte-main-couleur-arc-ciel_1048-20680.jpg.avif");
     }
 
-    /* animated open/close — default closed */
+    #cart.open { display: block; }
     #cart {
+      display: none;
       position: fixed;
       top: 80px;
       right: 20px;
@@ -21,21 +22,6 @@
       width: 250px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       z-index: 1000;
-
-      /* hidden state */
-      opacity: 0;
-      transform: translateY(-8px) scale(0.98);
-      pointer-events: none;
-      visibility: hidden;
-      transition: opacity 180ms ease, transform 180ms ease;
-    }
-
-    /* visible state */
-    #cart.open {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-      visibility: visible;
     }
     #cart-items li { margin-bottom: 8px; }
     .remove-btn {
@@ -53,12 +39,12 @@
     <h1>Contact</h1>
     <nav>
         <a href="../index.html">Accueil</a>
-        <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">⭐️ Favoris (<span id="cart-count" aria-live="polite">0</span>)</a>
+        <a href="#cart" role="link" aria-label="Voir vos favoris">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
 
   <main>
-    <aside id="cart" role="region" aria-label="Vos favoris">
+    <aside id="cart" class="open" role="region" aria-label="Vos favoris">
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
@@ -210,10 +196,8 @@
     // expose functions for product pages
     window.addToCartFromProduct = addToCartFromProduct;
 
-    // uses the shared toggleCart() implementation (same behavior as other pages)
-
     // show current cart
-    window.addEventListener('load', () => { updateCartDisplay(); (function(){ const cartEl = document.getElementById('cart'); if (cartEl) { cartEl.classList.remove('open'); const favBtn = document.querySelector('nav a[onclick="toggleCart()"]'); if (favBtn) favBtn.setAttribute('aria-pressed','false'); } })(); });
+    window.addEventListener('load', updateCartDisplay);
 
   </script>
 
