@@ -57,7 +57,44 @@
     </nav>
   </header>
 
-  
+  <main>
+    <aside id="cart" role="region" aria-label="Vos favoris">
+      <h3>⭐️ Vos Favoris</h3>
+      <ul id="cart-items"></ul>
+      <p>Total : <span id="cart-total">0</span> €</p>
+      <div style="margin-top:10px;"><button id="mailto-order" class="checkout-button">Envoyer la commande</button></div>
+    </aside>
+
+    <div class="contact-wrap">
+      <h2>Contactez-nous</h2>
+      <p class="hint">Remplissez le formulaire ci-dessous ou envoyez-nous un message via Instagram.</p>
+
+      <form id="contactForm" novalidate>
+        <label for="name">Nom</label>
+        <input id="name" name="name" type="text" required>
+
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" required></textarea>
+
+        <!-- honeypot anti-spam -->
+        <label style="display:none">Laissez vide
+          <input type="text" name="gotcha" tabindex="-1" autocomplete="off">
+        </label>
+
+        <button type="submit">Envoyer</button>
+      </form>
+
+      <div style="margin-top: 16px;">
+        <a href="https://www.instagram.com/cqfd_street_and_pop_art" target="_blank">Instagram @cqfd_street_and_pop_art</a>
+      </div>
+
+      <div id="form-status" role="status" aria-live="polite" style="margin-top:12px;"></div>
+    </div>
+
+  </main>
 
   <script>
     // Cart handling (same behavior que page principale)
@@ -176,7 +213,7 @@
     // uses the shared toggleCart() implementation (same behavior as other pages)
 
     // show current cart
-    window.addEventListener('load', updateCartDisplay);
+    window.addEventListener('load', () => { updateCartDisplay(); (function(){ const cartEl = document.getElementById('cart'); if (cartEl) { cartEl.classList.remove('open'); const favBtn = document.querySelector('nav a[onclick="toggleCart()"]'); if (favBtn) favBtn.setAttribute('aria-pressed','false'); } })(); });
 
   </script>
 

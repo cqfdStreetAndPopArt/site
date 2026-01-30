@@ -160,7 +160,7 @@
       if (cartPanel && cartPanel.classList.contains('open')) cartPanel.querySelector('a, button, [tabindex]')?.focus();
     }
 
-    window.onload = updateCartDisplay;
+    window.onload = function(){ updateCartDisplay(); (function(){ const cartEl = document.getElementById('cart'); if (cartEl) { cartEl.classList.remove('open'); const favBtn = document.querySelector('nav a[onclick="toggleCart()"]'); if (favBtn) favBtn.setAttribute('aria-pressed','false'); } })(); };
   </script>
 </body>
 </html>
