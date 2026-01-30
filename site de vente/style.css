@@ -191,11 +191,12 @@ aside#cart {
   margin-left: 50px;
 }
 .thumbnails img {
-  width: 60px;
-  height: 60px;
-  margin-bottom: 5px;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 8px;
   cursor: pointer;
   border: 2px solid transparent;
+  object-fit: cover;
 }
 .thumbnails img:hover {
   border: 2px solid blue;
