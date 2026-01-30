@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Serve static site ("site de vente") at root so opening http://localhost:3000 shows the site
+const SITE_DIR = path.join(__dirname, '..', 'site de vente');
+app.use(express.static(SITE_DIR));
+
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
 
