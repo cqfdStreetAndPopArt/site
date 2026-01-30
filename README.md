@@ -11,5 +11,8 @@ Backend :
 - Dossier `server/` (exécuter `cd server && npm install && npm start`)
 
 Optimisations :
-- Images converties en WebP et intégrées via `<picture>` pour un meilleur chargement
+- Images converties en WebP et AVIF et intégrées via `<picture>` pour un meilleur chargement
+- Générer (ou régénérer) les images optimisées :
+  - `cd server && npm run gen-images` (WebP redimensionné)
+  - `cd server && npm run gen-avif` (AVIF redimensionné)
 
