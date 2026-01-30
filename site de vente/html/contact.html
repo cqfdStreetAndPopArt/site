@@ -39,7 +39,7 @@
     <h1>Contact</h1>
     <nav>
         <a href="../index.html">Accueil</a>
-
+      <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
 
@@ -73,6 +73,13 @@
 
       <div id="form-status" role="status" aria-live="polite" style="margin-top:12px;"></div>
     </div>
+
+    <aside id="cart">
+      <h3>⭐️ Vos Favoris</h3>
+      <ul id="cart-items"></ul>
+      <p>Total : <span id="cart-total">0</span> €</p>
+      <a href="contact.html" class="checkout-button">Passer à la commande</a>
+    </aside>
 
   </main>
 
@@ -112,6 +119,103 @@
       const subject = encodeURIComponent('Contact CQFD — ' + name);
       const body = encodeURIComponent(`Nom: ${name}%0AEmail: ${email}%0A%0A${message}`);
       window.location.href = `mailto:contact@cqfd.example?subject=${subject}&body=${body}`;
+    });
+
+    // ---------- Favoris (cart) shared logic ----------
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+
+    function addToCart(buttonOrTitle, price) {
+      // support being called from product pages as addToCartFromProduct(title, price)
+      if (typeof buttonOrTitle === 'string') {
+        const title = buttonOrTitle;
+        if (cart.some(it => it.title === title)) { alert(title + ' est déjà dans vos favoris.'); return; }
+        cart.push({ title, price: price || 0 });
+        saveCart();
+        updateCartDisplay();
+        return;
+      }
+
+      const button = buttonOrTitle;
+      const card = button.closest('.card');
+      if (!card) return;
+      const title = card.dataset.title;
+      const priceVal = parseFloat(card.dataset.price) || 0;
+      if (cart.some(item => item.title === title)) { alert(title + " est déjà dans vos favoris."); return; }
+      cart.push({ title, price: priceVal });
+      saveCart();
+      updateCartDisplay();
+    }
+    // expose helper used by product pages
+    window.addToCartFromProduct = (title, price) => addToCart(title, price);
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+
+      if (!cartItems || !cartTotal || !cartCount) return;
+
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.title} - ${item.price} €`;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Supprimer';
+        removeBtn.className = 'remove-btn';
+        removeBtn.setAttribute('type', 'button');
+        removeBtn.setAttribute('aria-label', 'Supprimer ' + item.title);
+        removeBtn.onclick = () => removeFromCart(index);
+
+        li.appendChild(removeBtn);
+        cartItems.appendChild(li);
+        total += item.price || 0;
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = cart.length;
+      cartCount.setAttribute('aria-live', 'polite');
+    }
+
+    function toggleCart() {
+      const cartPanel = document.getElementById('cart');
+      if (cartPanel) cartPanel.classList.toggle('open');
+      const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
+      if (favBtn && cartPanel) favBtn.setAttribute('aria-pressed', String(cartPanel.classList.contains('open')));
+      if (cartPanel && cartPanel.classList.contains('open')) {
+        cartPanel.querySelector('a, button, [tabindex]')?.focus();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'f' && !e.metaKey && !e.ctrlKey) {
+        toggleCart();
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.fav-btn')) {
+        // support button element or product add
+        addToCart(e.target);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      updateCartDisplay();
+      // ensure panel closed by default
+      document.getElementById('cart')?.classList.remove('open');
     });
 
 
