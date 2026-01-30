@@ -7,6 +7,54 @@
   <title>CQFD</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
+  <script>
+    // fix stylesheet / favicon when index.html is opened either from root or inside "site de vente/"
+    (function(){
+      const prefixes = ['', 'site de vente/'];
+
+      function testLinkHref(url) {
+        return new Promise(resolve => {
+          const l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.href = url;
+          l.onload = () => { l.remove(); resolve(true); };
+          l.onerror = () => { l.remove(); resolve(false); };
+          document.head.appendChild(l);
+        });
+      }
+
+      async function fixRelHref(selector) {
+        const el = document.querySelector(selector);
+        if (!el) return;
+        const orig = el.getAttribute('href');
+        if (!orig || /^(https?:|\/)/.test(orig)) return;
+        for (const p of prefixes) {
+          try {
+            const candidate = p + orig;
+            if (selector === 'link[rel="icon"]') {
+              // icon: try fetching via Image
+              const img = new Image();
+              img.onload = () => { el.setAttribute('href', candidate); };
+              img.onerror = () => {};
+              img.src = candidate;
+              // allow some time (best-effort)
+              return;
+            }
+            if (await testLinkHref(candidate)) {
+              el.setAttribute('href', candidate);
+              return;
+            }
+          } catch (e) { /* ignore */ }
+        }
+      }
+
+      // run on DOMContentLoaded so link elements exist
+      document.addEventListener('DOMContentLoaded', () => {
+        fixRelHref('link[rel="stylesheet"]');
+        fixRelHref('link[rel="icon"]');
+      });
+    })();
+  </script>
   <style>
     #cart.open { display: block; }
     #cart {
