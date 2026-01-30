@@ -47,16 +47,17 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="photo/bear brick rolex/dev.jpg" onclick="changeImage(this)" alt="Ours lumineux - vue 1" width="100" height="150" tabindex="0" role="button">
-        <img src="photo/bear brick rolex/diag.jpg" onclick="changeImage(this)" alt="Ours lumineux - diag" width="100" height="150" tabindex="0" role="button">
-        <img src="photo/bear brick rolex/coté.jpg" onclick="changeImage(this)" alt="Ours lumineux - côté" width="100" height="150" tabindex="0" role="button">
-        <img src="photo/bear brick rolex/dos.jpg" onclick="changeImage(this)" alt="Ours lumineux - dos" width="100" height="150" tabindex="0" role="button">
-        <img src="photo/bear brick rolex/pied.jpg" onclick="changeImage(this)" alt="Ours lumineux - pied" width="100" height="150" tabindex="0" role="button">
+        <img src="photo/bear brick rolex/dev-400.webp" onclick="changeImage(this)" alt="Ours lumineux - vue 1" width="100" height="150" tabindex="0" role="button">
+        <img src="photo/bear brick rolex/diag-400.webp" onclick="changeImage(this)" alt="Ours lumineux - diag" width="100" height="150" tabindex="0" role="button">
+        <img src="photo/bear brick rolex/coté-400.webp" onclick="changeImage(this)" alt="Ours lumineux - côté" width="100" height="150" tabindex="0" role="button">
+        <img src="photo/bear brick rolex/dos-400.webp" onclick="changeImage(this)" alt="Ours lumineux - dos" width="100" height="150" tabindex="0" role="button">
+        <img src="photo/bear brick rolex/pied-400.webp" onclick="changeImage(this)" alt="Ours lumineux - pied" width="100" height="150" tabindex="0" role="button">
       </div>
       <div class="main-image">
         <picture>
-          <source type="image/webp" srcset="photo/bear brick rolex/dev.jpg.webp">
-          <img id="largeImage" src="photo/bear brick rolex/dev.jpg" alt="Ours lumineux - vue principale" loading="lazy" decoding="async" width="475" height="800">
+          <source type="image/avif" srcset="../photo/bear brick rolex/face-400.avif 400w, ../photo/bear brick rolex/face-800.avif 800w, ../photo/bear brick rolex/face-1200.avif 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/webp" srcset="../photo/bear brick rolex/face-400.webp 400w, ../photo/bear brick rolex/face-800.webp 800w, ../photo/bear brick rolex/face-1200.webp 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img id="largeImage" src="../photo/bear brick rolex/face-400.webp" srcset="../photo/bear brick rolex/face-400.webp 400w, ../photo/bear brick rolex/face-800.webp 800w" alt="Bear Brick Rolex - vue principale" loading="lazy" decoding="async" width="475" height="800">
         </picture>
       </div>
       <div class="product-info">

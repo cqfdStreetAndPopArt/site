@@ -8,3 +8,7 @@ server/server.pid
 .vscode/
 .idea/
 .DS_Store
+
+# Generated images
+/site de vente/photo/**/*-*.webp
+/site de vente/photo/**/*-*.avif
