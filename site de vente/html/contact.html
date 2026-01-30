@@ -39,7 +39,7 @@
     <h1>Contact</h1>
     <nav>
         <a href="../index.html">Accueil</a>
-        <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+
     </nav>
   </header>
 
@@ -77,39 +77,6 @@
   </main>
 
   <script>
-    // Cart handling (same behavior que page principale)
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
-
-    function addToCartFromProduct(title, price) {
-      if (cart.some(it=>it.title===title)) {
-        alert(title + ' est déjà dans vos favoris.');
-        return;
-      }
-      cart.push({ title, price }); saveCart(); updateCartDisplay();
-    }
-
-    function removeFromCart(index) { cart.splice(index,1); saveCart(); updateCartDisplay(); }
-
-    function updateCartDisplay() {
-      const cartItems = document.getElementById('cart-items');
-      const cartTotal = document.getElementById('cart-total');
-      const cartCount = document.getElementById('cart-count');
-
-      if (!cartItems || !cartTotal) return;
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((item,index)=>{
-        const li = document.createElement('li');
-        li.textContent = `${item.title} - ${item.price} €`;
-        const removeBtn = document.createElement('button');
-        removeBtn.className='remove-btn'; removeBtn.type='button'; removeBtn.textContent='Supprimer'; removeBtn.onclick = ()=>removeFromCart(index);
-        li.appendChild(removeBtn); cartItems.appendChild(li); total+=item.price;
-      });
-      cartTotal.textContent = total.toFixed(2);
-      if (cartCount) cartCount.textContent = cart.length;
-    }
 
     // contact form validation + server submit (fallback to mailto)
     const form = document.getElementById('contactForm');
@@ -147,51 +114,9 @@
       window.location.href = `mailto:contact@cqfd.example?subject=${subject}&body=${body}`;
     });
 
-    // prepare order mailto when clicking "Envoyer la commande" (use server endpoint when available)
-    document.getElementById('mailto-order').addEventListener('click', async () => {
-      if (cart.length === 0) { alert('Votre panier est vide !'); return; }
-      const total = cart.reduce((s,i)=>s+i.price,0).toFixed(2);
 
-      const payload = { cart, total };
 
-      try {
-        const res = await fetch('/api/order', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        if (res.ok) {
-          const data = await res.json();
-          alert('Commande envoyée. Merci ! Référence: ' + (data.id || '—'));
-          cart = []; saveCart(); updateCartDisplay();
-          return;
-        } else {
-          alert('Erreur serveur, ouverture du client mail en fallback.');
-        }
-      } catch (err) {
-        // fallback to mailto
-        const lines = cart.map(i=>`${i.title} - ${i.price}€`).join('%0A');
-        const subject = encodeURIComponent('Commande CQFD');
-        const body = encodeURIComponent(`Bonjour,%0Aje souhaite commander:%0A${lines}%0A%0ATotal: ${total} €`);
-        window.location.href = `mailto:contact@cqfd.example?subject=${subject}&body=${body}`;
-      }
-    });
 
-    // prepare order mailto when clicking "Envoyer la commande"
-    document.getElementById('mailto-order').addEventListener('click', () => {
-      if (cart.length === 0) { alert('Votre panier est vide !'); return; }
-      const total = cart.reduce((s,i)=>s+i.price,0).toFixed(2);
-      const lines = cart.map(i=>`${i.title} - ${i.price}€`).join('%0A');
-      const subject = encodeURIComponent('Commande CQFD');
-      const body = encodeURIComponent(`Bonjour,%0Aje souhaite commander:%0A${lines}%0A%0ATotal: ${total} €`);
-      window.location.href = `mailto:contact@cqfd.example?subject=${subject}&body=${body}`;
-    });
-
-    // expose functions for product pages
-    window.addToCartFromProduct = addToCartFromProduct;
-
-    // show current cart
-    window.addEventListener('load', updateCartDisplay);
 
   </script>
 
