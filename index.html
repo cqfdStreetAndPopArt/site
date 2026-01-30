@@ -237,4 +237,222 @@
     function updateCartDisplay() {
       const cartItems = document.getElementById('cart-items');
       const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+
+      if (!cartItems || !cartTotal || !cartCount) return;
+
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${item.title} - ${item.price} €`;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'Supprimer';
+        removeBtn.className = 'remove-btn';
+        removeBtn.setAttribute('aria-label', 'Supprimer ' + item.title);
+        removeBtn.onclick = () => removeFromCart(index);
+        removeBtn.type = 'button';
+
+        li.appendChild(removeBtn);
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+
+      cartTotal.textContent = total.toFixed(2);
+      cartCount.textContent = cart.length;
+      // annonce pour lecteurs d'écran
+      cartCount.setAttribute('aria-live', 'polite');
     }
+
+    function toggleCart() {
+      const cartPanel = document.getElementById('cart');
+      if (cartPanel) cartPanel.classList.toggle('open');
+      // update aria-pressed on the favorites button
+      const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
+      if (favBtn && cartPanel) favBtn.setAttribute('aria-pressed', String(cartPanel.classList.contains('open')));
+      if (cartPanel && cartPanel.classList.contains('open')) {
+        cartPanel.querySelector('a, button, [tabindex]')?.focus();
+      }
+    }
+
+    // raccourci clavier: 'f' pour ouvrir les favoris
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'f' && !e.metaKey && !e.ctrlKey) {
+        toggleCart();
+      }
+    });
+
+    // délégation: boutons Ajouter
+    document.addEventListener('click', (e) => {
+      if (e.target.matches('.fav-btn')) {
+        addToCart(e.target);
+      }
+    });
+
+    /* ---------------- Gallery search / sort / pagination ---------------- */
+    const PAGE_SIZE = 8;
+    let currentPage = 1;
+
+    function initGalleryControls() {
+      const search = document.getElementById('search');
+      const sort = document.getElementById('sort');
+      search.addEventListener('input', () => { currentPage = 1; applyFilters(); });
+      sort.addEventListener('change', () => { currentPage = 1; applyFilters(); });
+      renderPagination();
+      applyFilters();
+    }
+
+    function getAllCards() {
+      return Array.from(document.querySelectorAll('.gallery .card'));
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('search').value.trim().toLowerCase();
+      const sortVal = document.getElementById('sort').value;
+      const all = getAllCards();
+
+      let filtered = all.filter(card => {
+        const title = (card.dataset.title || '').toLowerCase();
+        const price = String(card.dataset.price || '');
+        return title.includes(q) || price.includes(q);
+      });
+
+      // sorting
+      if (sortVal === 'price-asc') filtered.sort((a,b)=> parseFloat(a.dataset.price)-parseFloat(b.dataset.price));
+      if (sortVal === 'price-desc') filtered.sort((a,b)=> parseFloat(b.dataset.price)-parseFloat(a.dataset.price));
+      if (sortVal === 'name-asc') filtered.sort((a,b)=> (a.dataset.title||'').localeCompare(b.dataset.title||''));
+      if (sortVal === 'name-desc') filtered.sort((a,b)=> (b.dataset.title||'').localeCompare(a.dataset.title||''));
+
+      // pagination
+      const total = filtered.length;
+      const start = (currentPage-1)*PAGE_SIZE;
+      const paged = filtered.slice(start, start+PAGE_SIZE);
+
+      document.querySelectorAll('.gallery .card').forEach(c => c.style.display = 'none');
+      paged.forEach(c => c.style.display = 'block');
+
+      document.getElementById('results-count').textContent = `${total} produits`;
+      renderPagination(Math.ceil(total / PAGE_SIZE));
+    }
+
+    function renderPagination(totalPages = 1) {
+      const containerId = 'pagination';
+      let container = document.getElementById(containerId);
+      if (!container) {
+        container = document.createElement('div');
+        container.id = containerId;
+        document.querySelector('.controls-inner').appendChild(container);
+      }
+      container.innerHTML = '';
+      for (let i=1;i<=totalPages;i++){
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.className = (i===currentPage)?'active':'page-btn';
+        btn.type = 'button';
+        btn.onclick = () => { currentPage = i; applyFilters(); };
+        container.appendChild(btn);
+      }
+    }
+
+    // ------- fix assets: try both '' and 'site de vente/' prefixes so index works from root or when site de vente is root -------
+    function fixAssetPaths() {
+      const prefixes = ['', 'site de vente/'];
+
+      function testImage(url) {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = url;
+        });
+      }
+
+      async function tryFixElementSrc(el, attr) {
+        const orig = el.getAttribute(attr);
+        if (!orig) return;
+        // if already absolute (starts with http or /) skip
+        if (/^(https?:|\/)/.test(orig)) return;
+        for (const p of prefixes) {
+          const candidate = p + orig;
+          const ok = await testImage(candidate);
+          if (ok) {
+            el.setAttribute(attr, candidate);
+            return;
+          }
+        }
+      }
+
+      // images
+      document.querySelectorAll('img').forEach(img => {
+        tryFixElementSrc(img, 'src');
+        const ss = img.getAttribute('srcset');
+        if (ss) {
+          // test first URL in srcset
+          const first = ss.split(',')[0].trim().split(' ')[0];
+          (async () => {
+            for (const p of prefixes) {
+              if (await testImage(p + first)) {
+                const newSs = ss.split(',').map(part => {
+                  const [urlPart, size] = part.trim().split(' ');
+                  return (p + urlPart) + (size ? (' ' + size) : '');
+                }).join(', ');
+                img.setAttribute('srcset', newSs);
+                break;
+              }
+            }
+          })();
+        }
+      });
+
+      // source elements (picture)
+      document.querySelectorAll('source').forEach(source => {
+        const ss = source.getAttribute('srcset');
+        if (!ss) return;
+        const first = ss.split(',')[0].trim().split(' ')[0];
+        (async () => {
+          for (const p of prefixes) {
+            if (await testImage(p + first)) {
+              const newSs = ss.split(',').map(part => {
+                const [urlPart, size] = part.trim().split(' ');
+                return (p + urlPart) + (size ? (' ' + size) : '');
+              }).join(', ');
+              source.setAttribute('srcset', newSs);
+              break;
+            }
+          }
+        })();
+      });
+
+      // links to product/contact (html/...)
+      document.querySelectorAll('a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        if (!href.startsWith('http') && (href.startsWith('html/') || href.startsWith('site de vente/html/'))) {
+          (async () => {
+            for (const p of prefixes) {
+              try {
+                const res = await fetch(p + href, { method: 'HEAD' });
+                if (res.ok) {
+                  a.setAttribute('href', p + href);
+                  break;
+                }
+              } catch (e) {
+                // try next
+              }
+            }
+          })();
+        }
+      });
+    }
+
+    window.addEventListener('load', () => {
+      updateCartDisplay();
+      initGalleryControls();
+      fixAssetPaths();
+    });
+
+  </script>
+</body>
+</html>
