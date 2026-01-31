@@ -5,8 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre. Parcourez nos pièces et ajoutez vos favoris.">
   <title>CQFD</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="site de vente/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="site de vente/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="site de vente/style.css" />
+  <link rel="stylesheet" href="site de vente/style.css" />
+  <script>
+    // fix stylesheet / favicon when index.html is opened either from root or inside "site de vente/"
+    (function(){
+      const prefixes = ['', 'site de vente/'];
+
+      function testLinkHref(url) {
+        return new Promise(resolve => {
+          const l = document.createElement('link');
+          l.rel = 'stylesheet';
+          l.href = url;
+          l.onload = () => { l.remove(); resolve(true); };
+          l.onerror = () => { l.remove(); resolve(false); };
+          document.head.appendChild(l);
+        });
+      }
+
+      async function fixRelHref(selector) {
+        const el = document.querySelector(selector);
+        if (!el) return;
+        const orig = el.getAttribute('href');
+        if (!orig || /^(https?:|\/)/.test(orig)) return;
+        for (const p of prefixes) {
+          try {
+            const candidate = p + orig;
+            if (selector === 'link[rel="icon"]') {
+              // icon: try fetching via Image
+              const img = new Image();
+              img.onload = () => { el.setAttribute('href', candidate); };
+              img.onerror = () => {};
+              img.src = candidate;
+              // allow some time (best-effort)
+              return;
+            }
+            if (await testLinkHref(candidate)) {
+              el.setAttribute('href', candidate);
+              return;
+            }
+          } catch (e) { /* ignore */ }
+        }
+      }
+
+      // run on DOMContentLoaded so link elements exist
+      document.addEventListener('DOMContentLoaded', () => {
+        fixRelHref('link[rel="stylesheet"]');
+        fixRelHref('link[rel="icon"]');
+      });
+    })();
+  </script>
   <style>
     #cart.open { display: block; }
     #cart {
@@ -38,7 +88,7 @@
     <p>œuvres uniques à vendre</p>
     <nav aria-label="Navigation principale">
       <a href="#">Accueil</a>
-      <a href="html/contact.html">Contact</a>
+      <a href="site de vente/html/contact.html">Contact</a>
       <a href="#" onclick="toggleCart()" role="button" aria-pressed="false">⭐️ Favoris (<span id="cart-count" aria-live="polite">0</span>)</a>
     </nav>
   </header>
@@ -63,11 +113,11 @@
 
   <main class="gallery" aria-label="Liste des produits">
     <article class="card" data-title="Bear Brick lumineux" data-price="100">
-      <a href="html/produit1.html">
+      <a href="site de vente/html/produit1.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/ourson lumineus/ours bleu.JPG 400w, photo/ourson lumineus/ours bleu.JPG 800w, photo/ourson lumineus/ours bleu.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/ourson lumineus/ours bleu.JPG 400w, photo/ourson lumineus/ours bleu.JPG 800w, photo/ourson lumineus/ours bleu.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/ourson lumineus/ours bleu.JPG" srcset="photo/ourson lumineus/ours bleu.JPG 400w, photo/ourson lumineus/ours bleu.JPG 800w" alt="Bear Brick lumineux" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/ourson lumineus/ours bleu.JPG 400w, site de vente/photo/ourson lumineus/ours bleu.JPG 800w, site de vente/photo/ourson lumineus/ours bleu.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/ourson lumineus/ours bleu.JPG 400w, site de vente/photo/ourson lumineus/ours bleu.JPG 800w, site de vente/photo/ourson lumineus/ours bleu.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/ourson lumineus/ours bleu.JPG" srcset="site de vente/photo/ourson lumineus/ours bleu.JPG 400w, site de vente/photo/ourson lumineus/ours bleu.JPG 800w" alt="Bear Brick lumineux" width="400" height="400">
         </picture>
         <h2 class="link-h2">Bear Brick lumineux</h2>
       </a>
@@ -76,11 +126,11 @@
     </article>
 
     <article class="card" data-title="Lego" data-price="250">
-      <a href="html/produit2.html">
+      <a href="site de vente/html/produit2.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/lego/lego devanr.JPG 400w, photo/lego/lego devanr.JPG 800w, photo/lego/lego devanr.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/lego/lego devanr.JPG 400w, photo/lego/lego devanr.JPG 800w, photo/lego/lego devanr.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/lego/lego devanr.JPG" srcset="photo/lego/lego devanr.JPG 400w, photo/lego/lego devanr.JPG 800w" alt="Lego" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/lego/lego devanr.JPG 400w, site de vente/photo/lego/lego devanr.JPG 800w, site de vente/photo/lego/lego devanr.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/lego/lego devanr.JPG 400w, site de vente/photo/lego/lego devanr.JPG 800w, site de vente/photo/lego/lego devanr.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/lego/lego devanr.JPG" srcset="site de vente/photo/lego/lego devanr.JPG 400w, site de vente/photo/lego/lego devanr.JPG 800w" alt="Lego" width="400" height="400">
         </picture>
         <h2 class="link-h2">Lego</h2>
       </a>
@@ -89,11 +139,11 @@
     </article>
 
     <article class="card" data-title="Yoshi" data-price="100">
-      <a href="html/produit3.html">
+      <a href="site de vente/html/produit3.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/yochi/yochi devant.JPG 400w, photo/yochi/yochi devant.JPG 800w, photo/yochi/yochi devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/yochi/yochi devant.JPG 400w, photo/yochi/yochi devant.JPG 800w, photo/yochi/yochi devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/yochi/yochi devant.JPG" srcset="photo/yochi/yochi devant.JPG 400w, photo/yochi/yochi devant.JPG 800w" alt="Yoshi" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/yochi/yochi devant.JPG 400w, site de vente/photo/yochi/yochi devant.JPG 800w, site de vente/photo/yochi/yochi devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/yochi/yochi devant.JPG 400w, site de vente/photo/yochi/yochi devant.JPG 800w, site de vente/photo/yochi/yochi devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/yochi/yochi devant.JPG" srcset="site de vente/photo/yochi/yochi devant.JPG 400w, site de vente/photo/yochi/yochi devant.JPG 800w" alt="Yoshi" width="400" height="400">
         </picture>
         <h2 class="link-h2">Yoshi</h2>
       </a>
@@ -102,11 +152,11 @@
     </article>
 
     <article class="card" data-title="Fox N°5" data-price="250">
-      <a href="html/produit4.html">
+      <a href="site de vente/html/produit4.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/renard/renard devant.JPG 400w, photo/renard/renard devant.JPG 800w, photo/renard/renard devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/renard/renard devant.JPG 400w, photo/renard/renard devant.JPG 800w, photo/renard/renard devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/renard/renard devant.JPG" srcset="photo/renard/renard devant.JPG 400w, photo/renard/renard devant.JPG 800w" alt="Fox N°5" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/renard/renard devant.JPG 400w, site de vente/photo/renard/renard devant.JPG 800w, site de vente/photo/renard/renard devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/renard/renard devant.JPG 400w, site de vente/photo/renard/renard devant.JPG 800w, site de vente/photo/renard/renard devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/renard/renard devant.JPG" srcset="site de vente/photo/renard/renard devant.JPG 400w, site de vente/photo/renard/renard devant.JPG 800w" alt="Fox N°5" width="400" height="400">
         </picture>
         <h2 class="link-h2">Fox N°5</h2>
       </a>
@@ -115,11 +165,11 @@
     </article>
 
     <article class="card" data-title="Bear Brick 50cm" data-price="150">
-      <a href="html/produit5.html">
+      <a href="site de vente/html/produit5.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/LV/LV devant.JPG 400w, photo/LV/LV devant.JPG 800w, photo/LV/LV devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/LV/LV devant.JPG 400w, photo/LV/LV devant.JPG 800w, photo/LV/LV devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/LV/LV devant.JPG" srcset="photo/LV/LV devant.JPG 400w, photo/LV/LV devant.JPG 800w" alt="Bear Brick 50cm" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/LV/LV devant.JPG 400w, site de vente/photo/LV/LV devant.JPG 800w, site de vente/photo/LV/LV devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/LV/LV devant.JPG 400w, site de vente/photo/LV/LV devant.JPG 800w, site de vente/photo/LV/LV devant.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/LV/LV devant.JPG" srcset="site de vente/photo/LV/LV devant.JPG 400w, site de vente/photo/LV/LV devant.JPG 800w" alt="Bear Brick 50cm" width="400" height="400">
         </picture>
         <h2 class="link-h2">Bear Brick 50cm</h2>
       </a>
@@ -128,11 +178,11 @@
     </article>
 
     <article class="card" data-title="Bear Brick Black And Gold" data-price="150">
-      <a href="html/produit6.html">
+      <a href="site de vente/html/produit6.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/Bear Brick Black And Gold/face.JPG 400w, photo/Bear Brick Black And Gold/face.JPG 800w, photo/Bear Brick Black And Gold/face.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/Bear Brick Black And Gold/face.JPG 400w, photo/Bear Brick Black And Gold/face.JPG 800w, photo/Bear Brick Black And Gold/face.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/Bear Brick Black And Gold/face.jpg" srcset="photo/Bear Brick Black And Gold/face.JPG 400w, photo/Bear Brick Black And Gold/face.JPG 800w" alt="Bear Brick Black And Gold" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/Bear Brick Black And Gold/face.JPG 400w, site de vente/photo/Bear Brick Black And Gold/face.JPG 800w, site de vente/photo/Bear Brick Black And Gold/face.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/Bear Brick Black And Gold/face.JPG 400w, site de vente/photo/Bear Brick Black And Gold/face.JPG 800w, site de vente/photo/Bear Brick Black And Gold/face.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/Bear Brick Black And Gold/face.jpg" srcset="site de vente/photo/Bear Brick Black And Gold/face.JPG 400w, site de vente/photo/Bear Brick Black And Gold/face.JPG 800w" alt="Bear Brick Black And Gold" width="400" height="400">
         </picture>
         <h2 class="link-h2">Bear Brick Black And Gold</h2>
       </a>
@@ -141,11 +191,11 @@
     </article>
 
     <article class="card" data-title="Légo XXL" data-price="150">
-      <a href="html/produit7.html">
+      <a href="site de vente/html/produit7.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/légo XXL/dev.JPG 400w, photo/légo XXL/dev.JPG 800w, photo/légo XXL/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/légo XXL/dev.JPG 400w, photo/légo XXL/dev.JPG 800w, photo/légo XXL/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/légo XXL/dev.jpg" srcset="photo/légo XXL/dev.JPG 400w, photo/légo XXL/dev.JPG 800w" alt="Légo XXL" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/légo XXL/dev.JPG 400w, site de vente/photo/légo XXL/dev.JPG 800w, site de vente/photo/légo XXL/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/légo XXL/dev.JPG 400w, site de vente/photo/légo XXL/dev.JPG 800w, site de vente/photo/légo XXL/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/légo XXL/dev.jpg" srcset="site de vente/photo/légo XXL/dev.JPG 400w, site de vente/photo/légo XXL/dev.JPG 800w" alt="Légo XXL" width="400" height="400">
         </picture>
         <h2 class="link-h2">Légo XXL</h2>
       </a>
@@ -154,24 +204,24 @@
     </article>
 
     <article class="card" data-title="Lego XXL (playmobil)" data-price="150">
-      <a href="html/produit8.html">
+      <a href="site de vente/html/produit8.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/playmobil/diag.JPG 400w, photo/playmobil/diag.JPG 800w, photo/playmobil/diag.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/playmobil/diag.JPG 400w, photo/playmobil/diag.JPG 800w, photo/playmobil/diag.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/playmobil/diag.jpg" srcset="photo/playmobil/diag.jpg 400w, photo/playmobil/diag.JPG 800w" alt="Lego XXL (playmobil)" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/playmobil/diag.JPG 400w, site de vente/photo/playmobil/diag.JPG 800w, site de vente/photo/playmobil/diag.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/playmobil/diag.JPG 400w, site de vente/photo/playmobil/diag.JPG 800w, site de vente/photo/playmobil/diag.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/playmobil/diag.jpg" srcset="site de vente/photo/playmobil/diag.JPG 400w, site de vente/photo/playmobil/diag.JPG 800w" alt="Lego XXL (playmobil)" width="400" height="400">
         </picture>
-        <h2 class="link-h2">Playmobil XXL</h2>
+        <h2 class="link-h2">Lego XXL</h2>
       </a>
       <p class="price">150€</p>
-      <button type="button" class="fav-btn" aria-label="Ajouter Playmobil XXL aux favoris">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" aria-label="Ajouter Lego XXL (playmobil) aux favoris">Ajouter aux favoris</button>
     </article>
 
     <article class="card" data-title="Panneau" data-price="150">
-      <a href="html/produit9.html">
+      <a href="site de vente/html/produit9.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/panneau/dev.JPG 400w, photo/panneau/dev.JPG 800w, photo/panneau/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="photo/panneau/dev.JPG 400w, photo/panneau/dev.JPG 800w, photo/panneau/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/panneau/dev.jpg" srcset="photo/panneau/dev.JPG 400w, photo/panneau/dev.JPG 800w" alt="Panneau" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/panneau/dev.JPG 400w, site de vente/photo/panneau/dev.JPG 800w, site de vente/photo/panneau/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <source type="image/jpeg" srcset="site de vente/photo/panneau/dev.JPG 400w, site de vente/photo/panneau/dev.JPG 800w, site de vente/photo/panneau/dev.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
+          <img loading="lazy" decoding="async" src="site de vente/photo/panneau/dev.jpg" srcset="site de vente/photo/panneau/dev.JPG 400w, site de vente/photo/panneau/dev.JPG 800w" alt="Panneau" width="400" height="400">
         </picture>
         <h2 class="link-h2">Panneau</h2>
       </a>
@@ -180,10 +230,10 @@
     </article>
 
     <article class="card" data-title="Ours lumineux" data-price="150">
-      <a href="html/produit10.html">
+      <a href="site de vente/html/produit10.html">
         <picture>
-          <source type="image/jpeg" srcset="photo/bear brick rolex/dev.jpg">
-          <img loading="lazy" decoding="async" src="photo/bear brick rolex/dev.jpg" alt="Ours lumineux" width="400" height="400">
+          <source type="image/jpeg" srcset="site de vente/photo/bear brick rolex/dev.jpg">
+          <img loading="lazy" decoding="async" src="site de vente/photo/bear brick rolex/dev.jpg" alt="Ours lumineux" width="400" height="400">
         </picture>
         <h2 class="link-h2">Ours lumineux</h2>
       </a>
@@ -191,14 +241,13 @@
       <button type="button" class="fav-btn" aria-label="Ajouter Ours lumineux aux favoris">Ajouter aux favoris</button>
     </article>
 
-    <!-- Versions répétées supprimées for clarity -->
   </main>
 
   <aside id="cart">
     <h3>⭐️ Vos Favoris</h3>
     <ul id="cart-items"></ul>
     <p>Total : <span id="cart-total">0</span> €</p>
-    <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
+    <a href="site de vente/html/contact.html" class="checkout-button">Passer à la commande</a>
   </aside>
 
   <footer>
@@ -292,11 +341,6 @@
       }
     });
 
-    window.addEventListener('load', () => {
-      updateCartDisplay();
-      initGalleryControls();
-    });
-
     /* ---------------- Gallery search / sort / pagination ---------------- */
     const PAGE_SIZE = 1000;
     let currentPage = 1;
@@ -328,82 +372,137 @@
       // sorting
       if (sortVal === 'price-asc') filtered.sort((a,b)=> parseFloat(a.dataset.price)-parseFloat(b.dataset.price));
       if (sortVal === 'price-desc') filtered.sort((a,b)=> parseFloat(b.dataset.price)-parseFloat(a.dataset.price));
-      if (sortVal === 'name-asc') filtered.sort((a,b)=> (a.dataset.title || '').localeCompare(b.dataset.title || ''));
-      if (sortVal === 'name-desc') filtered.sort((a,b)=> (b.dataset.title || '').localeCompare(a.dataset.title || ''));
+      if (sortVal === 'name-asc') filtered.sort((a,b)=> (a.dataset.title||'').localeCompare(b.dataset.title||''));
+      if (sortVal === 'name-desc') filtered.sort((a,b)=> (b.dataset.title||'').localeCompare(a.dataset.title||''));
 
-      renderPage(filtered, currentPage);
-      renderPagination(filtered.length);
+      // pagination
+      const total = filtered.length;
+      const start = (currentPage-1)*PAGE_SIZE;
+      const paged = filtered.slice(start, start+PAGE_SIZE);
 
-      document.getElementById('results-count').textContent = `${filtered.length} produit(s)`;
+      document.querySelectorAll('.gallery .card').forEach(c => c.style.display = 'none');
+      paged.forEach(c => c.style.display = 'block');
+
+      document.getElementById('results-count').textContent = `${total} produits`;
+      renderPagination(Math.ceil(total / PAGE_SIZE));
     }
 
-    function renderPage(items, page) {
-      const start = (page - 1) * PAGE_SIZE;
-      const end = start + PAGE_SIZE;
-      const visible = items.slice(start, end);
-
-      // hide all
-      getAllCards().forEach(c => c.classList.add('hidden'));
-      visible.forEach(c => c.classList.remove('hidden'));
-
-      // if no items, show a message
-      let emptyNotice = document.getElementById('empty-notice');
-      if (!emptyNotice) {
-        emptyNotice = document.createElement('div');
-        emptyNotice.id = 'empty-notice';
-        emptyNotice.style.padding = '20px';
-        emptyNotice.style.textAlign = 'center';
-        document.querySelector('.gallery').parentNode.insertBefore(emptyNotice, document.querySelector('.gallery'));
+    function renderPagination(totalPages = 1) {
+      const containerId = 'pagination';
+      let container = document.getElementById(containerId);
+      if (!container) {
+        container = document.createElement('div');
+        container.id = containerId;
+        document.querySelector('.controls-inner').appendChild(container);
       }
-      emptyNotice.textContent = items.length === 0 ? 'Aucun produit trouvé.' : '';
-    }
-
-    function renderPagination(totalItems = null) {
-      const pagination = document.getElementById('pagination');
-      if (!pagination) {
-        const p = document.createElement('div');
-        p.id = 'pagination';
-        p.className = 'pagination';
-        document.querySelector('.gallery').after(p);
-      }
-      const allFiltered = totalItems === null ? document.querySelectorAll('.gallery .card:not(.hidden)') : null;
-      // compute pages based on filtered length if provided
-      const length = totalItems !== null ? totalItems : (allFiltered ? allFiltered.length : getAllCards().length);
-      const pages = Math.max(1, Math.ceil(length / PAGE_SIZE));
-
-      const pEl = document.getElementById('pagination');
-      pEl.innerHTML = '';
-
-      for (let i=1;i<=pages;i++){
+      container.innerHTML = '';
+      for (let i=1;i<=totalPages;i++){
         const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = i===currentPage ? 'page-btn active' : 'page-btn';
         btn.textContent = i;
+        btn.className = (i===currentPage)?'active':'page-btn';
+        btn.type = 'button';
         btn.onclick = () => { currentPage = i; applyFilters(); };
-        pEl.appendChild(btn);
+        container.appendChild(btn);
       }
     }
 
-    document.addEventListener('click', (e) => {
-      if (e.target.classList && e.target.classList.contains('page-btn')) {
-        currentPage = parseInt(e.target.textContent, 10) || 1;
-        applyFilters();
+    // ------- fix assets: try both '' and 'site de vente/' prefixes so index works from root or when site de vente is root -------
+    function fixAssetPaths() {
+      const prefixes = ['', 'site de vente/'];
+
+      function testImage(url) {
+        return new Promise(resolve => {
+          const img = new Image();
+          img.onload = () => resolve(true);
+          img.onerror = () => resolve(false);
+          img.src = url;
+        });
       }
+
+      async function tryFixElementSrc(el, attr) {
+        const orig = el.getAttribute(attr);
+        if (!orig) return;
+        // if already absolute (starts with http or /) skip
+        if (/^(https?:|\/)/.test(orig)) return;
+        for (const p of prefixes) {
+          const candidate = p + orig;
+          const ok = await testImage(candidate);
+          if (ok) {
+            el.setAttribute(attr, candidate);
+            return;
+          }
+        }
+      }
+
+      // images
+      document.querySelectorAll('img').forEach(img => {
+        tryFixElementSrc(img, 'src');
+        const ss = img.getAttribute('srcset');
+        if (ss) {
+          // test first URL in srcset
+          const first = ss.split(',')[0].trim().split(' ')[0];
+          (async () => {
+            for (const p of prefixes) {
+              if (await testImage(p + first)) {
+                const newSs = ss.split(',').map(part => {
+                  const [urlPart, size] = part.trim().split(' ');
+                  return (p + urlPart) + (size ? (' ' + size) : '');
+                }).join(', ');
+                img.setAttribute('srcset', newSs);
+                break;
+              }
+            }
+          })();
+        }
+      });
+
+      // source elements (picture)
+      document.querySelectorAll('source').forEach(source => {
+        const ss = source.getAttribute('srcset');
+        if (!ss) return;
+        const first = ss.split(',')[0].trim().split(' ')[0];
+        (async () => {
+          for (const p of prefixes) {
+            if (await testImage(p + first)) {
+              const newSs = ss.split(',').map(part => {
+                const [urlPart, size] = part.trim().split(' ');
+                return (p + urlPart) + (size ? (' ' + size) : '');
+              }).join(', ');
+              source.setAttribute('srcset', newSs);
+              break;
+            }
+          }
+        })();
+      });
+
+      // links to product/contact (html/...)
+      document.querySelectorAll('a').forEach(a => {
+        const href = a.getAttribute('href');
+        if (!href) return;
+        if (!href.startsWith('http') && (href.startsWith('html/') || href.startsWith('site de vente/html/'))) {
+          (async () => {
+            for (const p of prefixes) {
+              try {
+                const res = await fetch(p + href, { method: 'HEAD' });
+                if (res.ok) {
+                  a.setAttribute('href', p + href);
+                  break;
+                }
+              } catch (e) {
+                // try next
+              }
+            }
+          })();
+        }
+      });
+    }
+
+    window.addEventListener('load', () => {
+      updateCartDisplay();
+      initGalleryControls();
+      fixAssetPaths();
     });
 
-    /* keyboard accessibility: allow numbers to jump to page */
-    document.addEventListener('keypress', (e) => {
-      if (e.key >= '1' && e.key <= '9' && document.activeElement.tagName !== 'INPUT') {
-        const page = parseInt(e.key,10);
-        currentPage = page;
-        applyFilters();
-      }
-    });
-
-    /* expose function for tests */
-    window.__cqfd = { applyFilters };
-
-  </script>
   </script>
 </body>
 </html>
