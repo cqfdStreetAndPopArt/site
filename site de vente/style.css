@@ -309,3 +309,25 @@ header nav a:focus, .link-h2:focus {
 .contact-wrap input, .contact-wrap textarea { width:100%; padding:8px; border-radius:6px; border:1px solid #ddd; margin-bottom:12px; }
 .contact-wrap button { padding:10px 14px; background:#ff6b00; color:white; border:none; border-radius:6px; cursor:pointer; }
 .contact-wrap .hint { font-size:0.9rem; color:#666; }
+
+
+
+#close-cart {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: white;
+  border: none;
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+#close-cart:hover {
+  background: darkred;
+}
+

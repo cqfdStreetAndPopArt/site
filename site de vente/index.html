@@ -37,10 +37,10 @@
     <h1>CQFD</h1>
     <p>œuvres uniques à vendre</p>
     <nav aria-label="Navigation principale">
-      <a href="#">Accueil</a>
-      <a href="html/contact.html">Contact</a>
+      <a href="#">🏠 Accueil</a>
+      <a href="html/contact.html">📱 Contact</a>
       <a href="#" onclick="toggleCart()" role="button" aria-pressed="false">⭐️ Favoris (<span id="cart-count" aria-live="polite">0</span>)</a>
-      <a href="vendu">Vendu</a>
+      <a href="./vendu.html">❌ Vendu</a>
     </nav>
   </header>
 
@@ -195,12 +195,14 @@
     <!-- Versions répétées supprimées for clarity -->
   </main>
 
-  <aside id="cart">
-    <h3>⭐️ Vos Favoris</h3>
-    <ul id="cart-items"></ul>
-    <p>Total : <span id="cart-total">0</span> €</p>
-    <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
-  </aside>
+<aside id="cart">
+  <button id="close-cart" aria-label="Fermer les favoris">✕</button>
+  <h3>⭐️ Vos Favoris</h3>
+  <ul id="cart-items"></ul>
+  <p>Total : <span id="cart-total">0</span> €</p>
+  <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
+</aside>
+
 
   <footer>
     <p>&copy; 2025 CQFD. Ce Qu'il Fallait Dessiner.</p>
