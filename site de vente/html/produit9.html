@@ -10,7 +10,6 @@
       background-image: url("../photo/design-eclaboussure-aquarelle-peinte-main-couleur-arc-ciel_1048-20680.jpg.avif");
     }
 
-
     #cart.open { display: block; }
     #cart {
       display: none;
@@ -40,57 +39,84 @@
     <h1>CQFD</h1>
     <nav>
       <a href="../index.html">🏠 Accueil</a>
-      <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+      <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">
+        ⭐️ Favoris (<span id="cart-count">0</span>)
+      </a>
     </nav>
   </header>
 
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="../photo/panneau/dev.jpg" onclick="changeImage(this)" alt="Panneau - vue 1" width="100" height="150" tabindex="0" role="button">
-        <img src="../photo/panneau/dev loin.jpg" onclick="changeImage(this)" alt="Panneau - vue 2" width="100" height="150" tabindex="0" role="button">
-        <img src="../photo/panneau/diag.jpg" onclick="changeImage(this)" alt="Panneau - vue 3" width="100" height="150" tabindex="0" role="button">
+        <img src="../photo/panneau/dev.jpg" data-large="../photo/panneau/dev.jpg" onclick="changeImage(this)" alt="Panneau - vue 1" width="100" height="150" tabindex="0" role="button">
+        <img src="../photo/panneau/dev loin.jpg" data-large="../photo/panneau/dev loin.jpg" onclick="changeImage(this)" alt="Panneau - vue 2" width="100" height="150" tabindex="0" role="button">
+        <img src="../photo/panneau/diag.jpg" data-large="../photo/panneau/diag.jpg" onclick="changeImage(this)" alt="Panneau - vue 3" width="100" height="150" tabindex="0" role="button">
       </div>
+
       <div class="main-image">
         <picture>
-          <source type="image/jpeg" srcset="../photo/panneau/dev.jpg 400w, ../photo/panneau/dev.jpg 800w, ../photo/panneau/dev.jpg 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <source type="image/jpeg" srcset="../photo/panneau/dev.jpg 400w, ../photo/panneau/dev.jpg 800w, ../photo/panneau/dev.jpg 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img id="largeImage" src="../photo/panneau/dev.jpg" srcset="../photo/panneau/dev.jpg 400w, ../photo/panneau/dev.jpg 800w" alt="Panneau - vue principale" loading="lazy" decoding="async" width="475" height="800">
+          <img id="largeImage"
+               src="../photo/panneau/dev.jpg"
+               alt="Panneau - vue principale"
+               loading="lazy"
+               decoding="async"
+               width="475"
+               height="800">
         </picture>
       </div>
+
       <div class="product-info">
         <h1>Panneau</h1>
         <p class="desc">Panneau décoratif - création originale et signée.</p>
 
         <div class="price-and-button">
           <div class="price"><strong>Prix :</strong> 100€</div>
-          <button type="button" class="fav-btn" onclick="(window.addToCartFromProduct || addToCart)('Panneau', 100)" aria-label="Ajouter Panneau aux favoris">Ajouter aux favoris</button>
+          <button type="button" class="fav-btn" onclick="addToCart('Panneau', 100)" aria-label="Ajouter Panneau aux favoris">
+            Ajouter aux favoris
+          </button>
         </div>
       </div>
-      </div>
     </div>
-
 
     <aside id="cart">
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
-      <a href="contact.html" class="checkout-button" >Passer à la commande</a>
+      <a href="contact.html" class="checkout-button">Passer à la commande</a>
     </aside>
   </main>
 
   <script>
     function changeImage(thumbnail) {
-      const src = thumbnail && thumbnail.src ? thumbnail.src : '';
-      if (src) document.getElementById('largeImage').src = src;
+      const largeImage = document.getElementById('largeImage');
+      const newSrc = thumbnail.dataset.large;
+      largeImage.src = newSrc;
     }
-    document.querySelectorAll('.thumbnails img').forEach(img => { img.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); changeImage(img); } }); });
+
+    document.querySelectorAll('.thumbnails img').forEach(img => {
+      img.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          changeImage(img);
+        }
+      });
+    });
 
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
 
-    function addToCart(title, price) { if (window.addToCartFromProduct) { window.addToCartFromProduct(title, price); return; } if (cart.some(it=>it.title===title)) { alert(title + ' est déjà dans vos favoris.'); return; } cart.push({ title, price }); saveCart(); updateCartDisplay(); }
+    function addToCart(title, price) {
+      if (cart.some(it => it.title === title)) {
+        alert(title + ' est déjà dans vos favoris.');
+        return;
+      }
+      cart.push({ title, price });
+      saveCart();
+      updateCartDisplay();
+    }
 
     function removeFromCart(index) {
       cart.splice(index, 1);
@@ -128,10 +154,7 @@
 
     function toggleCart() {
       const cartPanel = document.getElementById('cart');
-      if (cartPanel) cartPanel.classList.toggle('open');
-      const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
-      if (favBtn && cartPanel) favBtn.setAttribute('aria-pressed', String(cartPanel.classList.contains('open')));
-      if (cartPanel && cartPanel.classList.contains('open')) cartPanel.querySelector('a, button, [tabindex]')?.focus();
+      cartPanel.classList.toggle('open');
     }
 
     window.onload = updateCartDisplay;
