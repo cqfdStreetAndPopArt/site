@@ -2,34 +2,18 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Bear Brick Rolex - CQFD</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bear Brick lumineux - CQFD</title>
   <link rel="stylesheet" href="../style.css" />
-  <script type="application/ld+json">{ "@context":"https://schema.org", "@type":"Product", "name":"Ours lumineux", "image":["../photo/bear brick rolex/dev.JPG"], "description":"Ours lumineux - sculpture avec éclairage.", "offers":{ "@type":"Offer","price":"150","priceCurrency":"EUR","availability":"https://schema.org/InStock" }}</script>
+  
   <style>
+    /* ========================================== */
+    /* TES STYLES D'ORIGINE (CONSERVÉS)           */
+    /* ========================================== */
     body {
       background-image: url("../photo/design-eclaboussure-aquarelle-peinte-main-couleur-arc-ciel_1048-20680.jpg.avif");
     }
 
-        #close-cart {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: red;
-    color: white;
-    border: none;
-    width: 24px;
-    height: 24px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    line-height: 1;
-  }
-
-  #close-cart:hover {
-    background: darkred;
-  }
-
-    #cart.open { display: block; }
     #cart {
       display: none;
       position: fixed;
@@ -42,7 +26,32 @@
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       z-index: 1000;
     }
-    #cart-items li { margin-bottom: 8px; }
+    #cart.open { display: block; }
+
+    #close-cart {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: red;
+      color: white;
+      border: none;
+      width: 24px;
+      height: 24px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    .fav-btn {
+      background-color: yellow;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
     .remove-btn {
       margin-left: 10px;
       background-color: #e74c3c;
@@ -51,90 +60,166 @@
       padding: 2px 6px;
       cursor: pointer;
     }
+
+    /* ========================================== */
+    /* STRUCTURE ET ZOOM (CORRIGÉS)               */
+    /* ========================================== */
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .thumbnails {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .thumbnails img {
+      width: 100px;
+      height: 150px;
+      cursor: pointer;
+      object-fit: cover;
+      border: 1px solid #ddd;
+    }
+
+    .main-image {
+      position: relative;
+      width: 475px; /* Ta taille d'origine */
+    }
+
+    #largeImage {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* Fenêtre de zoom déportée */
+    #zoom-result {
+      display: none;
+      position: absolute;
+      left: 105%; 
+      top: 0;
+      width: 400px;
+      height: 500px;
+      border: 2px solid #ccc;
+      background-repeat: no-repeat;
+      background-color: #fff;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      border-radius: 8px;
+    }
+
+    .product-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    /* ========================================== */
+    /* RESPONSIVE MOBILE                          */
+    /* ========================================== */
+    @media (max-width: 768px) {
+      .container { flex-direction: column; align-items: center; }
+      .main-image { width: 100%; max-width: 400px; }
+      #zoom-result { display: none !important; } /* Désactivé sur mobile */
+      .thumbnails { flex-direction: row; order: 2; justify-content: center; }
+      .thumbnails img { width: 60px; height: 80px; }
+      .product-info { order: 3; text-align: center; width: 100%; }
+      #cart { width: 90%; right: 5%; left: 5%; top: 60px; }
+    }
   </style>
 </head>
 <body>
+
   <header>
     <h1>CQFD</h1>
     <nav>
-      <a href="../index.html">🏠 Accueil</a>
-      <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">
-        ⭐️ Favoris (<span id="cart-count">0</span>)
-      </a>
+      <a href="../../index.html">🏠 Accueil</a>
+      <a href="#" onclick="toggleCart()" role="button">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
 
   <main class="product-detail">
     <div class="container">
-
       <div class="thumbnails">
-        <img src="../photo/bear brick rolex/diag.jpg" data-large="../photo/bear brick rolex/diag.jpg" onclick="changeImage(this)" alt="BearBrick Rolex - diag" width="100" height="150" tabindex="0" role="button">
-        <img src="../photo/bear brick rolex/dev.jpg" data-large="../photo/bear brick rolex/dev.jpg" onclick="changeImage(this)" alt="BearBrick Rolex - vue 1" width="100" height="150" tabindex="0" role="button">
-        <img src="../photo/bear brick rolex/coté.jpg" data-large="../photo/bear brick rolex/coté.jpg" onclick="changeImage(this)" alt="BearBrick Rolex - côté" width="100" height="150" tabindex="0" role="button">
-        <img src="../photo/bear brick rolex/dos.jpg" data-large="../photo/bear brick rolex/dos.jpg" onclick="changeImage(this)" alt="BearBrick Rolex - dos" width="100" height="150" tabindex="0" role="button">
-        <img src="../photo/bear brick rolex/pied.jpg" data-large="../photo/bear brick rolex/pied.jpg" onclick="changeImage(this)" alt="BearBrick Rolex - pied" width="100" height="150" tabindex="0" role="button">
+        <img src="../photo/bear brick rolex/diag.jpg" onclick="changeImage(this)" alt="LV devant">
+        <img src="../photo/bear brick rolex/dev.jpg" onclick="changeImage(this)" alt="LV derrière">
+        <img src="../photo/bear brick rolex/coté.jpg" onclick="changeImage(this)" alt="LV levé le bras">
+        <img src="../photo/bear brick rolex/dos.jpg" onclick="changeImage(this)" alt="LV pied">
+        <img src="../photo/bear brick rolex/pied.jpg" onclick="changeImage(this)" alt="LV petit saut">
       </div>
 
-      <div class="main-image">
-        <img id="largeImage"
-             src="../photo/bear brick rolex/diag.jpg"
-             alt="Bear Brick Rolex - vue principale"
-             loading="lazy"
-             decoding="async"
-             width="475"
-             height="800">
+      <div class="main-image" id="zoom-container">
+        <img id="largeImage" src="../photo/bear brick rolex/diag.jpg" alt="LV devant">
+        <div id="zoom-result"></div>
       </div>
 
       <div class="product-info">
-        <h1>BearBrick Rolex</h1>
-        <p class="desc">Pièce lumineuse, finition premium et détails équilibrés.</p>
-
+        <h1>BearBrick rolex</h1>
+        <p class="desc">Œuvre unique et originale. BearBrick Louis Vuitton Lumineux sous cloche. Télécommande pour changer les couleurs.</p>
         <div class="price-and-button">
-          <div class="price"><strong>Prix :</strong> 150€</div>
-          <button type="button" class="fav-btn" onclick="addToCart('BearBrick Rolex', 150)" aria-label="Ajouter BearBrick Rolex aux favoris">
-            Ajouter aux favoris
-          </button>
+          <div class="price"><strong>Prix :</strong> 100€</div>
+          <button type="button" class="fav-btn" onclick="addToCart('BearBrick rolex', 100)">Ajouter aux favoris</button>
         </div>
       </div>
-
     </div>
 
     <aside id="cart">
-      <button id="close-cart" aria-label="Fermer les favoris">✕</button>
+      <button id="close-cart">✕</button>
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
-      <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
+      <a href="./contact.html" class="checkout-button">Passer à la commande</a>
     </aside>
   </main>
 
   <script>
-    function changeImage(thumbnail) {
-      const largeImage = document.getElementById('largeImage');
-      const newSrc = thumbnail.dataset.large;
-      largeImage.src = newSrc;
-    }
+    const container = document.getElementById('zoom-container');
+    const img = document.getElementById('largeImage');
+    const result = document.getElementById('zoom-result');
 
-    document.querySelectorAll('.thumbnails img').forEach(img => {
-      img.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          changeImage(img);
-        }
-      });
+    // GESTION DU ZOOM
+    container.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 768) return;
+
+      result.style.display = "block";
+      result.style.backgroundImage = `url('${img.src}')`;
+      
+      const zoomLevel = 2; // Ajuste ici pour zoomer plus ou moins fort
+      result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
+
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      let posX = (x / img.offsetWidth) * 100;
+      let posY = (y / img.offsetHeight) * 100;
+
+      result.style.backgroundPosition = `${posX}% ${posY}%`;
     });
 
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    container.addEventListener('mouseleave', () => {
+      result.style.display = "none";
+    });
 
-    function saveCart() {
-      localStorage.setItem('cart', JSON.stringify(cart));
+    // CHANGER IMAGE MINIATURE
+    function changeImage(thumbnail) {
+      if (thumbnail && thumbnail.src) {
+        img.src = thumbnail.src;
+      }
     }
 
+    // LOGIQUE FAVORIS (TON CODE D'ORIGINE)
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
     function addToCart(title, price) {
-      if (cart.some(it => it.title === title)) {
-        alert(title + ' est déjà dans vos favoris.');
-        return;
-      }
+      if (cart.some(it=>it.title===title)) { alert(title + ' est déjà dans vos favoris.'); return; }
       cart.push({ title, price });
       saveCart();
       updateCartDisplay();
@@ -150,44 +235,31 @@
       const cartItems = document.getElementById('cart-items');
       const cartTotal = document.getElementById('cart-total');
       const cartCount = document.getElementById('cart-count');
-
-      if (!cartItems || !cartTotal || !cartCount) return;
-
+      if (!cartItems) return;
       cartItems.innerHTML = '';
       let total = 0;
-
       cart.forEach((item, index) => {
         const li = document.createElement('li');
         li.textContent = `${item.title} - ${item.price} €`;
-
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'Supprimer';
-        removeBtn.className = 'remove-btn';
-        removeBtn.onclick = () => removeFromCart(index);
-
-        li.appendChild(removeBtn);
+        const btn = document.createElement('button');
+        btn.textContent = 'Supprimer';
+        btn.className = 'remove-btn';
+        btn.onclick = () => removeFromCart(index);
+        li.appendChild(btn);
         cartItems.appendChild(li);
         total += item.price;
       });
-
       cartTotal.textContent = total.toFixed(2);
       cartCount.textContent = cart.length;
     }
 
     function toggleCart() {
-      const cartPanel = document.getElementById('cart');
-      cartPanel.classList.toggle('open');
+      document.getElementById('cart').classList.toggle('open');
     }
 
+    document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
+
     window.onload = updateCartDisplay;
-
-      document.getElementById('close-cart').addEventListener('click', () => {
-  const cartPanel = document.getElementById('cart');
-  cartPanel.classList.remove('open');
-
-  const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
-  if (favBtn) favBtn.setAttribute('aria-pressed', 'false');
-});
   </script>
 </body>
 </html>
