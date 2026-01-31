@@ -8,6 +8,27 @@
   <link rel="icon" href="./Capture d’écran_31-1-2026_122156_www.instagram.com.jpeg" type="image/jpeg" />
   <link rel="stylesheet" href="style.css" />
   <style>
+  #close-cart {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: red;
+    color: white;
+    border: none;
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    line-height: 1;
+  }
+
+  #close-cart:hover {
+    background: darkred;
+  }
+
+
+
     #cart.open { display: block; }
     #cart {
       display: none;
@@ -405,6 +426,15 @@
 
     /* expose function for tests */
     window.__cqfd = { applyFilters };
+
+    document.getElementById('close-cart').addEventListener('click', () => {
+  const cartPanel = document.getElementById('cart');
+  cartPanel.classList.remove('open');
+
+  const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
+  if (favBtn) favBtn.setAttribute('aria-pressed', 'false');
+});
+
 
   </script>
   </script>

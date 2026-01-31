@@ -312,22 +312,5 @@ header nav a:focus, .link-h2:focus {
 
 
 
-#close-cart {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: red;
-  color: white;
-  border: none;
-  width: 24px;
-  height: 24px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  line-height: 1;
-}
 
-#close-cart:hover {
-  background: darkred;
-}
 
