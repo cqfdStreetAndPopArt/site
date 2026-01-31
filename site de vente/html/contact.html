@@ -3,33 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact</title>
+  <title>Contact - CQFD</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
-    body {
-        background-image: url("../photo/design-eclaboussure-aquarelle-peinte-main-couleur-arc-ciel_1048-20680.jpg.avif");
+    /* Intégration du fond directement pour être sûr du rendu */
+
+    /* ========================================== */
+    /* LE FORMULAIRE (STYLE PHOTO)                */
+    /* ========================================== */
+    .contact-wrap {
+      max-width: 800px;
+      margin: 50px auto;
+      background: rgba(255, 255, 255, 0.95); /* Blanc quasi opaque */
+      padding: 40px;
+      border-radius: 15px; /* Coins arrondis comme sur la photo */
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Ombre douce pour décoller du fond */
+      text-align: left;
     }
 
-    #close-cart {
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background: red;
+    .contact-wrap h2 {
+      margin-top: 0;
+      color: #333;
+      font-size: 1.8em;
+    }
+
+    .contact-wrap label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    .contact-wrap input, 
+    .contact-wrap textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box; /* Évite que le champ dépasse */
+      font-size: 1em;
+    }
+
+    .contact-wrap button {
+      margin-top: 20px;
+      background-color: #ff6b00; /* Orange comme sur le bouton "Envoyer" */
       color: white;
       border: none;
-      width: 24px;
-      height: 24px;
-      font-size: 16px;
+      padding: 12px 25px;
+      border-radius: 6px;
       cursor: pointer;
-      border-radius: 4px;
-      line-height: 1;
+      font-weight: bold;
+      transition: background 0.3s;
     }
 
-    #close-cart:hover {
-      background: darkred;
+    .contact-wrap button:hover {
+      background-color: #e65a00;
     }
 
-    #cart.open { display: block; }
+    /* Styles pour le panier (Favoris) */
     #cart {
       display: none;
       position: fixed;
@@ -41,35 +73,40 @@
       width: 250px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       z-index: 1000;
+      border-radius: 8px;
     }
-    #cart-items li { margin-bottom: 8px; }
-    .remove-btn {
-      margin-left: 10px;
-      background-color: #e74c3c;
+    #cart.open { display: block; }
+
+    #close-cart {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: red;
       color: white;
       border: none;
-      padding: 2px 6px;
+      width: 24px;
+      height: 24px;
       cursor: pointer;
+      border-radius: 4px;
     }
   </style>
 </head>
 <body class="page-contact">
-  <main>
+
   <header>
     <h1>Contact</h1>
     <nav>
         <a href="../index.html">🎨 Gallery</a>
-      <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+      <a href="#" onclick="toggleCart()">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
 
-
-
+  <main>
     <div class="contact-wrap">
       <h2>Contactez-nous</h2>
       <p class="hint">Remplissez le formulaire ci-dessous ou envoyez-nous un message via Instagram.</p>
 
-      <form id="contactForm" novalidate>
+      <form id="contactForm">
         <label for="name">Nom</label>
         <input id="name" name="name" type="text" required>
 
@@ -79,179 +116,74 @@
         <label for="message">Message</label>
         <textarea id="message" name="message" rows="6" required></textarea>
 
-        <!-- honeypot anti-spam -->
-        <label style="display:none">Laissez vide
-          <input type="text" name="gotcha" tabindex="-1" autocomplete="off">
-        </label>
-
         <button type="submit">Envoyer</button>
       </form>
 
-      <div style="margin-top: 16px;">
-        <a href="https://www.instagram.com/cqfd_street_and_pop_art" target="_blank">Instagram @cqfd_street_and_pop_art</a>
+      <div style="margin-top: 20px;">
+        <a href="https://www.instagram.com/cqfd_street_and_pop_art" target="_blank" style="color: #555; text-decoration: none; font-weight: bold;">
+          Instagram @cqfd_street_and_pop_art
+        </a>
       </div>
 
-      <div id="form-status" role="status" aria-live="polite" style="margin-top:12px;"></div>
+      <div id="form-status" style="margin-top:12px; font-weight: bold;"></div>
     </div>
 
     <aside id="cart">
-      <button id="close-cart" aria-label="Fermer les favoris">✕</button>
+      <button id="close-cart">✕</button>
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
-      <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
+      <a href="#" class="checkout-button" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
     </aside>
-
   </main>
 
   <script>
-
-    // contact form validation + server submit (fallback to mailto)
+    // Logique simplifiée pour le fonctionnement
     const form = document.getElementById('contactForm');
     const statusEl = document.getElementById('form-status');
-    form.addEventListener('submit', async (e)=>{
+
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const formData = new FormData(form);
-      if (formData.get('gotcha')) { statusEl.textContent = 'Spam détecté.'; return; }
-      const name = formData.get('name').trim();
-      const email = formData.get('email').trim();
-      const message = formData.get('message').trim();
-      if (!name || !email || !message) { statusEl.textContent = 'Veuillez remplir tous les champs.'; return; }
-
-      // Try server-side first
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, message })
-        });
-        if (res.ok) {
-          statusEl.textContent = 'Message envoyé — merci !';
-          form.reset();
-          return;
-        } else {
-          statusEl.textContent = 'Le serveur a renvoyé une erreur, utilisation du fallback mailto.';
-        }
-      } catch (err) {
-        statusEl.textContent = 'Serveur indisponible, ouverture du client mail en fallback.';
-      }
-
-      // mailto fallback
+      statusEl.textContent = "Tentative d'envoi...";
+      // Simulation d'envoi ou Mailto
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      
       const subject = encodeURIComponent('Contact CQFD — ' + name);
-      const body = encodeURIComponent(`Nom: ${name}%0AEmail: ${email}%0A%0A${message}`);
-      window.location.href = `mailto:contact@cqfd.example?subject=${subject}&body=${body}`;
+      const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\n${message}`);
+      window.location.href = `mailto:tonemail@exemple.com?subject=${subject}&body=${body}`;
     });
 
-    // ---------- Favoris (cart) shared logic ----------
+    // Gestion du panier (Favoris)
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    function saveCart() {
-      localStorage.setItem('cart', JSON.stringify(cart));
-    }
-
-    function addToCart(buttonOrTitle, price) {
-      // support being called from product pages as addToCartFromProduct(title, price)
-      if (typeof buttonOrTitle === 'string') {
-        const title = buttonOrTitle;
-        if (cart.some(it => it.title === title)) { alert(title + ' est déjà dans vos favoris.'); return; }
-        cart.push({ title, price: price || 0 });
-        saveCart();
-        updateCartDisplay();
-        return;
-      }
-
-      const button = buttonOrTitle;
-      const card = button.closest('.card');
-      if (!card) return;
-      const title = card.dataset.title;
-      const priceVal = parseFloat(card.dataset.price) || 0;
-      if (cart.some(item => item.title === title)) { alert(title + " est déjà dans vos favoris."); return; }
-      cart.push({ title, price: priceVal });
-      saveCart();
-      updateCartDisplay();
-    }
-    // expose helper used by product pages
-    window.addToCartFromProduct = (title, price) => addToCart(title, price);
-
-    function removeFromCart(index) {
-      cart.splice(index, 1);
-      saveCart();
-      updateCartDisplay();
-    }
-
     function updateCartDisplay() {
+      const cartCount = document.getElementById('cart-count');
       const cartItems = document.getElementById('cart-items');
       const cartTotal = document.getElementById('cart-total');
-      const cartCount = document.getElementById('cart-count');
-
-      if (!cartItems || !cartTotal || !cartCount) return;
-
-      cartItems.innerHTML = '';
-      let total = 0;
-
-      cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${item.title} - ${item.price} €`;
-
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'Supprimer';
-        removeBtn.className = 'remove-btn';
-        removeBtn.setAttribute('type', 'button');
-        removeBtn.setAttribute('aria-label', 'Supprimer ' + item.title);
-        removeBtn.onclick = () => removeFromCart(index);
-
-        li.appendChild(removeBtn);
-        cartItems.appendChild(li);
-        total += item.price || 0;
-      });
-
-      cartTotal.textContent = total.toFixed(2);
-      cartCount.textContent = cart.length;
-      cartCount.setAttribute('aria-live', 'polite');
+      if(cartCount) cartCount.textContent = cart.length;
+      if(cartItems) {
+        cartItems.innerHTML = '';
+        let total = 0;
+        cart.forEach((item, index) => {
+          const li = document.createElement('li');
+          li.textContent = `${item.title} - ${item.price} €`;
+          cartItems.appendChild(li);
+          total += item.price;
+        });
+        cartTotal.textContent = total.toFixed(2);
+      }
     }
 
     function toggleCart() {
-      const cartPanel = document.getElementById('cart');
-      if (cartPanel) cartPanel.classList.toggle('open');
-      const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
-      if (favBtn && cartPanel) favBtn.setAttribute('aria-pressed', String(cartPanel.classList.contains('open')));
-      if (cartPanel && cartPanel.classList.contains('open')) {
-        cartPanel.querySelector('a, button, [tabindex]')?.focus();
-      }
+      document.getElementById('cart').classList.toggle('open');
     }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() === 'f' && !e.metaKey && !e.ctrlKey) {
-        toggleCart();
-      }
+    document.getElementById('close-cart').addEventListener('click', () => {
+      document.getElementById('cart').classList.remove('open');
     });
 
-    document.addEventListener('click', (e) => {
-      if (e.target.matches('.fav-btn')) {
-        // support button element or product add
-        addToCart(e.target);
-      }
-    });
-
-    window.addEventListener('load', () => {
-      updateCartDisplay();
-      // ensure panel closed by default
-      document.getElementById('cart')?.classList.remove('open');
-    });
-
-      document.getElementById('close-cart').addEventListener('click', () => {
-  const cartPanel = document.getElementById('cart');
-  cartPanel.classList.remove('open');
-
-  const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
-  if (favBtn) favBtn.setAttribute('aria-pressed', 'false');
-});
-
-
-
-
-
+    window.onload = updateCartDisplay;
   </script>
-
 </body>
 </html>
