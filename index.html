@@ -6,57 +6,7 @@
   <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre. Parcourez nos pièces et ajoutez vos favoris.">
   <title>CQFD</title>
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="site de vente/favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="site de vente/style.css" />
-  <script>
-    // fix stylesheet / favicon when index.html is opened either from root or inside "site de vente/"
-    (function(){
-      const prefixes = ['', 'site de vente/'];
-
-      function testLinkHref(url) {
-        return new Promise(resolve => {
-          const l = document.createElement('link');
-          l.rel = 'stylesheet';
-          l.href = url;
-          l.onload = () => { l.remove(); resolve(true); };
-          l.onerror = () => { l.remove(); resolve(false); };
-          document.head.appendChild(l);
-        });
-      }
-
-      async function fixRelHref(selector) {
-        const el = document.querySelector(selector);
-        if (!el) return;
-        const orig = el.getAttribute('href');
-        if (!orig || /^(https?:|\/)/.test(orig)) return;
-        for (const p of prefixes) {
-          try {
-            const candidate = p + orig;
-            if (selector === 'link[rel="icon"]') {
-              // icon: try fetching via Image
-              const img = new Image();
-              img.onload = () => { el.setAttribute('href', candidate); };
-              img.onerror = () => {};
-              img.src = candidate;
-              // allow some time (best-effort)
-              return;
-            }
-            if (await testLinkHref(candidate)) {
-              el.setAttribute('href', candidate);
-              return;
-            }
-          } catch (e) { /* ignore */ }
-        }
-      }
-
-      // run on DOMContentLoaded so link elements exist
-      document.addEventListener('DOMContentLoaded', () => {
-        fixRelHref('link[rel="stylesheet"]');
-        fixRelHref('link[rel="icon"]');
-      });
-    })();
-  </script>
   <style>
     #cart.open { display: block; }
     #cart {
@@ -130,7 +80,7 @@
         <picture>
           <source type="image/jpeg" srcset="photo/lego/lego devanr.JPG 400w, photo/lego/lego devanr.JPG 800w, photo/lego/lego devanr.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
           <source type="image/jpeg" srcset="photo/lego/lego devanr.JPG 400w, photo/lego/lego devanr.JPG 800w, photo/lego/lego devanr.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="./photo/lego/lego devanr.JPG" srcset="photo/lego/lego devanr.JPG 400w, photo/lego/lego devanr.JPG 800w" alt="Lego" width="400" height="400">
+          <img loading="lazy" decoding="async" src="photo/lego/lego devanr.JPG" srcset="photo/lego/lego devanr.JPG 400w, photo/lego/lego devanr.JPG 800w" alt="Lego" width="400" height="400">
         </picture>
         <h2 class="link-h2">Lego</h2>
       </a>
@@ -182,7 +132,7 @@
         <picture>
           <source type="image/jpeg" srcset="photo/Bear Brick Black And Gold/face.JPG 400w, photo/Bear Brick Black And Gold/face.JPG 800w, photo/Bear Brick Black And Gold/face.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
           <source type="image/jpeg" srcset="photo/Bear Brick Black And Gold/face.JPG 400w, photo/Bear Brick Black And Gold/face.JPG 800w, photo/Bear Brick Black And Gold/face.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/Bear Brick Black And Gold/face.jpg srcset="photo/Bear Brick Black And Gold/face.JPG 400w, photo/Bear Brick Black And Gold/face.JPG 800w" alt="Bear Brick Black And Gold" width="400" height="400">
+          <img loading="lazy" decoding="async" src="photo/Bear Brick Black And Gold/face.jpg" srcset="photo/Bear Brick Black And Gold/face.JPG 400w, photo/Bear Brick Black And Gold/face.JPG 800w" alt="Bear Brick Black And Gold" width="400" height="400">
         </picture>
         <h2 class="link-h2">Bear Brick Black And Gold</h2>
       </a>
@@ -208,12 +158,12 @@
         <picture>
           <source type="image/jpeg" srcset="photo/playmobil/diag.JPG 400w, photo/playmobil/diag.JPG 800w, photo/playmobil/diag.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
           <source type="image/jpeg" srcset="photo/playmobil/diag.JPG 400w, photo/playmobil/diag.JPG 800w, photo/playmobil/diag.JPG 1200w" sizes="(max-width:600px) 400px, (max-width:900px) 800px, 1200px">
-          <img loading="lazy" decoding="async" src="photo/playmobil/diag.jpg" srcset="photo/playmobil/diag.JPG 400w, photo/playmobil/diag.JPG 800w" alt="Lego XXL (playmobil)" width="400" height="400">
+          <img loading="lazy" decoding="async" src="photo/playmobil/diag.jpg" srcset="photo/playmobil/diag.jpg 400w, photo/playmobil/diag.JPG 800w" alt="Lego XXL (playmobil)" width="400" height="400">
         </picture>
-        <h2 class="link-h2">Lego XXL</h2>
+        <h2 class="link-h2">Playmobil XXL</h2>
       </a>
       <p class="price">150€</p>
-      <button type="button" class="fav-btn" aria-label="Ajouter Lego XXL (playmobil) aux favoris">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" aria-label="Ajouter Playmobil XXL aux favoris">Ajouter aux favoris</button>
     </article>
 
     <article class="card" data-title="Panneau" data-price="150">
@@ -241,6 +191,7 @@
       <button type="button" class="fav-btn" aria-label="Ajouter Ours lumineux aux favoris">Ajouter aux favoris</button>
     </article>
 
+    <!-- Versions répétées supprimées for clarity -->
   </main>
 
   <aside id="cart">
@@ -341,6 +292,11 @@
       }
     });
 
+    window.addEventListener('load', () => {
+      updateCartDisplay();
+      initGalleryControls();
+    });
+
     /* ---------------- Gallery search / sort / pagination ---------------- */
     const PAGE_SIZE = 1000;
     let currentPage = 1;
@@ -372,137 +328,82 @@
       // sorting
       if (sortVal === 'price-asc') filtered.sort((a,b)=> parseFloat(a.dataset.price)-parseFloat(b.dataset.price));
       if (sortVal === 'price-desc') filtered.sort((a,b)=> parseFloat(b.dataset.price)-parseFloat(a.dataset.price));
-      if (sortVal === 'name-asc') filtered.sort((a,b)=> (a.dataset.title||'').localeCompare(b.dataset.title||''));
-      if (sortVal === 'name-desc') filtered.sort((a,b)=> (b.dataset.title||'').localeCompare(a.dataset.title||''));
+      if (sortVal === 'name-asc') filtered.sort((a,b)=> (a.dataset.title || '').localeCompare(b.dataset.title || ''));
+      if (sortVal === 'name-desc') filtered.sort((a,b)=> (b.dataset.title || '').localeCompare(a.dataset.title || ''));
 
-      // pagination
-      const total = filtered.length;
-      const start = (currentPage-1)*PAGE_SIZE;
-      const paged = filtered.slice(start, start+PAGE_SIZE);
+      renderPage(filtered, currentPage);
+      renderPagination(filtered.length);
 
-      document.querySelectorAll('.gallery .card').forEach(c => c.style.display = 'none');
-      paged.forEach(c => c.style.display = 'block');
-
-      document.getElementById('results-count').textContent = `${total} produits`;
-      renderPagination(Math.ceil(total / PAGE_SIZE));
+      document.getElementById('results-count').textContent = `${filtered.length} produit(s)`;
     }
 
-    function renderPagination(totalPages = 1) {
-      const containerId = 'pagination';
-      let container = document.getElementById(containerId);
-      if (!container) {
-        container = document.createElement('div');
-        container.id = containerId;
-        document.querySelector('.controls-inner').appendChild(container);
+    function renderPage(items, page) {
+      const start = (page - 1) * PAGE_SIZE;
+      const end = start + PAGE_SIZE;
+      const visible = items.slice(start, end);
+
+      // hide all
+      getAllCards().forEach(c => c.classList.add('hidden'));
+      visible.forEach(c => c.classList.remove('hidden'));
+
+      // if no items, show a message
+      let emptyNotice = document.getElementById('empty-notice');
+      if (!emptyNotice) {
+        emptyNotice = document.createElement('div');
+        emptyNotice.id = 'empty-notice';
+        emptyNotice.style.padding = '20px';
+        emptyNotice.style.textAlign = 'center';
+        document.querySelector('.gallery').parentNode.insertBefore(emptyNotice, document.querySelector('.gallery'));
       }
-      container.innerHTML = '';
-      for (let i=1;i<=totalPages;i++){
+      emptyNotice.textContent = items.length === 0 ? 'Aucun produit trouvé.' : '';
+    }
+
+    function renderPagination(totalItems = null) {
+      const pagination = document.getElementById('pagination');
+      if (!pagination) {
+        const p = document.createElement('div');
+        p.id = 'pagination';
+        p.className = 'pagination';
+        document.querySelector('.gallery').after(p);
+      }
+      const allFiltered = totalItems === null ? document.querySelectorAll('.gallery .card:not(.hidden)') : null;
+      // compute pages based on filtered length if provided
+      const length = totalItems !== null ? totalItems : (allFiltered ? allFiltered.length : getAllCards().length);
+      const pages = Math.max(1, Math.ceil(length / PAGE_SIZE));
+
+      const pEl = document.getElementById('pagination');
+      pEl.innerHTML = '';
+
+      for (let i=1;i<=pages;i++){
         const btn = document.createElement('button');
-        btn.textContent = i;
-        btn.className = (i===currentPage)?'active':'page-btn';
         btn.type = 'button';
+        btn.className = i===currentPage ? 'page-btn active' : 'page-btn';
+        btn.textContent = i;
         btn.onclick = () => { currentPage = i; applyFilters(); };
-        container.appendChild(btn);
+        pEl.appendChild(btn);
       }
     }
 
-    // ------- fix assets: try both '' and 'site de vente/' prefixes so index works from root or when site de vente is root -------
-    function fixAssetPaths() {
-      const prefixes = ['', 'site de vente/'];
-
-      function testImage(url) {
-        return new Promise(resolve => {
-          const img = new Image();
-          img.onload = () => resolve(true);
-          img.onerror = () => resolve(false);
-          img.src = url;
-        });
+    document.addEventListener('click', (e) => {
+      if (e.target.classList && e.target.classList.contains('page-btn')) {
+        currentPage = parseInt(e.target.textContent, 10) || 1;
+        applyFilters();
       }
-
-      async function tryFixElementSrc(el, attr) {
-        const orig = el.getAttribute(attr);
-        if (!orig) return;
-        // if already absolute (starts with http or /) skip
-        if (/^(https?:|\/)/.test(orig)) return;
-        for (const p of prefixes) {
-          const candidate = p + orig;
-          const ok = await testImage(candidate);
-          if (ok) {
-            el.setAttribute(attr, candidate);
-            return;
-          }
-        }
-      }
-
-      // images
-      document.querySelectorAll('img').forEach(img => {
-        tryFixElementSrc(img, 'src');
-        const ss = img.getAttribute('srcset');
-        if (ss) {
-          // test first URL in srcset
-          const first = ss.split(',')[0].trim().split(' ')[0];
-          (async () => {
-            for (const p of prefixes) {
-              if (await testImage(p + first)) {
-                const newSs = ss.split(',').map(part => {
-                  const [urlPart, size] = part.trim().split(' ');
-                  return (p + urlPart) + (size ? (' ' + size) : '');
-                }).join(', ');
-                img.setAttribute('srcset', newSs);
-                break;
-              }
-            }
-          })();
-        }
-      });
-
-      // source elements (picture)
-      document.querySelectorAll('source').forEach(source => {
-        const ss = source.getAttribute('srcset');
-        if (!ss) return;
-        const first = ss.split(',')[0].trim().split(' ')[0];
-        (async () => {
-          for (const p of prefixes) {
-            if (await testImage(p + first)) {
-              const newSs = ss.split(',').map(part => {
-                const [urlPart, size] = part.trim().split(' ');
-                return (p + urlPart) + (size ? (' ' + size) : '');
-              }).join(', ');
-              source.setAttribute('srcset', newSs);
-              break;
-            }
-          }
-        })();
-      });
-
-      // links to product/contact (html/...)
-      document.querySelectorAll('a').forEach(a => {
-        const href = a.getAttribute('href');
-        if (!href) return;
-        if (!href.startsWith('http') && (href.startsWith('html/') || href.startsWith('site de vente/html/'))) {
-          (async () => {
-            for (const p of prefixes) {
-              try {
-                const res = await fetch(p + href, { method: 'HEAD' });
-                if (res.ok) {
-                  a.setAttribute('href', p + href);
-                  break;
-                }
-              } catch (e) {
-                // try next
-              }
-            }
-          })();
-        }
-      });
-    }
-
-    window.addEventListener('load', () => {
-      updateCartDisplay();
-      initGalleryControls();
-      fixAssetPaths();
     });
 
+    /* keyboard accessibility: allow numbers to jump to page */
+    document.addEventListener('keypress', (e) => {
+      if (e.key >= '1' && e.key <= '9' && document.activeElement.tagName !== 'INPUT') {
+        const page = parseInt(e.key,10);
+        currentPage = page;
+        applyFilters();
+      }
+    });
+
+    /* expose function for tests */
+    window.__cqfd = { applyFilters };
+
+  </script>
   </script>
 </body>
 </html>
