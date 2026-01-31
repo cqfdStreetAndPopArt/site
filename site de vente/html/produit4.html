@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bear Brick lumineux - CQFD</title>
+  <title>Téléphone PacMan - CQFD</title>
   <link rel="stylesheet" href="../style.css" />
   
   <style>
     /* ========================================== */
-    /* TES STYLES D'ORIGINE (CONSERVÉS)           */
+    /* STRUCTURE GLOBALE ET PANIER                */
     /* ========================================== */
     body {
-      background-image: url("../photo/design-eclaboussure-aquarelle-peinte-main-couleur-arc-ciel_1048-20680.jpg.avif");
+        margin: 0;
+        font-family: 'Helvetica Neue', Arial, sans-serif;
     }
 
     #cart {
@@ -40,39 +41,21 @@
       font-size: 16px;
       cursor: pointer;
       border-radius: 4px;
-      line-height: 1;
     }
 
-    .fav-btn {
-      background-color: yellow;
-      border: none;
-      padding: 8px 12px;
-      cursor: pointer;
-      border-radius: 4px;
-      font-weight: bold;
-    }
-
-    .remove-btn {
-      margin-left: 10px;
-      background-color: #e74c3c;
-      color: white;
-      border: none;
-      padding: 2px 6px;
-      cursor: pointer;
-    }
-
-    /* ========================================== */
-    /* STRUCTURE ET ZOOM (CORRIGÉS)               */
-    /* ========================================== */
     .container {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 30px;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 20px;
+      padding: 40px 20px;
+      align-items: flex-start;
     }
 
+    /* ========================================== */
+    /* IMAGES ET ZOOM                             */
+    /* ========================================== */
     .thumbnails {
       display: flex;
       flex-direction: column;
@@ -80,57 +63,134 @@
     }
 
     .thumbnails img {
-      width: 100px;
-      height: 150px;
+      width: 80px;
+      height: 100px;
       cursor: pointer;
       object-fit: cover;
       border: 1px solid #ddd;
+      transition: 0.3s;
     }
+
+    .thumbnails img:hover { border-color: #000; }
 
     .main-image {
       position: relative;
-      width: 475px; /* Ta taille d'origine */
+      width: 475px;
     }
 
     #largeImage {
       width: 100%;
       height: auto;
       display: block;
-      border-radius: 4px;
+      border-radius: 2px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
-    /* Fenêtre de zoom déportée */
     #zoom-result {
       display: none;
       position: absolute;
       left: 105%; 
       top: 0;
-      width: 400px;
-      height: 500px;
-      border: 2px solid #ccc;
+      width: 450px;
+      height: 550px;
+      border: 1px solid #ccc;
       background-repeat: no-repeat;
       background-color: #fff;
       z-index: 100;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
     }
 
+    /* ========================================== */
+    /* CARTE PRODUIT (STYLE GALERIE)              */
+    /* ========================================== */
     .product-info {
       flex: 1;
-      min-width: 300px;
+      min-width: 350px;
+    }
+
+    .art-card {
+        padding: 40px;
+        background-color: #fff;
+        color: #1a1a1a;
+        border: 1px solid #f0f0f0;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    .art-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.2rem;
+        margin: 0 0 10px 0;
+        color: #000;
+    }
+
+    .art-subtitle {
+        font-style: italic;
+        font-size: 1.1rem;
+        color: #666;
+        margin-bottom: 25px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+    }
+
+    .art-spec {
+        margin-bottom: 15px;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .art-spec span { font-weight: bold; color: #999; }
+
+    .art-description {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: #444;
+        margin-bottom: 30px;
+        text-align: justify;
+    }
+
+    /* SECTION PRIX ET BOUTON INTÉGRÉE */
+    .purchase-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 25px;
+        border-top: 1px solid #eee;
+    }
+
+    .price-tag {
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #000;
+    }
+
+    .fav-btn {
+        background-color: #1a1a1a;
+        color: #fff;
+        border: none;
+        padding: 14px 28px;
+        cursor: pointer;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 1.5px;
+        transition: all 0.3s ease;
+    }
+
+    .fav-btn:hover {
+        background-color: #d4af37; 
+        transform: translateY(-2px);
     }
 
     /* ========================================== */
-    /* RESPONSIVE MOBILE                          */
+    /* RESPONSIVE                                 */
     /* ========================================== */
-    @media (max-width: 768px) {
+    @media (max-width: 992px) {
       .container { flex-direction: column; align-items: center; }
-      .main-image { width: 100%; max-width: 400px; }
-      #zoom-result { display: none !important; } /* Désactivé sur mobile */
-      .thumbnails { flex-direction: row; order: 2; justify-content: center; }
-      .thumbnails img { width: 60px; height: 80px; }
-      .product-info { order: 3; text-align: center; width: 100%; }
-      #cart { width: 90%; right: 5%; left: 5%; top: 60px; }
+      .main-image { width: 100%; max-width: 500px; }
+      #zoom-result { display: none !important; }
+      .thumbnails { flex-direction: row; order: 2; }
+      .product-info { order: 3; width: 100%; }
     }
   </style>
 </head>
@@ -139,7 +199,7 @@
   <header>
     <h1>CQFD</h1>
     <nav>
-      <a href="../../index.html">🏠 Accueil</a>
+      <a href="../../index.html">🎨 Galerie</a>
       <a href="#" onclick="toggleCart()" role="button">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
@@ -147,24 +207,37 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="../photo/renard/renard devant.JPG" onclick="changeImage(this)" alt="Renard devant">
-        <img src="../photo/renard/renard droit.JPG" onclick="changeImage(this)" alt="Renard levé le bras">
-        <img src="../photo/renard/renard pate.JPG" onclick="changeImage(this)" alt="Renard derrière">
-        <img src="../photo/renard/renard 5-400.avif" onclick="changeImage(this)" alt="Renard pied">
-        <img src="../photo/renard/renard gauche.JPG" onclick="changeImage(this)" alt="Renard petit saut">
+        <img src="../photo/7088879174338661991.jpeg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 1">
       </div>
 
       <div class="main-image" id="zoom-container">
-        <img id="largeImage" src="../photo/renard/renard devant.JPG" alt="Renard devant">
+        <img id="largeImage" src="../photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
         <div id="zoom-result"></div>
       </div>
 
       <div class="product-info">
-        <h1>Renard</h1>
-        <p class="desc">Œuvre unique et originale. BearBrick Louis Vuitton Lumineux sous cloche. Télécommande pour changer les couleurs.</p>
-        <div class="price-and-button">
-          <div class="price"><strong>Prix :</strong> 100€</div>
-          <button type="button" class="fav-btn" onclick="addToCart('Renard', 100)">Ajouter aux favoris</button>
+        <div class="art-card">
+            <h1 class="art-title">Téléphone PacMan</h1>
+            <div class="art-subtitle">Matériau : Bakélite — Années 80</div>
+
+            <div class="art-spec">
+                <span>Technique :</span> Technique mixte
+            </div>
+            <div class="art-spec">
+                <span>Finition :</span> Verni brillant
+            </div>
+
+            <div class="art-description">
+                <p>Véritable téléphone des années 80 avec son cadran fonctionnel, entièrement revisité par l'univers <strong>retrogaming</strong> coloré de PacMan.</p>
+                <p>Une œuvre unique qui transforme un objet iconique du quotidien en une pièce d'art nostalgique et vibrante.</p>
+            </div>
+
+            <div class="purchase-section">
+                <div class="price-tag">300€</div>
+                <button type="button" class="fav-btn" onclick="addToCart('Téléphone PacMan', 300)">
+                    Ajouter aux favoris
+                </button>
+            </div>
         </div>
       </div>
     </div>
@@ -174,7 +247,7 @@
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
-      <a href="./contact.html" class="checkout-button">Passer à la commande</a>
+      <a href="./contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none; margin-top:10px;">Passer à la commande</a>
     </aside>
   </main>
 
@@ -183,46 +256,31 @@
     const img = document.getElementById('largeImage');
     const result = document.getElementById('zoom-result');
 
-    // GESTION DU ZOOM
     container.addEventListener('mousemove', (e) => {
-      if (window.innerWidth <= 768) return;
-
+      if (window.innerWidth <= 992) return;
       result.style.display = "block";
       result.style.backgroundImage = `url('${img.src}')`;
-      
-      const zoomLevel = 2; // Ajuste ici pour zoomer plus ou moins fort
+      const zoomLevel = 2.5;
       result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
-
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
-      let posX = (x / img.offsetWidth) * 100;
-      let posY = (y / img.offsetHeight) * 100;
-
-      result.style.backgroundPosition = `${posX}% ${posY}%`;
+      result.style.backgroundPosition = `${(x / img.offsetWidth) * 100}% ${(y / img.offsetHeight) * 100}%`;
     });
 
-    container.addEventListener('mouseleave', () => {
-      result.style.display = "none";
-    });
+    container.addEventListener('mouseleave', () => result.style.display = "none");
 
-    // CHANGER IMAGE MINIATURE
-    function changeImage(thumbnail) {
-      if (thumbnail && thumbnail.src) {
-        img.src = thumbnail.src;
-      }
-    }
+    function changeImage(thumbnail) { img.src = thumbnail.src; }
 
-    // LOGIQUE FAVORIS (TON CODE D'ORIGINE)
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 
     function addToCart(title, price) {
-      if (cart.some(it=>it.title===title)) { alert(title + ' est déjà dans vos favoris.'); return; }
+      if (cart.some(it => it.title === title)) { alert('Déjà dans vos favoris.'); return; }
       cart.push({ title, price });
       saveCart();
       updateCartDisplay();
+      toggleCart();
     }
 
     function removeFromCart(index) {
@@ -240,23 +298,16 @@
       let total = 0;
       cart.forEach((item, index) => {
         const li = document.createElement('li');
-        li.textContent = `${item.title} - ${item.price} €`;
-        const btn = document.createElement('button');
-        btn.textContent = 'Supprimer';
-        btn.className = 'remove-btn';
-        btn.onclick = () => removeFromCart(index);
-        li.appendChild(btn);
+        li.style.marginBottom = "10px";
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[x]</button>`;
         cartItems.appendChild(li);
         total += item.price;
       });
-      cartTotal.textContent = total.toFixed(2);
+      cartTotal.textContent = total;
       cartCount.textContent = cart.length;
     }
 
-    function toggleCart() {
-      document.getElementById('cart').classList.toggle('open');
-    }
-
+    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
     document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
 
     window.onload = updateCartDisplay;

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>She rose anyway - CQFD</title>
+  <title>Chien Balloon LV & Keith Haring - CQFD</title>
   <link rel="stylesheet" href="../style.css" />
   
   <style>
@@ -101,7 +101,7 @@
     }
 
     /* ========================================== */
-    /* CARTE PRODUIT (STYLE GALERIE)              */
+    /* CARTE PRODUIT (STYLISÉE)                   */
     /* ========================================== */
     .product-info {
       flex: 1;
@@ -146,14 +146,9 @@
         line-height: 1.8;
         color: #444;
         margin-bottom: 30px;
-        text-align: justify;
     }
 
-    .art-description p {
-        margin-bottom: 15px;
-    }
-
-    /* SECTION PRIX ET BOUTON INTÉGRÉE */
+    /* SECTION PRIX ET BOUTON */
     .purchase-section {
         display: flex;
         justify-content: space-between;
@@ -170,7 +165,7 @@
 
     .fav-btn {
         background-color: #1a1a1a;
-        color: #fff;
+        color: #ffffff; /* Texte en blanc pour l'élégance */
         border: none;
         padding: 14px 28px;
         cursor: pointer;
@@ -182,7 +177,7 @@
     }
 
     .fav-btn:hover {
-        background-color: #d4af37; /* Effet Or */
+        background-color: #d4af37; /* Couleur Or au survol */
         transform: translateY(-2px);
     }
 
@@ -211,33 +206,31 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="../photo/8838844077641047062.jpeg" onclick="changeImage(this)" alt="She rose anyway - Vue 1">
-        <img src="../photo/4254731742754631875.jpeg" onclick="changeImage(this)" alt="She rose anyway - Vue 2">
+        <img src="../photo/8993961900560639874.jpeg" onclick="changeImage(this)" alt="Vue 1">
       </div>
 
       <div class="main-image" id="zoom-container">
-        <img id="largeImage" src="../photo/8838844077641047062.jpeg" alt="She rose anyway">
+        <img id="largeImage" src="../photo/8993961900560639874.jpeg" alt="Chien Balloon LV & Keith Haring">
         <div id="zoom-result"></div>
       </div>
 
       <div class="product-info">
         <div class="art-card">
-            <h1 class="art-title">She rose anyway</h1>
-            <div class="art-subtitle">Acrylique sur toile — 50 x 50 cm</div>
+            <h1 class="art-title">Chien Balloon LV & Keith Haring</h1>
+            <div class="art-subtitle">Techniques mixtes — 30 cm</div>
 
             <div class="art-spec">
                 <span>Finition :</span> Verni brillant
             </div>
 
             <div class="art-description">
-                <p>Ce tableau est un hommage à la <strong>résilience</strong> et à la puissance créatrice féminine. Il célèbre la capacité de toute femme à transformer la blessure en énergie vitale.</p>
-                <p>Le colibri origami symbolise la joie retrouvée et la reconstruction minutieuse de soi. Sur un fond de couleurs vives et fluo, il est la preuve que la lumière peut être plus éclatante que jamais.</p>
-                <p>Les inscriptions <em>"SCARS ARE MY WINGS"</em> et <em>"SHE ROSE ANYWAY"</em> rappellent que la force véritable est l'acte de s'élever en portant ses expériences comme une force.</p>
+                <p><strong>D'après Koons.</strong> Ce chien balloon doré arbore les dessins emblématiques de Keith Haring.</p>
+                <p>Une œuvre unique qui allie avec humour la culture du luxe et la pop culture. Cette sculpture élégante accroche le regard et fascine par la finesse d'exécution des personnages.</p>
             </div>
 
             <div class="purchase-section">
-                <div class="price-tag">600€</div>
-                <button type="button" class="fav-btn" onclick="addToCart('She rose anyway', 600)">
+                <div class="price-tag">300€</div>
+                <button type="button" class="fav-btn" onclick="addToCart('Chien Balloon LV & Keith Haring', 300)">
                     Ajouter aux favoris
                 </button>
             </div>
@@ -255,7 +248,6 @@
   </main>
 
   <script>
-    // GESTION DU ZOOM
     const container = document.getElementById('zoom-container');
     const img = document.getElementById('largeImage');
     const result = document.getElementById('zoom-result');
@@ -276,7 +268,6 @@
 
     function changeImage(thumbnail) { img.src = thumbnail.src; }
 
-    // LOGIQUE FAVORIS
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 
@@ -304,7 +295,7 @@
       cart.forEach((item, index) => {
         const li = document.createElement('li');
         li.style.marginBottom = "10px";
-        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[x]</button>`;
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[Supprimer]</button>`;
         cartItems.appendChild(li);
         total += item.price;
       });

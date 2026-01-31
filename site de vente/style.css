@@ -17,7 +17,7 @@ body {
 /* ========================================== */
 header {
     background: linear-gradient(135deg, yellow, orange);
-    color: rgb(16, 16, 197);
+    color: #007bff;
     padding: 30px 20px;
     text-align: center;
 }
@@ -32,7 +32,7 @@ header nav {
 }
 
 header nav a {
-    color: rgb(16, 16, 197);
+    color: #007bff;
     text-decoration: none;
     margin: 0 15px;
     font-weight: bold;

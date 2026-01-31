@@ -173,7 +173,7 @@
     <h1>CQFD</h1>
     <p>œuvres uniques à vendre</p>
     <nav aria-label="Navigation principale">
-      <a href="./index.html">🎨 Gallery</a>
+      <a href="./index.html">🎨 Galerie</a>
       <a href="html/contact.html">📱 Contact</a>
       <a href="#" onclick="toggleCart()" role="button" aria-pressed="false">
         ⭐️ Favoris (<span id="cart-count" aria-live="polite">0</span>)
@@ -182,45 +182,17 @@
     </nav>
   </header>
 
-  <center>
-    <section class="controls">
-      <div class="controls-inner">
-        <label for="sort">Trier :</label>
-        <select id="sort">
-          <option value="default">Par défaut</option>
-          <option value="price-asc">Prix : bas → haut</option>
-          <option value="price-desc">Prix : haut → bas</option>
-          <option value="name-asc">Nom A → Z</option>
-          <option value="name-desc">Nom Z → A</option>
-        </select>
-      </div>
-    </section>
-  </center>
-
   <main class="gallery" aria-label="Liste des produits">
-    <article class="card" data-title="Bear Brick lumineux" data-price="100">
-      <a href="html/produit1.html">
+    <article class="card" data-title="Chien Balloon LV & Keith Haring" data-price="300">
+      <a href="html/pVendu1.html">
         <picture>
-          <img loading="lazy" src="photo/ourson lumineus/ours bleu.JPG" alt="Bear Brick lumineux" width="250" height="400">
+          <img loading="lazy" src="photo/8993961900560639874.jpeg" alt="Chien Balloon LV & Keith Haring" width="250" height="400">
         </picture>
-        <h2 class="link-h2">Bear Brick lumineux</h2>
+        <h2 class="link-h2">Chien Balloon LV & Keith Haring</h2>
       </a>
-      <p class="price">100€</p>
+      <p class="price">300€</p>
       <button type="button" class="fav-btn">Ajouter aux favoris</button>
     </article>
-
-    <article class="card" data-title="lego" data-price="100">
-      <a href="html/produit2.html">
-        <picture>
-          <img loading="lazy" src="photo/lego/lego devanr.JPG" alt="lego" width="250" height="400">
-        </picture>
-        <h2 class="link-h2">lego</h2>
-      </a>
-      <p class="price">100€</p>
-      <button type="button" class="fav-btn">Ajouter aux favoris</button>
-    </article>
-
-
 
   </main>
 
@@ -229,7 +201,7 @@
     <h3>⭐️ Vos Favoris</h3>
     <ul id="cart-items"></ul>
     <p>Total : <span id="cart-total">0</span> €</p>
-    <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
+    <a href="html/contact.html" class="checkout-button" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
   </aside>
 
   <footer>

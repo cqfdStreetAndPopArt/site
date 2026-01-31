@@ -89,6 +89,27 @@
       cursor: pointer;
       border-radius: 4px;
     }
+
+    /* Style pour l'icône Instagram */
+    .insta-icon {
+      width: 30px;         /* Taille fixe sur ordinateur */
+      height: auto;
+      vertical-align: middle;
+      margin-right: 10px;
+      border-radius: 7px;  /* Pour épouser la forme de l'icône */
+      transition: transform 0.2s ease;
+    }
+
+    .insta-icon:hover {
+      transform: scale(1.1); /* Petit effet de zoom au survol */
+    }
+
+    /* Version encore plus petite sur mobile */
+    @media (max-width: 480px) {
+      .insta-icon {
+        width: 24px;
+      }
+    }
   </style>
 </head>
 <body class="page-contact">
@@ -96,7 +117,7 @@
   <header>
     <h1>Contact</h1>
     <nav>
-        <a href="../index.html">🎨 Gallery</a>
+        <a href="../index.html">🎨 Galerie</a>
       <a href="#" onclick="toggleCart()">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
@@ -119,9 +140,10 @@
         <button type="submit">Envoyer</button>
       </form>
 
-      <div style="margin-top: 20px;">
-        <a href="https://www.instagram.com/cqfd_street_and_pop_art" target="_blank" style="color: #555; text-decoration: none; font-weight: bold;">
-          Instagram @cqfd_street_and_pop_art
+      <div style="margin-top: 30px;">
+        <a href="https://www.instagram.com/cqfd_street_and_pop_art" target="_blank" style="color : linear-gradient(135deg, yellow, orange); font-weight: bold; display: inline-flex; align-items: center;">
+        <img src="../photo/insta.JPG.png" alt="Instagram" class="insta-icon">
+        <span style="color : linear-gradient(135deg, yellow, orange); font-weight: bold; display: inline-flex; align-items: center;">Instagram @cqfd_street_and_pop_art</span>
         </a>
       </div>
 
