@@ -126,6 +126,38 @@
     box-sizing: border-box;
     transition: all 200ms linear;
   }
+
+  /* ===================== */
+  /* RESPONSIVE DESIGN     */
+  /* ===================== */
+
+  /* Pour les tablettes (ex: 2 produits par ligne) */
+  @media (max-width: 992px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      padding: 0 15px;
+    }
+  }
+
+  /* Pour les téléphones (1 produit par ligne) */
+  @media (max-width: 600px) {
+    .gallery {
+      grid-template-columns: repeat(1, 1fr); /* 1 seule colonne */
+      gap: 20px;
+      padding: 0 20px;
+    }
+
+    .gallery .card img {
+      width: 100%;      /* L'image prend toute la largeur */
+      height: auto;     /* Garde les proportions */
+    }
+
+    #cart {
+      width: 90%;       /* Le panier prend plus de place sur mobile */
+      right: 5%;
+    }
+  }
   </style>
 </head>
 

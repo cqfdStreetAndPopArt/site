@@ -65,6 +65,73 @@
       padding: 2px 6px;
       cursor: pointer;
     }
+
+    /* --- Styles de base pour assurer la flexibilité --- */
+  .container {
+    display: flex;
+    flex-wrap: wrap; /* Permet le passage à la ligne */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .main-image img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product-info {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  /* --- MEDIA QUERIES : Spécial Mobile --- */
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column; /* On empile tout verticalement */
+      align-items: center;
+      padding: 10px;
+    }
+
+    /* On met les miniatures à l'horizontale sous ou sur l'image */
+    .thumbnails {
+      flex-direction: row; 
+      order: 2; /* Les miniatures passent sous l'image principale */
+      justify-content: center;
+    }
+
+    .thumbnails img {
+      width: 60px; /* Plus petites sur mobile */
+      height: auto;
+    }
+
+    .main-image {
+      order: 1;
+      width: 100%;
+      text-align: center;
+    }
+
+    .product-info {
+      order: 3;
+      width: 100%;
+      text-align: center;
+    }
+
+    #cart {
+      width: 90%;
+      right: 5%;
+      left: 5%;
+      top: 60px;
+    }
+  }
   </style>
 </head>
 <body>

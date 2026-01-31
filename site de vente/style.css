@@ -14,7 +14,7 @@ body {
   
   header {
     background: linear-gradient(135deg, yellow, orange);;
-    color: white;
+    color: rgb(16, 16, 197);;
     padding: 30px 20px;
     text-align: center;
   }
@@ -29,7 +29,7 @@ body {
   }
   
   header nav a {
-    color: white;
+    color: rgb(16, 16, 197);
     text-decoration: none;
     margin: 0 15px;
     font-weight: bold;
@@ -268,7 +268,7 @@ aside#cart {
   margin-top: 10px;
   padding: 8px 12px;
   background: linear-gradient(135deg, yellow, orange);
-  color: white;
+  color: rgb(16, 16, 197);
   border: none;
   border-radius: 6px;
   cursor: pointer;
