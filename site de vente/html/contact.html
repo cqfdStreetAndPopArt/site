@@ -10,6 +10,25 @@
         background-image: url("../photo/design-eclaboussure-aquarelle-peinte-main-couleur-arc-ciel_1048-20680.jpg.avif");
     }
 
+    #close-cart {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: red;
+      color: white;
+      border: none;
+      width: 24px;
+      height: 24px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      line-height: 1;
+    }
+
+    #close-cart:hover {
+      background: darkred;
+    }
+
     #cart.open { display: block; }
     #cart {
       display: none;
@@ -39,7 +58,7 @@
   <header>
     <h1>Contact</h1>
     <nav>
-        <a href="../index.html">🏠 Accueil</a>
+        <a href="../index.html">🎨 Gallery</a>
       <a href="#" onclick="toggleCart()" role="button" aria-pressed="false" aria-controls="cart">⭐️ Favoris (<span id="cart-count">0</span>)</a>
     </nav>
   </header>
@@ -76,10 +95,11 @@
     </div>
 
     <aside id="cart">
+      <button id="close-cart" aria-label="Fermer les favoris">✕</button>
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
-      <a href="contact.html" class="checkout-button">Passer à la commande</a>
+      <a href="html/contact.html" class="checkout-button">Passer à la commande</a>
     </aside>
 
   </main>
@@ -218,6 +238,14 @@
       // ensure panel closed by default
       document.getElementById('cart')?.classList.remove('open');
     });
+
+      document.getElementById('close-cart').addEventListener('click', () => {
+  const cartPanel = document.getElementById('cart');
+  cartPanel.classList.remove('open');
+
+  const favBtn = document.querySelector('nav a[onclick="toggleCart()"]');
+  if (favBtn) favBtn.setAttribute('aria-pressed', 'false');
+});
 
 
 
