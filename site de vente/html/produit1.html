@@ -54,7 +54,7 @@
     }
 
     /* ========================================== */
-    /* IMAGES ET ZOOM                             */
+    /* IMAGES ET ZOOM (MODIFIÉ)                   */
     /* ========================================== */
     .thumbnails {
       display: flex;
@@ -91,17 +91,19 @@
       position: absolute;
       left: 105%; 
       top: 0;
-      width: 450px;
-      height: 550px;
+      /* TAILLE DU ZOOM RÉDUITE ICI */
+      width: 300px;  
+      height: 300px; 
       border: 1px solid #ccc;
       background-repeat: no-repeat;
       background-color: #fff;
       z-index: 100;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      border-radius: 4px; /* Un peu plus de rondeur pour le petit format */
     }
 
     /* ========================================== */
-    /* CARTE PRODUIT (STYLISÉE)                   */
+    /* CARTE PRODUIT                              */
     /* ========================================== */
     .product-info {
       flex: 1;
@@ -148,7 +150,6 @@
         margin-bottom: 30px;
     }
 
-    /* SECTION PRIX ET BOUTON */
     .purchase-section {
         display: flex;
         justify-content: space-between;
@@ -165,7 +166,7 @@
 
     .fav-btn {
         background-color: #1a1a1a;
-        color: rgb(16, 16, 197);
+        color: white; /* Corrigé pour lisibilité */
         border: none;
         padding: 14px 28px;
         cursor: pointer;
@@ -177,13 +178,10 @@
     }
 
     .fav-btn:hover {
-        background-color: #d4af37; /* Couleur Or au survol */
+        background-color: #d4af37;
         transform: translateY(-2px);
     }
 
-    /* ========================================== */
-    /* RESPONSIVE                                 */
-    /* ========================================== */
     @media (max-width: 992px) {
       .container { flex-direction: column; align-items: center; }
       .main-image { width: 100%; max-width: 500px; }
@@ -224,7 +222,7 @@
             </div>
 
             <div class="art-description">
-                <p>Ce tableau est une <strong>ode à un amour</strong> qui dépasse toutes les règles et les conventions. La rencontre de deux univers aussi éloignés que fantastiques.</p>
+                <p>Ce tableau est une <strong>ode à un amour</strong> qui dépasse toutes les règles et les conventions.</p>
                 <p>Albator, corsaire de l'espace, s'unit à la <em>Jeune fille à la perle</em> dans un moment suspendu d'une extrême sensualité.</p>
             </div>
 
@@ -248,7 +246,6 @@
   </main>
 
   <script>
-    // ZOOM ET INTERACTION
     const container = document.getElementById('zoom-container');
     const img = document.getElementById('largeImage');
     const result = document.getElementById('zoom-result');
@@ -257,7 +254,10 @@
       if (window.innerWidth <= 992) return;
       result.style.display = "block";
       result.style.backgroundImage = `url('${img.src}')`;
-      const zoomLevel = 2.5;
+      
+      // NIVEAU DE ZOOM LÉGÈREMENT RÉDUIT POUR LE PETIT FORMAT
+      const zoomLevel = 2; 
+      
       result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -278,7 +278,7 @@
       cart.push({ title, price });
       saveCart();
       updateCartDisplay();
-      toggleCart(); // Ouvre le panier pour confirmer l'ajout
+      toggleCart();
     }
 
     function removeFromCart(index) {

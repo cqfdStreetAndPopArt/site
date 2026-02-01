@@ -10,19 +10,80 @@
 
   <style>
   /* ===================== */
-  /* GALERIE 4 CARTES PAR LIGNE */
+  /* STYLE DE LA PUBLICITÉ GAUCHE */
+  /* ===================== */
+  .sidebar-ad {
+    position: fixed;
+    left: -200px;      /* Ajustement pour un meilleur centrage */
+    top: 55%;          /* Légèrement descendu pour l'équilibre visuel */
+    transform: translateY(-50%) rotate(-90deg);
+    z-index: 1000;
+    width: 468px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 1100px) {
+    .sidebar-ad { display: none; }
+  }
+
+  /* ===================== */
+  /* HEADER & NAVIGATION */
+  /* ===================== */
+  header {
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  .copyright-top {
+    font-size: 0.8rem;
+    margin-top: 10px;
+    opacity: 0.8;
+  }
+
+  /* ===================== */
+  /* GALERIE ET CARTES (IMAGES ENTIÈRES) */
   /* ===================== */
   .gallery {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 cartes par ligne */
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 25px;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding-left: 80px; /* Plus d'espace pour la pub */
   }
 
   .gallery .card {
     width: 100%;
     box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+
+  .gallery .card img {
+    width: 100%;
+    height: 250px;      /* Hauteur fixe pour l'alignement */
+    object-fit: contain; /* ESSENTIEL : Affiche l'image ENTIÈRE sans couper */
+    background-color: #f9f9f9; /* Petit fond gris si l'image est plus étroite */
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .link-h2 {
+    font-size: 1rem;
+    margin: 10px 0;
+    text-decoration: none;
+    color: #333;
+    height: 2.4em; /* Garde les titres alignés sur 2 lignes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   button.fav-btn {
@@ -31,26 +92,13 @@
     padding: 8px 12px;
     cursor: pointer;
     border-radius: 4px;
+    font-weight: bold;
+    transition: transform 0.2s;
   }
 
-  #close-cart {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: red;
-    color: white;
-    border: none;
-    width: 24px;
-    height: 24px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 4px;
-    line-height: 1;
-  }
+  button.fav-btn:hover { transform: scale(1.05); }
 
-  #close-cart:hover { background: darkred; }
-  #cart.open { display: block; }
-
+  /* PANIER */
   #cart {
     display: none;
     position: fixed;
@@ -63,21 +111,9 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     z-index: 1000;
   }
+  #cart.open { display: block; }
 
-  #cart-items li { margin-bottom: 8px; }
-
-  .remove-btn {
-    margin-left: 10px;
-    background-color: #e74c3c;
-    color: white;
-    border: none;
-    padding: 2px 6px;
-    cursor: pointer;
-  }
-
-  /* ===================== */
   /* BOUTON RETOUR EN HAUT */
-  /* ===================== */
   #progress-wrap {
     position: fixed;
     right: 30px;
@@ -85,214 +121,207 @@
     height: 46px;
     width: 46px;
     cursor: pointer;
-    display: block;
     border-radius: 50px;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.1);
     z-index: 10000;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(15px);
+    background-color: #0d1117;
     transition: all 200ms linear;
-    background-color: #0d1117; /* Fond sombre comme sur ton image */
   }
-
-  #progress-wrap.active-progress {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
+  #progress-wrap.active-progress { opacity: 1; visibility: visible; }
   #progress-wrap::after {
     position: absolute;
-    content: '↑'; /* La flèche */
+    content: '↑';
     text-align: center;
     line-height: 46px;
     font-size: 20px;
     color: #ffffff;
-    left: 0;
-    top: 0;
-    height: 46px;
     width: 46px;
-    z-index: 1;
   }
 
-  #progress-wrap svg path { 
-    fill: none; 
-  }
-
-  #progress-wrap svg.progress-circle path {
-    stroke: #3498db; /* Couleur de la barre de progression (bleu) */
-    stroke-width: 5;
-    box-sizing: border-box;
-    transition: all 200ms linear;
-  }
-
-  /* ===================== */
-  /* RESPONSIVE DESIGN     */
-  /* ===================== */
-
-  /* Pour les tablettes (ex: 2 produits par ligne) */
+  /* RESPONSIVE */
   @media (max-width: 992px) {
-    .gallery {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      padding: 0 15px;
-    }
+    .gallery { grid-template-columns: repeat(2, 1fr); padding: 0 15px; }
   }
-
-  /* Pour les téléphones (1 produit par ligne) */
   @media (max-width: 600px) {
-    .gallery {
-      grid-template-columns: repeat(1, 1fr); /* 1 seule colonne */
-      gap: 20px;
-      padding: 0 20px;
-    }
-
-    .gallery .card img {
-      width: 100%;      /* L'image prend toute la largeur */
-      height: auto;     /* Garde les proportions */
-    }
-
-    #cart {
-      width: 90%;       /* Le panier prend plus de place sur mobile */
-      right: 5%;
-    }
+    .gallery { grid-template-columns: repeat(1, 1fr); padding: 0 20px; }
+    .gallery .card img { height: 300px; }
   }
   </style>
 </head>
 
 <body>
 
+  <div class="sidebar-ad">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '54de7a57c5ae9fd3b62b1516e66abead',
+        'format' : 'iframe',
+        'height' : 60,
+        'width' : 468,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="https://www.highperformanceformat.com/54de7a57c5ae9fd3b62b1516e66abead/invoke.js"></script>
+  </div>
+
   <div id="progress-wrap">
     <svg class="progress-circle" width="100%" height="100%" viewBox="-1 -1 102 102">
-      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" fill="none" stroke="#3498db" stroke-width="5"/>
     </svg>
   </div>
 
   <header>
     <h1>CQFD</h1>
     <p>œuvres uniques à vendre</p>
-    <nav aria-label="Navigation principale">
+    <nav>
       <a href="#">🎨 Galerie</a>
       <a href="html/contact.html">📱 Contact</a>
-      <a href="#" onclick="toggleCart()" role="button" aria-pressed="false">
-        ⭐️ Favoris (<span id="cart-count" aria-live="polite">0</span>)
-      </a>
+      <a href="#" onclick="toggleCart()">⭐️ Favoris (<span id="cart-count">0</span>)</a>
       <a href="vendu.html">❌ Vendu</a>
-    </nav>
+    </nav><br>
+    <p class="copyright-top">&copy; 2025 CQFD. Ce Qu'il Fallait Dessiner.</p>
   </header>
 
-  <main class="gallery" aria-label="Liste des produits">
-    <article class="card" data-title=" La Muse et son Corsaire" data-price="600">
+  <main class="gallery">
+    <article class="card" data-title="La Muse et son Corsaire" data-price="600">
       <a href="html/produit1.html">
-        <picture>
-          <img loading="lazy" src="photo/4996423612537855616.jpeg" alt=" La Muse et son Corsaire" width="250" height="400">
-        </picture>
-        <h2 class="link-h2"> La Muse et son Corsaire</h2>
+          <img src="photo/4996423612537855616.jpeg" alt="La Muse et son Corsaire">
+          <h2 class="link-h2">La Muse et son Corsaire</h2>
       </a>
       <p class="price">600€</p>
-      <button type="button" class="fav-btn">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
     </article>
 
     <article class="card" data-title="She rose anyway" data-price="100">
       <a href="html/produit2.html">
-        <picture>
-          <img loading="lazy" src="photo/8838844077641047062.jpeg" alt="She rose anyway" width="250" height="400">
-        </picture>
-        <h2 class="link-h2">She rose anyway</h2>
+          <img src="photo/8838844077641047062.jpeg" alt="She rose anyway">
+          <h2 class="link-h2">She rose anyway</h2>
       </a>
       <p class="price">100€</p>
-      <button type="button" class="fav-btn">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
     </article>
 
     <article class="card" data-title="Playmobil Porsche XXL" data-price="600">
       <a href="html/produit3.html">
-        <picture>
-          <img loading="lazy"
-               src="photo/1612031597558616028.jpeg"
-               alt="Playmobil Porsche XXL"
-               width="250"
-               height="400">
-        </picture>
-        <h2 class="link-h2">Playmobil Porsche XXL</h2>
+          <img src="photo/1612031597558616028.jpeg" alt="Playmobil Porsche XXL">
+          <h2 class="link-h2">Playmobil Porsche XXL</h2>
       </a>
       <p class="price">600€</p>
-      <button type="button" class="fav-btn">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
     </article>
 
     <article class="card" data-title="Téléphone PacMan" data-price="300">
       <a href="html/produit4.html">
-        <picture>
-          <img loading="lazy"
-               src="photo/7088879174338661991.jpeg"
-               alt="Téléphone PacMan"
-               width="250"
-               height="400">
-        </picture>
-        <h2 class="link-h2">Téléphone PacMan</h2>
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
       </a>
       <p class="price">300€</p>
-      <button type="button" class="fav-btn">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
     </article>
 
+    <article class="card" data-title="Téléphone PacMan" data-price="300">
+      <a href="html/produit4.html">
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
+      </a>
+      <p class="price">300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Téléphone PacMan" data-price="300">
+      <a href="html/produit4.html">
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
+      </a>
+      <p class="price">300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Téléphone PacMan" data-price="300">
+      <a href="html/produit4.html">
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
+      </a>
+      <p class="price">300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Téléphone PacMan" data-price="300">
+      <a href="html/produit4.html">
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
+      </a>
+      <p class="price">300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Téléphone PacMan" data-price="300">
+      <a href="html/produit4.html">
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
+      </a>
+      <p class="price">300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Téléphone PacMan" data-price="300">
+      <a href="html/produit4.html">
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
+      </a>
+      <p class="price">300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
+
+    <article class="card" data-title="Téléphone PacMan" data-price="300">
+      <a href="html/produit4.html">
+          <img src="photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+          <h2 class="link-h2">Téléphone PacMan</h2>
+      </a>
+      <p class="price">300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
   </main>
 
   <aside id="cart">
-    <button id="close-cart">✕</button>
+    <button id="close-cart" onclick="toggleCart()">✕</button>
     <h3>⭐️ Vos Favoris</h3>
     <ul id="cart-items"></ul>
     <p>Total : <span id="cart-total">0</span> €</p>
-    <a href="html/contact.html" class="checkout-button" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
+    <a href="html/contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Commander</a>
   </aside>
 
-  <footer>
-    <p>&copy; 2025 CQFD. Ce Qu'il Fallait Dessiner.</p>
-  </footer>
-
   <script>
-    /* LOGIQUE FAVORIS EXISTANTE */
+    /* LOGIQUE PANIER */
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
     function addToCart(button) {
       const card = button.closest('.card');
-      if (!card) return;
       const title = card.dataset.title;
-      const price = parseFloat(card.dataset.price) || 0;
-      if (cart.some(item => item.title === title)) { alert(title + " est déjà dans vos favoris."); return; }
+      const price = parseFloat(card.dataset.price);
+      if (cart.some(item => item.title === title)) return;
       cart.push({ title, price });
       saveCart();
       updateCartDisplay();
     }
-    function removeFromCart(index) { cart.splice(index, 1); saveCart(); updateCartDisplay(); }
     function updateCartDisplay() {
-      const cartItems = document.getElementById('cart-items');
-      const cartTotal = document.getElementById('cart-total');
-      const cartCount = document.getElementById('cart-count');
-      if (!cartItems || !cartTotal || !cartCount) return;
-      cartItems.innerHTML = '';
-      let total = 0;
-      cart.forEach((item, index) => {
-        const li = document.createElement('li');
-        li.textContent = `${item.title} - ${item.price} €`;
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'Supprimer';
-        removeBtn.className = 'remove-btn';
-        removeBtn.onclick = () => removeFromCart(index);
-        li.appendChild(removeBtn);
-        cartItems.appendChild(li);
-        total += item.price;
+      const items = document.getElementById('cart-items');
+      const count = document.getElementById('cart-count');
+      const total = document.getElementById('cart-total');
+      if(!items) return;
+      items.innerHTML = '';
+      let sum = 0;
+      cart.forEach((item, i) => {
+        items.innerHTML += `<li>${item.title} - ${item.price}€ <button onclick="remove(${i})">X</button></li>`;
+        sum += item.price;
       });
-      cartTotal.textContent = total.toFixed(2);
-      cartCount.textContent = cart.length;
+      count.textContent = cart.length;
+      total.textContent = sum.toFixed(2);
     }
-    function toggleCart() {
-      const cartPanel = document.getElementById('cart');
-      if (cartPanel) cartPanel.classList.toggle('open');
-    }
+    function remove(i) { cart.splice(i, 1); saveCart(); updateCartDisplay(); }
+    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
 
-    /* ========================================== */
-    /* LOGIQUE BOUTON RETOUR EN HAUT + PROGRESSION */
-    /* ========================================== */
     document.addEventListener('DOMContentLoaded', function() {
       const progressPath = document.querySelector('#progress-wrap path');
       const pathLength = progressPath.getTotalLength();
@@ -329,11 +358,14 @@
       });
     });
 
-    // Initialisation
-    window.addEventListener('load', updateCartDisplay);
-    document.getElementById('close-cart').addEventListener('click', () => {
-      document.getElementById('cart').classList.remove('open');
+    /* SCROLL PROGRESS */
+    window.addEventListener('scroll', () => {
+        const wrap = document.getElementById('progress-wrap');
+        window.pageYOffset > 50 ? wrap.classList.add('active-progress') : wrap.classList.remove('active-progress');
     });
+    document.getElementById('progress-wrap').onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+    window.onload = updateCartDisplay;
   </script>
 </body>
 </html>
