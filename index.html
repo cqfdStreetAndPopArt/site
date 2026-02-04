@@ -9,137 +9,178 @@
   <link rel="stylesheet" href="./site de vente/style.css" />
 
   <style>
-  /* ===================== */
-  /* STYLE DE LA PUB SUR LE CÔTÉ */
-  /* ===================== */
-  .sidebar-ad {
-    position: fixed;
-    left: -200px;      /* Positionnement pour rotation */
-    top: 50%;
-    transform: translateY(-50%) rotate(-90deg);
-    z-index: 1000;
-    width: 468px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    /* PANIER ET FAVORIS */
+    #cart {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 280px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      border-radius: 8px;
+    }
+    #cart.open { display: block; }
 
-  @media (max-width: 1100px) {
-    .sidebar-ad { display: none; } /* Masquer sur petits écrans pour éviter de chevaucher */
-  }
+    #close-cart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  /* ===================== */
-  /* HEADER & NAVIGATION   */
-  /* ===================== */
-  header {
-    text-align: center;
-    padding: 30px 0;
-  }
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
 
-  header h1 {
-    font-size: 3rem;
-    margin-bottom: 5px;
-    letter-spacing: 4px;
-  }
+    #cart-items li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
 
-  /* ===================== */
-  /* GALERIE (IMAGES ENTIÈRES) */
-  /* ===================== */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 25px;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding-left: 60px; /* Espace pour ne pas coller à la pub de gauche */
-  }
+    /* HEADER & NAVIGATION */
+    header { text-align: center; padding: 30px 0; }
+    header h1 { font-size: 3rem; margin-bottom: 5px; letter-spacing: 4px; }
+    nav a { margin: 0 10px; text-decoration: none; color: #333; font-weight: bold; }
 
-  .gallery .card {
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  }
+    /* GALERIE */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 25px;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
 
-  .gallery .card img {
-    width: 100%;
-    height: 250px;       /* Hauteur fixe pour l'alignement */
-    object-fit: contain;  /* Affiche l'image ENTIÈRE (essentiel pour le Playmobil) */
-    background-color: #f9f9f9; 
-    border-radius: 4px;
-    margin-bottom: 10px;
-  }
+    .gallery .card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .gallery .card:hover { transform: translateY(-5px); }
 
-  .link-h2 {
-    font-size: 1rem;
-    margin: 10px 0;
-    color: #333;
-    text-decoration: none;
-    min-height: 2.4em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .gallery .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background-color: #f9f9f9; 
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
 
-  /* BOUTON FAVORIS */
-  button.fav-btn {
-    background-color: yellow;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-  }
+    .link-h2 {
+      font-size: 1rem;
+      margin: 10px 0;
+      color: #333;
+      text-decoration: none;
+      min-height: 2.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  /* PANIER */
-  #cart {
-    display: none;
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 15px;
-    width: 250px;
-    z-index: 1000;
-  }
-  #cart.open { display: block; }
+    button.fav-btn {
+      background-color: #1a1a1a;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+      width: 100%;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+    button.fav-btn:hover { background-color: #d4af37; }
 
-  /* RETOUR EN HAUT */
-  #progress-wrap {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    height: 46px;
-    width: 46px;
-    background-color: #0d1117;
-    border-radius: 50px;
-    cursor: pointer;
-    z-index: 10000;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.3s;
-  }
-  #progress-wrap.active-progress { opacity: 1; visibility: visible; }
-  #progress-wrap::after {
-    content: '↑';
-    color: white;
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    line-height: 46px;
-    font-size: 20px;
-  }
+    /* ========================================== */
+    /* BOUTON RETOUR HAUT AVEC CERCLE DE PROGRESSION */
+    /* ========================================== */
+    #progress-wrap {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      height: 46px;
+      width: 46px;
+      cursor: pointer;
+      display: block;
+      border-radius: 50px;
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(15px);
+      transition: all 200ms linear;
+      background-color: #fff; /* Fond blanc pour voir le cercle noir/or */
+    }
 
-  /* RESPONSIVE */
-  @media (max-width: 992px) {
-    .gallery { grid-template-columns: repeat(2, 1fr); padding-left: 20px; padding-right: 20px; }
-  }
-  @media (max-width: 600px) {
-    .gallery { grid-template-columns: repeat(1, 1fr); }
-  }
+    #progress-wrap.active-progress {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #progress-wrap::after {
+      position: absolute;
+      content: '↑';
+      text-align: center;
+      line-height: 46px;
+      width: 46px;
+      font-size: 22px;
+      color: #1a1a1a; /* Flèche noire */
+      left: 0;
+      top: 0;
+      height: 46px;
+      z-index: 1;
+      transition: all 200ms linear;
+    }
+
+    #progress-wrap:hover::after {
+      color: #d4af37; /* Flèche dorée au survol */
+    }
+
+    #progress-wrap svg path { 
+      fill: none; 
+    }
+
+    #progress-wrap svg.progress-circle path {
+      stroke: rgb(16, 16, 197); /* Couleur de la barre de progression */
+      stroke-width: 4;
+      box-sizing:border-box;
+      transition: all 200ms linear;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 992px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .gallery { grid-template-columns: repeat(1, 1fr); } }
   </style>
 </head>
 
@@ -147,7 +188,7 @@
 
   <div id="progress-wrap">
     <svg class="progress-circle" width="100%" height="100%" viewBox="-1 -1 102 102">
-      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" fill="none" stroke="#3498db" stroke-width="4"/>
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
     </svg>
   </div>
 
@@ -157,7 +198,7 @@
     <nav>
       <a href="../index.html">🎨 Galerie</a>
       <a href="./site de vente/html/contact.html">📱 Contact</a>
-      <a href="#" onclick="toggleCart()">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+      <a href="#" onclick="toggleCart(); return false;">⭐️ Favoris (<span id="cart-count">0</span>)</a>
       <a href="./site de vente/vendu.html">❌ Vendu</a>
     </nav>
   </header>
@@ -198,50 +239,100 @@
       <p>300€</p>
       <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
     </article>
-  </main>
 
-  <aside id="cart">
-    <button onclick="toggleCart()" style="float:right;">✕</button>
-    <h3>⭐️ Vos Favoris</h3>
-    <ul id="cart-items"></ul>
-    <p>Total : <span id="cart-total">0</span> €</p>
-    <a href="./site de vente/html/contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Commander</a>
-  </aside>
+    <article class="card" data-title="Chien Balloon LV & Keith Haring" data-price="300">
+      <a href="./site de vente/html/produit5.html">
+        <img src="./site de vente/photo/8993961900560639874.jpeg" alt="Chien Balloon">
+        <h2 class="link-h2">Chien Balloon LV & Keith Haring</h2>
+      </a>
+      <p>300€</p>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
+    </article>
+
+    <aside id="cart">
+      <button id="close-cart" title="Fermer">✕</button>
+      <h3>⭐️ Vos Favoris</h3>
+      <ul id="cart-items"></ul>
+      <p><strong>Total : <span id="cart-total">0</span> €</strong></p>
+      <a href="./site de vente/html/contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none; margin-top:10px;">Passer à la commande</a>
+    </aside>
+  </main>
 
   <script>
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
-    function addToCart(button) {
-      const card = button.closest('.card');
-      const title = card.dataset.title;
-      const price = parseFloat(card.dataset.price);
-      if (cart.some(item => item.title === title)) return;
-      cart.push({ title, price });
-      saveCart();
-      updateCartDisplay();
+
+    // Gestion de la progression du cercle
+    const progressWrap = document.getElementById('progress-wrap');
+    const progressPath = document.querySelector('#progress-wrap svg path');
+    const pathLength = progressPath.getTotalLength();
+
+    progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
+    progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+    progressPath.style.strokeDashoffset = pathLength;
+    progressPath.getBoundingClientRect();
+    progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
+
+    const updateProgress = function () {
+      const scroll = window.pageYOffset;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = pathLength - (scroll * pathLength / height);
+      progressPath.style.strokeDashoffset = progress;
+      
+      if (scroll > 150) {
+        progressWrap.classList.add('active-progress');
+      } else {
+        progressWrap.classList.remove('active-progress');
+      }
     }
+
+    window.onscroll = updateProgress;
+
+    progressWrap.onclick = function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Gestion du panier
     function updateCartDisplay() {
-      const items = document.getElementById('cart-items');
-      const count = document.getElementById('cart-count');
-      const total = document.getElementById('cart-total');
-      if(!items) return;
-      items.innerHTML = '';
+      const itemsList = document.getElementById('cart-items');
+      const countSpan = document.getElementById('cart-count');
+      const totalSpan = document.getElementById('cart-total');
+      if(!itemsList) return;
+
+      itemsList.innerHTML = '';
       let sum = 0;
-      cart.forEach((item, i) => {
-        items.innerHTML += `<li>${item.title} - ${item.price}€</li>`;
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item.title}</span> <span>${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; margin-left:5px;">🗑️</button></span>`;
+        itemsList.appendChild(li);
         sum += item.price;
       });
-      count.textContent = cart.length;
-      total.textContent = sum.toFixed(2);
+      countSpan.textContent = cart.length;
+      totalSpan.textContent = sum.toFixed(2);
+      localStorage.setItem('cart', JSON.stringify(cart));
     }
-    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
 
-    window.addEventListener('scroll', () => {
-      const wrap = document.getElementById('progress-wrap');
-      window.pageYOffset > 50 ? wrap.classList.add('active-progress') : wrap.classList.remove('active-progress');
-    });
-    document.getElementById('progress-wrap').onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-    window.onload = updateCartDisplay;
+    function addToCart(button) {
+      const card = button.closest('.card');
+      const title = card.getAttribute('data-title');
+      const price = parseFloat(card.getAttribute('data-price'));
+      if (cart.some(it => it.title === title)) { alert('Déjà dans vos favoris.'); return; }
+      cart.push({ title, price });
+      updateCartDisplay();
+      document.getElementById('cart').classList.add('open');
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartDisplay();
+    }
+
+    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
+    document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
+
+    window.onload = function() {
+      updateCartDisplay();
+      updateProgress();
+    };
   </script>
 </body>
 </html>

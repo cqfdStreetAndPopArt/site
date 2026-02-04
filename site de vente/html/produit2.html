@@ -54,7 +54,7 @@
     }
 
     /* ========================================== */
-    /* IMAGES ET ZOOM                             */
+    /* IMAGES ET ZOOM (HARMONISÉ)                 */
     /* ========================================== */
     .thumbnails {
       display: flex;
@@ -91,17 +91,19 @@
       position: absolute;
       left: 105%; 
       top: 0;
-      width: 450px;
-      height: 550px;
+      /* TAILLE IDENTIQUE À LA PREMIÈRE PAGE */
+      width: 300px;  
+      height: 300px; 
       border: 1px solid #ccc;
       background-repeat: no-repeat;
       background-color: #fff;
       z-index: 100;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      border-radius: 4px;
     }
 
     /* ========================================== */
-    /* CARTE PRODUIT (STYLE GALERIE)              */
+    /* CARTE PRODUIT                              */
     /* ========================================== */
     .product-info {
       flex: 1;
@@ -149,11 +151,6 @@
         text-align: justify;
     }
 
-    .art-description p {
-        margin-bottom: 15px;
-    }
-
-    /* SECTION PRIX ET BOUTON INTÉGRÉE */
     .purchase-section {
         display: flex;
         justify-content: space-between;
@@ -170,7 +167,7 @@
 
     .fav-btn {
         background-color: #1a1a1a;
-        color: #fff;
+        color: white;
         border: none;
         padding: 14px 28px;
         cursor: pointer;
@@ -182,13 +179,10 @@
     }
 
     .fav-btn:hover {
-        background-color: #d4af37; /* Effet Or */
+        background-color: #d4af37;
         transform: translateY(-2px);
     }
 
-    /* ========================================== */
-    /* RESPONSIVE                                 */
-    /* ========================================== */
     @media (max-width: 992px) {
       .container { flex-direction: column; align-items: center; }
       .main-image { width: 100%; max-width: 500px; }
@@ -231,8 +225,8 @@
 
             <div class="art-description">
                 <p>Ce tableau est un hommage à la <strong>résilience</strong> et à la puissance créatrice féminine. Il célèbre la capacité de toute femme à transformer la blessure en énergie vitale.</p>
-                <p>Le colibri origami symbolise la joie retrouvée et la reconstruction minutieuse de soi. Sur un fond de couleurs vives et fluo, il est la preuve que la lumière peut être plus éclatante que jamais.</p>
-                <p>Les inscriptions <em>"SCARS ARE MY WINGS"</em> et <em>"SHE ROSE ANYWAY"</em> rappellent que la force véritable est l'acte de s'élever en portant ses expériences comme une force.</p>
+                <p>Le colibri origami symbolise la joie retrouvée et la reconstruction minutieuse de soi.</p>
+                <p>Les inscriptions <em>"SCARS ARE MY WINGS"</em> et <em>"SHE ROSE ANYWAY"</em> rappellent que la force véritable est l'acte de s'élever.</p>
             </div>
 
             <div class="purchase-section">
@@ -255,7 +249,6 @@
   </main>
 
   <script>
-    // GESTION DU ZOOM
     const container = document.getElementById('zoom-container');
     const img = document.getElementById('largeImage');
     const result = document.getElementById('zoom-result');
@@ -264,7 +257,10 @@
       if (window.innerWidth <= 992) return;
       result.style.display = "block";
       result.style.backgroundImage = `url('${img.src}')`;
-      const zoomLevel = 2.5;
+      
+      // NIVEAU DE ZOOM HARMONISÉ (x2)
+      const zoomLevel = 2; 
+      
       result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -304,7 +300,7 @@
       cart.forEach((item, index) => {
         const li = document.createElement('li');
         li.style.marginBottom = "10px";
-        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[x]</button>`;
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[Supprimer]</button>`;
         cartItems.appendChild(li);
         total += item.price;
       });

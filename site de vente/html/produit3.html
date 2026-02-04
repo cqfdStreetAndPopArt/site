@@ -54,7 +54,7 @@
     }
 
     /* ========================================== */
-    /* IMAGES ET ZOOM                             */
+    /* IMAGES ET ZOOM (MODIFIÉ POUR HARMONIE)     */
     /* ========================================== */
     .thumbnails {
       display: flex;
@@ -91,17 +91,19 @@
       position: absolute;
       left: 105%; 
       top: 0;
-      width: 450px;
-      height: 550px;
+      /* FORMAT CARRÉ HARMONISÉ */
+      width: 300px;  
+      height: 300px; 
       border: 1px solid #ccc;
       background-repeat: no-repeat;
       background-color: #fff;
       z-index: 100;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      border-radius: 4px;
     }
 
     /* ========================================== */
-    /* CARTE PRODUIT (STYLE GALERIE)              */
+    /* CARTE PRODUIT                              */
     /* ========================================== */
     .product-info {
       flex: 1;
@@ -149,11 +151,6 @@
         text-align: justify;
     }
 
-    .art-description p {
-        margin-bottom: 15px;
-    }
-
-    /* SECTION PRIX ET BOUTON INTÉGRÉE */
     .purchase-section {
         display: flex;
         justify-content: space-between;
@@ -170,7 +167,7 @@
 
     .fav-btn {
         background-color: #1a1a1a;
-        color: #fff;
+        color: white;
         border: none;
         padding: 14px 28px;
         cursor: pointer;
@@ -182,13 +179,10 @@
     }
 
     .fav-btn:hover {
-        background-color: #d4af37; /* Effet Or */
+        background-color: #d4af37;
         transform: translateY(-2px);
     }
 
-    /* ========================================== */
-    /* RESPONSIVE                                 */
-    /* ========================================== */
     @media (max-width: 992px) {
       .container { flex-direction: column; align-items: center; }
       .main-image { width: 100%; max-width: 500px; }
@@ -230,7 +224,7 @@
 
             <div class="art-description">
                 <p>Playmobil XXL noir et logo Porsche Rouge.</p>
-                <p>Cette œuvre représente deux emblèmes forts : celui de notre enfance, les jouets Playmobil avec lesquels notre imagination était sans limite ; et celui des voitures sportives de luxe qui elles aussi nous font rêver.</p>
+                <p>Cette œuvre représente deux emblèmes forts : celui de notre enfance et celui des voitures sportives de luxe.</p>
                 <p>Une œuvre <strong>indécemment régressive</strong> qui repousse les limites du jeu et du plaisir !</p>
             </div>
 
@@ -249,7 +243,7 @@
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
-      <a href="./contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none; margin-top:10px;">Passer à la commande</a>
+      <a href="./contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
     </aside>
   </main>
 
@@ -262,7 +256,10 @@
       if (window.innerWidth <= 992) return;
       result.style.display = "block";
       result.style.backgroundImage = `url('${img.src}')`;
-      const zoomLevel = 2.5;
+      
+      // ZOOM RÉGLÉ SUR 2 COMME LES AUTRES
+      const zoomLevel = 2; 
+      
       result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
       const rect = container.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -274,6 +271,7 @@
 
     function changeImage(thumbnail) { img.src = thumbnail.src; }
 
+    // LOGIQUE FAVORIS
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 
@@ -301,7 +299,7 @@
       cart.forEach((item, index) => {
         const li = document.createElement('li');
         li.style.marginBottom = "10px";
-        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[x]</button>`;
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[Supprimer]</button>`;
         cartItems.appendChild(li);
         total += item.price;
       });

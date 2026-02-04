@@ -17,7 +17,7 @@ body {
 /* ========================================== */
 header {
     background: linear-gradient(135deg, yellow, orange);
-    color: #007bff;
+    color: rgb(16, 16, 197);
     padding: 30px 20px;
     text-align: center;
 }
@@ -32,7 +32,7 @@ header nav {
 }
 
 header nav a {
-    color: #007bff;
+    color: rgb(16, 16, 197);
     text-decoration: none;
     margin: 0 15px;
     font-weight: bold;
@@ -70,50 +70,6 @@ header nav a:hover {
 .card img {
     max-width: 100%;
     border-radius: 4px;
-}
-
-/* ========================================== */
-/* BOUTON RETOUR EN HAUT (GRAND CERCLE BLEU) */
-/* ========================================== */
-#progress-wrap {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    height: 60px; /* Taille augmentée */
-    width: 60px;  /* Taille augmentée */
-    cursor: pointer;
-    display: block;
-    border-radius: 50px;
-    z-index: 10000;
-    opacity: 0;
-    visibility: hidden;
-    background-color: #0d1117;
-    transition: all 200ms linear;
-}
-
-#progress-wrap.active-progress {
-    opacity: 1;
-    visibility: visible;
-}
-
-#progress-wrap::after {
-    position: absolute;
-    content: '↑';
-    text-align: center;
-    line-height: 60px; /* Centrage parfait */
-    font-size: 24px;
-    color: #ffffff;
-    left: 0;
-    top: 0;
-    height: 60px;
-    width: 60px;
-}
-
-#progress-wrap svg.progress-circle path {
-    stroke: #3498db;
-    stroke-width: 6; /* Épaisseur du trait bleu */
-    fill: none;
-    transition: all 200ms linear;
 }
 
 /* ========================================== */
