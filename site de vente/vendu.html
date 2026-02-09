@@ -3,160 +3,175 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre. Parcourez nos pièces et ajoutez vos favoris.">
+  <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre.">
+  <link rel="stylesheet" href="./style.css">
   <title>CQFD</title>
   <link rel="icon" href="./Capture d’écran_31-1-2026_122156_www.instagram.com.jpeg" type="image/jpeg" />
-  <link rel="stylesheet" href="style.css" />
 
   <style>
-  /* ===================== */
-  /* STYLE DE LA PUBLICITÉ GAUCHE */
-  /* ===================== */
-  .sidebar-ad {
-    position: fixed;
-    left: -200px;      /* Ajustement pour un meilleur centrage */
-    top: 55%;          /* Légèrement descendu pour l'équilibre visuel */
-    transform: translateY(-50%) rotate(-90deg);
-    z-index: 1000;
-    width: 468px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    /* STYLE GÉNÉRAL (STYLE PRÉCÉDENT) */
+    body { font-family: sans-serif; margin: 0; padding: 0; }
 
-  @media (max-width: 1100px) {
-    .sidebar-ad { display: none; }
-  }
+    header {
+      text-align: center;
+      padding: 20px 0;
+      background: yellow; /* Garde le style jaune */
+    }
 
-  /* ===================== */
-  /* HEADER & NAVIGATION */
-  /* ===================== */
-  header {
-    text-align: center;
-    padding: 20px 0;
-  }
+    header h1 { 
+      font-size: 3rem; 
+      margin: 0; 
+      color: blue; 
+      letter-spacing: 4px;
+    }
 
-  .copyright-top {
-    font-size: 0.8rem;
-    margin-top: 10px;
-    opacity: 0.8;
-  }
+    nav a { 
+      margin: 0 10px; 
+      text-decoration: none; 
+      color: blue; 
+      font-weight: bold; 
+    }
 
-  /* ===================== */
-  /* GALERIE ET CARTES (IMAGES ENTIÈRES) */
-  /* ===================== */
-  .gallery {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); 
-    gap: 25px;
-    max-width: 1100px;
-    margin: 40px auto;
-    padding-left: 80px; /* Plus d'espace pour la pub */
-  }
+    .copyright-top {
+      font-size: 0.8rem;
+      margin-top: 10px;
+      opacity: 0.8;
+    }
 
-  .gallery .card {
-    width: 100%;
-    box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.9);
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  }
+    /* GALERIE - CORRECTION DE LA TAILLE */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 25px;
+      max-width: 1200px; /* Largeur optimale pour 4 colonnes */
+      margin: 40px auto;
+      padding: 0 20px;
+    }
 
-  .gallery .card img {
-    width: 100%;
-    height: 250px;      /* Hauteur fixe pour l'alignement */
-    object-fit: contain; /* ESSENTIEL : Affiche l'image ENTIÈRE sans couper */
-    background-color: #f9f9f9; /* Petit fond gris si l'image est plus étroite */
-    border-radius: 4px;
-    display: block;
-    margin-bottom: 10px;
-  }
+    /* CARTES (Mélange du design précédent et de la structure qui marche) */
+    .gallery .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
 
-  .link-h2 {
-    font-size: 1rem;
-    margin: 10px 0;
-    text-decoration: none;
-    color: #333;
-    height: 2.4em; /* Garde les titres alignés sur 2 lignes */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .gallery .card img {
+      width: 100%;
+      height: 250px; /* Taille fixe pour l'alignement */
+      object-fit: contain;
+      background-color: #f9f9f9; 
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
 
-  button.fav-btn {
-    background-color: yellow;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: transform 0.2s;
-  }
+    .link-h2 {
+      font-size: 1rem;
+      margin: 10px 0;
+      text-decoration: underline;
+      color: blue;
+      height: 2.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-  button.fav-btn:hover { transform: scale(1.05); }
+    .price { font-weight: bold; }
 
-  /* PANIER */
-  #cart {
-    display: none;
-    position: fixed;
-    top: 80px;
-    right: 20px;
-    background: #fff;
-    border: 1px solid #ccc;
-    padding: 15px;
-    width: 250px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    z-index: 1000;
-  }
-  #cart.open { display: block; }
+    /* BOUTON JAUNE COMME AVANT */
+    button.fav-btn {
+      background-color: yellow;
+      color: blue;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+      width: 100%;
+      transition: transform 0.2s;
+    }
+    button.fav-btn:hover { transform: scale(1.05); }
 
-  /* BOUTON RETOUR EN HAUT */
-  #progress-wrap {
-    position: fixed;
-    right: 30px;
-    bottom: 30px;
-    height: 46px;
-    width: 46px;
-    cursor: pointer;
-    border-radius: 50px;
-    z-index: 10000;
-    opacity: 0;
-    visibility: hidden;
-    background-color: #0d1117;
-    transition: all 200ms linear;
-  }
-  #progress-wrap.active-progress { opacity: 1; visibility: visible; }
-  #progress-wrap::after {
-    position: absolute;
-    content: '↑';
-    text-align: center;
-    line-height: 46px;
-    font-size: 20px;
-    color: #ffffff;
-    width: 46px;
-  }
+    /* PANIER */
+    #cart {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 280px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      border-radius: 8px;
+    }
+    #cart.open { display: block; }
 
-  /* RESPONSIVE */
-  @media (max-width: 992px) {
-    .gallery { grid-template-columns: repeat(2, 1fr); padding: 0 15px; }
-  }
-  @media (max-width: 600px) {
-    .gallery { grid-template-columns: repeat(1, 1fr); padding: 0 20px; }
-    .gallery .card img { height: 300px; }
-  }
+    /* BOUTON RETOUR HAUT */
+    #progress-wrap {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      height: 46px;
+      width: 46px;
+      cursor: pointer;
+      display: block;
+      border-radius: 50px;
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(15px);
+      transition: all 200ms linear;
+      background-color: #fff; /* Fond blanc pour voir le cercle noir/or */
+    }
+
+    #progress-wrap.active-progress {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #progress-wrap::after {
+      position: absolute;
+      content: '↑';
+      text-align: center;
+      line-height: 46px;
+      width: 46px;
+      font-size: 22px;
+      color: #1a1a1a; /* Flèche noire */
+      left: 0;
+      top: 0;
+      height: 46px;
+      z-index: 1;
+      transition: all 200ms linear;
+    }
+
+    #progress-wrap:hover::after {
+      color: #d4af37; /* Flèche dorée au survol */
+    }
+
+    #progress-wrap svg path { 
+      fill: none; 
+    }
+
+    #progress-wrap svg.progress-circle path {
+      stroke: rgb(16, 16, 197); /* Couleur de la barre de progression */
+      stroke-width: 4;
+      box-sizing:border-box;
+      transition: all 200ms linear;
+    }
+    /* RESPONSIVE */
+    @media (max-width: 992px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .gallery { grid-template-columns: repeat(1, 1fr); } }
   </style>
 </head>
 
 <body>
 
-  <div id="progress-wrap">
-    <svg class="progress-circle" width="100%" height="100%" viewBox="-1 -1 102 102">
-      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" fill="none" stroke="#3498db" stroke-width="5"/>
-    </svg>
-  </div>
+  <div id="progress-wrap"></div>
 
   <header>
     <h1>CQFD</h1>
@@ -164,125 +179,87 @@
     <nav>
       <a href="../index.html">🎨 Galerie</a>
       <a href="html/contact.html">📱 Contact</a>
-      <a href="#" onclick="toggleCart()">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+      <a href="#" onclick="toggleCart(); return false;">⭐️ Favoris (<span id="cart-count">0</span>)</a>
       <a href="vendu.html">❌ Vendu</a>
-    </nav><br>
+    </nav>
     <p class="copyright-top">&copy; 2025 CQFD. Ce Qu'il Fallait Dessiner.</p>
   </header>
 
   <main class="gallery">
-
-
-    <main class="gallery" aria-label="Liste des produits">
     <article class="card" data-title="Chien Balloon LV & Keith Haring" data-price="300">
       <a href="html/pVendu1.html">
-        <picture>
-          <img loading="lazy" src="photo/8993961900560639874.jpeg" alt="Chien Balloon LV & Keith Haring" width="250" height="400">
-        </picture>
+        <img src="photo/8993961900560639874.jpeg" alt="Chien Balloon">
         <h2 class="link-h2">Chien Balloon LV & Keith Haring</h2>
       </a>
       <p class="price">300€</p>
-      <button type="button" class="fav-btn">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
     </article>
 
-    <article class="card" data-title="Chien Balloon LV & Keith Haring" data-price="300">
+    <article class="card" data-title="Chien Balloon LV & Keith Haring 2" data-price="300">
       <a href="html/pVendu1.html">
-        <picture>
-          <img loading="lazy" src="photo/8993961900560639874.jpeg" alt="Chien Balloon LV & Keith Haring" width="250" height="400">
-        </picture>
+        <img src="photo/8993961900560639874.jpeg" alt="Chien Balloon">
         <h2 class="link-h2">Chien Balloon LV & Keith Haring</h2>
       </a>
       <p class="price">300€</p>
-      <button type="button" class="fav-btn">Ajouter aux favoris</button>
+      <button type="button" class="fav-btn" onclick="addToCart(this)">Ajouter aux favoris</button>
     </article>
-
-
   </main>
 
   <aside id="cart">
-    <button id="close-cart" onclick="toggleCart()">✕</button>
+    <button onclick="toggleCart()">✕ Fermer</button>
     <h3>⭐️ Vos Favoris</h3>
     <ul id="cart-items"></ul>
     <p>Total : <span id="cart-total">0</span> €</p>
-    <a href="html/contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Commander</a>
+    <a href="html/contact.html" style="display:block; text-align:center; background:blue; color:white; padding:10px; border-radius:5px; text-decoration:none;">Commander</a>
   </aside>
 
   <script>
-    /* LOGIQUE PANIER */
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
-    function addToCart(button) {
-      const card = button.closest('.card');
-      const title = card.dataset.title;
-      const price = parseFloat(card.dataset.price);
-      if (cart.some(item => item.title === title)) return;
-      cart.push({ title, price });
-      saveCart();
-      updateCartDisplay();
-    }
+
     function updateCartDisplay() {
-      const items = document.getElementById('cart-items');
-      const count = document.getElementById('cart-count');
-      const total = document.getElementById('cart-total');
-      if(!items) return;
-      items.innerHTML = '';
+      const itemsList = document.getElementById('cart-items');
+      const countSpan = document.getElementById('cart-count');
+      const totalSpan = document.getElementById('cart-total');
+      if(!itemsList) return;
+
+      itemsList.innerHTML = '';
       let sum = 0;
-      cart.forEach((item, i) => {
-        items.innerHTML += `<li>${item.title} - ${item.price}€ <button onclick="remove(${i})">X</button></li>`;
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})">X</button>`;
+        itemsList.appendChild(li);
         sum += item.price;
       });
-      count.textContent = cart.length;
-      total.textContent = sum.toFixed(2);
+      countSpan.textContent = cart.length;
+      totalSpan.textContent = sum.toFixed(2);
+      localStorage.setItem('cart', JSON.stringify(cart));
     }
-    function remove(i) { cart.splice(i, 1); saveCart(); updateCartDisplay(); }
+
+    function addToCart(button) {
+      const card = button.closest('.card');
+      const title = card.getAttribute('data-title');
+      const price = parseFloat(card.getAttribute('data-price'));
+      if (cart.some(it => it.title === title)) return;
+      cart.push({ title, price });
+      updateCartDisplay();
+      document.getElementById('cart').classList.add('open');
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartDisplay();
+    }
+
     function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
 
-    document.addEventListener('DOMContentLoaded', function() {
-      const progressPath = document.querySelector('#progress-wrap path');
-      const pathLength = progressPath.getTotalLength();
-      
-      progressPath.style.transition = progressPath.style.webkitTransition = 'none';
-      progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
-      progressPath.style.strokeDashoffset = pathLength;
-      progressPath.getBoundingClientRect();
-      progressPath.style.transition = progressPath.style.webkitTransition = 'stroke-dashoffset 10ms linear';
-
-      const updateProgress = function() {
-        const scroll = window.pageYOffset || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const progress = pathLength - (scroll * pathLength / height);
-        progressPath.style.strokeDashoffset = progress;
-      };
-
-      updateProgress();
-      window.addEventListener('scroll', updateProgress);
-
-      const offset = 50;
-      window.addEventListener('scroll', function() {
-        if (window.pageYOffset > offset) {
-          document.querySelector('#progress-wrap').classList.add('active-progress');
-        } else {
-          document.querySelector('#progress-wrap').classList.remove('active-progress');
-        }
-      });
-
-      document.querySelector('#progress-wrap').addEventListener('click', function(event) {
-        event.preventDefault();
-        window.scrollTo({top: 0, behavior: 'smooth'});
-        return false;
-      });
-    });
-
-    /* SCROLL PROGRESS */
     window.addEventListener('scroll', () => {
-        const wrap = document.getElementById('progress-wrap');
-        window.pageYOffset > 50 ? wrap.classList.add('active-progress') : wrap.classList.remove('active-progress');
+      const wrap = document.getElementById('progress-wrap');
+      window.pageYOffset > 100 ? wrap.classList.add('active-progress') : wrap.classList.remove('active-progress');
     });
+
     document.getElementById('progress-wrap').onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
     window.onload = updateCartDisplay;
   </script>
 </body>
 </html>
-
-
