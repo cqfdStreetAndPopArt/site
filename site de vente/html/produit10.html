@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>La Muse et son Corsaire - CQFD</title>
+  <title>Lego XXL - CQFD</title>
   <link rel="stylesheet" href="../style.css" />
   
   <style>
@@ -65,7 +65,7 @@
     }
 
     /* ========================================== */
-    /* IMAGES ET ZOOM (MODIFIÉ)                   */
+    /* IMAGES ET ZOOM (MODIFIÉ POUR HARMONIE)     */
     /* ========================================== */
     .thumbnails {
       display: flex;
@@ -102,7 +102,7 @@
       position: absolute;
       left: 105%; 
       top: 0;
-      /* TAILLE DU ZOOM RÉDUITE ICI */
+      /* FORMAT CARRÉ HARMONISÉ */
       width: 300px;  
       height: 300px; 
       border: 1px solid #ccc;
@@ -110,7 +110,7 @@
       background-color: #fff;
       z-index: 100;
       box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-      border-radius: 4px; /* Un peu plus de rondeur pour le petit format */
+      border-radius: 4px;
     }
 
     /* ========================================== */
@@ -159,6 +159,7 @@
         line-height: 1.8;
         color: #444;
         margin-bottom: 30px;
+        text-align: justify;
     }
 
     .purchase-section {
@@ -177,7 +178,7 @@
 
     .fav-btn {
         background-color: #1a1a1a;
-        color: white; /* Corrigé pour lisibilité */
+        color: white;
         border: none;
         padding: 14px 28px;
         cursor: pointer;
@@ -215,31 +216,41 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="../photo/4996423612537855616.jpeg" onclick="changeImage(this)" alt="Vue 1">
+        <img src="../photo/20260218_130733.jpg" onclick="changeImage(this)" alt="Lego XXL - Vue 1">
+        <img src="../photo/20260218_130748.jpg" onclick="changeImage(this)" alt="Lego XXL - Vue 2">
+        <img src="../photo/20260218_130755.jpg" onclick="changeImage(this)" alt="Lego XXL - Vue 3">
+        <img src="../photo/20260218_130801.jpg" onclick="changeImage(this)" alt="Lego XXL - Vue 4">
+        <img src="../photo/20260218_130807.jpg" onclick="changeImage(this)" alt="Lego XXL - Vue 5">
+        <img src="../photo/20260218_130906.jpg" onclick="changeImage(this)" alt="Lego XXL - Vue 6">
       </div>
 
       <div class="main-image" id="zoom-container">
-        <img id="largeImage" src="../photo/4996423612537855616.jpeg" alt="La Muse et son Corsaire">
+        <img id="largeImage" src="../photo/20260218_130733.jpg" alt="Lego XXL">
         <div id="zoom-result"></div>
       </div>
 
       <div class="product-info">
         <div class="art-card">
-            <h1 class="art-title">La Muse et son Corsaire</h1>
-            <div class="art-subtitle">Acrylique sur toile — 65 x 80 cm</div>
+            <h1 class="art-title">Lego XXL</h1>
+            <div class="art-subtitle">Dimensions : 25x10x10 cm</div>
 
             <div class="art-spec">
-                <span>Finition :</span> Verni brillant
+                <span>Finition :</span> Brillante
             </div>
 
             <div class="art-description">
-                <p>Ce tableau est une <strong>ode à un amour</strong> qui dépasse toutes les règles et les conventions.</p>
-                <p>Albator, corsaire de l'espace, s'unit à la <em>Jeune fille à la perle</em> dans un moment suspendu d'une extrême sensualité.</p>
+                <p>gorille rose sur socle noir</p>
+                <p>La technique ancestrale du Kintsugi vise à réparer , à embellir et à solidifier un objet qui a ete cassé. Ici, 
+                   c'est un véritable Kong d'Orlinsky qui nous incite à nous relever de nos épreuves, de nos blessures et à affirmer notre puissance retrouvée. </p>
+                <p>Cette œuvre, chère à l'artiste, est une ôde à la résilience (She rose anyway : elle s'est relevée malgré tout).
+                   Une exhortation à se battre envers et malgrétout, une acclamation faite au courage des femmes.</p>
+
+                <p>Envoi rapide et toujours soigné. Vendu avec certificat d'authenticité. </p>
             </div>
 
             <div class="purchase-section">
-                <div class="price-tag">600€</div>
-                <button type="button" class="fav-btn" onclick="addToCart('La Muse et son Corsaire', 600)">
+                <div class="price-tag">...€</div>
+                <button type="button" class="fav-btn" onclick="addToCart('Ange', 250)">
                     Ajouter aux favoris
                 </button>
             </div>
@@ -266,7 +277,7 @@
       result.style.display = "block";
       result.style.backgroundImage = `url('${img.src}')`;
       
-      // NIVEAU DE ZOOM LÉGÈREMENT RÉDUIT POUR LE PETIT FORMAT
+      // ZOOM RÉGLÉ SUR 2 COMME LES AUTRES
       const zoomLevel = 2; 
       
       result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
@@ -280,7 +291,7 @@
 
     function changeImage(thumbnail) { img.src = thumbnail.src; }
 
-    // GESTION DES FAVORIS
+    // LOGIQUE FAVORIS
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 

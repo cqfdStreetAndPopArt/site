@@ -23,34 +23,45 @@
       background: #fff;
       border: 1px solid #ccc;
       padding: 15px;
-      width: 250px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 280px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       z-index: 1000;
+      border-radius: 8px;
     }
     #cart.open { display: block; }
 
     #close-cart {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      background: red;
+      top: 10px;
+      right: 10px;
+      background: #ff4d4d;
       color: white;
       border: none;
-      width: 24px;
-      height: 24px;
-      font-size: 16px;
+      width: 28px;
+      height: 28px;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 50%;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .container {
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #cart-items li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
       display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      align-items: flex-start;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
     }
 
     /* ========================================== */
@@ -205,11 +216,16 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="../photo/7088879174338661991.jpeg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 1">
+        <img src="../photo/20260218_130142.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 1">
+        <img src="../photo/20260218_130156.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 2">
+        <img src="../photo/20260218_130207.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 3">
+        <img src="../photo/20260218_130218.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 4">
+        <img src="../photo/20260218_130232.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 5">
+        <img src="../photo/20260218_130239.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 6">
       </div>
 
       <div class="main-image" id="zoom-container">
-        <img id="largeImage" src="../photo/7088879174338661991.jpeg" alt="Téléphone PacMan">
+        <img id="largeImage" src="../photo/20260218_130142.jpg" alt="Téléphone PacMan">
         <div id="zoom-result"></div>
       </div>
 
