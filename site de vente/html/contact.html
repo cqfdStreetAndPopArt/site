@@ -166,15 +166,18 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      statusEl.textContent = "Tentative d'envoi...";
-      // Simulation d'envoi ou Mailto
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
-      
+      statusEl.textContent = "Ouverture de votre application de messagerie...";
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
       const subject = encodeURIComponent('Contact CQFD — ' + name);
       const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\n${message}`);
-      window.location.href = `mailto:cqfd.street.popart@gmail.com?subject=${subject}&body=${body}`;
+      const mailtoLink = `mailto:cqfd.street.popart@gmail.com?subject=${subject}&body=${body}`;
+
+      window.open(mailtoLink, '_blank', 'noopener,noreferrer');
+      statusEl.innerHTML = 'Si votre messagerie ne s’ouvre pas, utilisez ce lien : <a href="' + mailtoLink + '" style="color:#ff6b00;">Envoyer le message</a>';
     });
 
     // Gestion du panier (Favoris)
