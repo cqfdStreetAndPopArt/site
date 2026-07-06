@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre. Parcourez nos pièces et ajoutez vos favoris.">
+  <title>CQFD</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #cart.open { display: block; }
+    #cart {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 250px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+    #cart-items li { margin-bottom: 8px; }
+    .remove-btn {
+      margin-left: 10px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      padding: 2px 6px;
+      cursor: pointer;
+    }
+  </style>
+  <head>
+  </head>
+  <body>
+    
+  </body>
+</html>
