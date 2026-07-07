@@ -1,43 +1,210 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre.">
+  <title>CQFD</title>
+  <link rel="icon" href="./Capture d’écran_31-1-2026_122156_www.instagram.com.jpeg" type="image/jpeg" />
+  <link rel="stylesheet" href="./site de vente/style.css" />
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre.">
-<link rel="stylesheet" href="./style-vendus.css">
+  <style>
+    /* PANIER ET FAVORIS */
+    #cart {
+      display: none;
+      position: fixed;
+      top: 80px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      width: 280px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 1000;
+      border-radius: 8px;
+    }
+    #cart.open { display: block; }
 
-<title>CQFD</title>
+    #close-cart {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      border-radius: 50%;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-<link rel="icon" href="./Capture d’écran_31-1-2026_122156_www.instagram.com.jpeg" type="image/jpeg">
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
 
+    #cart-items li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    /* HEADER & NAVIGATION */
+    header { text-align: center; padding: 30px 0; }
+    header h1 { font-size: 3rem; margin-bottom: 5px; letter-spacing: 4px; }
+    nav a { margin: 0 10px; text-decoration: none; color: #333; font-weight: bold; }
+
+    /* GALERIE */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); 
+      gap: 25px;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .gallery .card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .gallery .card:hover { transform: translateY(-5px); }
+
+    .gallery .card img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background-color: #f9f9f9; 
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .link-h2 {
+      font-size: 1rem;
+      margin: 10px 0;
+      color: #333;
+      text-decoration: none;
+      min-height: 2.4em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    button.fav-btn {
+      background-color: #1a1a1a;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-weight: bold;
+      width: 100%;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+    button.fav-btn:hover { background-color: #d4af37; }
+
+    /* ========================================== */
+    /* BOUTON RETOUR HAUT AVEC CERCLE DE PROGRESSION */
+    /* ========================================== */
+    #progress-wrap {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      height: 46px;
+      width: 46px;
+      cursor: pointer;
+      display: block;
+      border-radius: 50px;
+      box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(15px);
+      transition: all 200ms linear;
+      background-color: #fff; /* Fond blanc pour voir le cercle noir/or */
+    }
+
+    #progress-wrap.active-progress {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    #progress-wrap::after {
+      position: absolute;
+      content: '↑';
+      text-align: center;
+      line-height: 46px;
+      width: 46px;
+      font-size: 22px;
+      color: #1a1a1a; /* Flèche noire */
+      left: 0;
+      top: 0;
+      height: 46px;
+      z-index: 1;
+      transition: all 200ms linear;
+    }
+
+    #progress-wrap:hover::after {
+      color: #d4af37; /* Flèche dorée au survol */
+    }
+
+    #progress-wrap svg path { 
+      fill: none; 
+    }
+
+    #progress-wrap svg.progress-circle path {
+      stroke: rgb(16, 16, 197); /* Couleur de la barre de progression */
+      stroke-width: 4;
+      box-sizing:border-box;
+      transition: all 200ms linear;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { .gallery { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 992px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .gallery { grid-template-columns: repeat(1, 1fr); } }
+  </style>
 </head>
 
 <body>
 
+  <div id="progress-wrap">
+    <svg class="progress-circle" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
+    </svg>
+  </div>
 
-<header>
+  <header>
+    <h1>CQFD</h1>
+    <p>œuvres uniques à vendre</p>
+    <nav>
+      <a href="#">🎨 Galerie</a>
+      <a href="./site de vente/html/contact.html">📱 Contact</a>
+      <a href="#" onclick="toggleCart(); return false;">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+      <a href="./site de vente/vendu.html">❌ Vendu</a>
+      <a href="./site de vente/html/connexion.html">connexion</a> 
+    </nav>
+  </header>
 
-<h1>CQFD</h1>
-
-<p>œuvres uniques à vendre</p>
-
-<nav>
-
-<a href="../index.html">🎨 Galerie</a>
-<a href="html/contact.html">📱 Contact</a>
-<a href="#" onclick="toggleCart();return false;">
-⭐️ Favoris (<span id="cart-count">0</span>)
-</a>
-<a href="vendu.html">❌ Vendu</a>
-
-</nav>
-
-</header>
-
-
-
-<main class="gallery">
+  <main class="gallery">
   <article class="card" data-title="Chien Balloon LV & Keith Haring" data-price="300">
     <a href="html/pVendu1.html">
       <img src="photo/8993961900560639874.jpeg">
@@ -67,95 +234,92 @@
 
 
 
-<aside id="cart">
-
-<button id="close-cart">✕</button>
-
-<h3>⭐️ Vos Favoris</h3>
-
-<ul id="cart-items"></ul>
-
-<p>Total : <span id="cart-total">0</span> €</p>
-
-<a href="html/contact.html"
-style="display:block;text-align:center;background:#007bff;color:white;padding:10px;border-radius:5px;text-decoration:none;">
-Passer à la commande
-</a>
-
-</aside>
 
 
+    <aside id="cart">
+      <button id="close-cart">✕</button>
+      <h3>⭐️ Vos Favoris</h3>
+      <ul id="cart-items"></ul>
+      <p>Total : <span id="cart-total">0</span> €</p>
+      <a href="./contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
+    </aside>
+  </main>
 
-<script>
+  <script>
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    // Gestion de la progression du cercle
+    const progressWrap = document.getElementById('progress-wrap');
+    const progressPath = document.querySelector('#progress-wrap svg path');
+    const pathLength = progressPath.getTotalLength();
 
-function updateCartDisplay(){
+    progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
+    progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+    progressPath.style.strokeDashoffset = pathLength;
+    progressPath.getBoundingClientRect();
+    progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
 
-const itemsList=document.getElementById('cart-items');
-const countSpan=document.getElementById('cart-count');
-const totalSpan=document.getElementById('cart-total');
+    const updateProgress = function () {
+      const scroll = window.pageYOffset;
+      const height = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = pathLength - (scroll * pathLength / height);
+      progressPath.style.strokeDashoffset = progress;
+      
+      if (scroll > 150) {
+        progressWrap.classList.add('active-progress');
+      } else {
+        progressWrap.classList.remove('active-progress');
+      }
+    }
 
-itemsList.innerHTML='';
+    window.onscroll = updateProgress;
 
-let sum=0;
+    progressWrap.onclick = function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
 
-cart.forEach((item,index)=>{
+    // Gestion du panier
+    function updateCartDisplay() {
+      const itemsList = document.getElementById('cart-items');
+      const countSpan = document.getElementById('cart-count');
+      const totalSpan = document.getElementById('cart-total');
+      if(!itemsList) return;
 
-const li=document.createElement('li');
+      itemsList.innerHTML = '';
+      let sum = 0;
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.innerHTML = `<span>${item.title}</span> <span>${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; margin-left:5px;">🗑️</button></span>`;
+        itemsList.appendChild(li);
+        sum += item.price;
+      });
+      countSpan.textContent = cart.length;
+      totalSpan.textContent = sum.toFixed(2);
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
 
-li.innerHTML=
-`<span>${item.title}</span>
-<span>${item.price}€
-<button onclick="removeFromCart(${index})"
-style="background:none;border:none;color:red;cursor:pointer;margin-left:5px;">
-🗑️
-</button></span>`;
+    function addToCart(button) {
+      const card = button.closest('.card');
+      const title = card.getAttribute('data-title');
+      const price = parseFloat(card.getAttribute('data-price'));
+      if (cart.some(it => it.title === title)) { alert('Déjà dans vos favoris.'); return; }
+      cart.push({ title, price });
+      updateCartDisplay();
+      document.getElementById('cart').classList.add('open');
+    }
 
-itemsList.appendChild(li);
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartDisplay();
+    }
 
-sum+=item.price;
+    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
+    document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
 
-});
-
-countSpan.textContent=cart.length;
-
-totalSpan.textContent=sum.toFixed(2);
-
-localStorage.setItem('cart',JSON.stringify(cart));
-
-}
-
-
-function addToCart(button){
-return false;
-}
-
-
-function removeFromCart(index){
-
-cart.splice(index,1);
-
-updateCartDisplay();
-
-}
-
-
-function toggleCart(){
-
-document.getElementById('cart').classList.toggle('open');
-
-}
-
-
-document.getElementById('close-cart').onclick=
-()=>document.getElementById('cart').classList.remove('open');
-
-
-window.onload=updateCartDisplay;
-
-</script>
-
-
+    window.onload = function() {
+      updateCartDisplay();
+      updateProgress();
+    };
+  </script>
 </body>
 </html>
