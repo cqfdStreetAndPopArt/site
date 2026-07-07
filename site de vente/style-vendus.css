@@ -113,13 +113,12 @@ aside#cart.open {
     border-radius: 4px;
 }
 
-
 .fav-btn.inactive {
     display: inline-block;
     margin-top: 10px;
     padding: 8px 12px;
     background: linear-gradient(135deg, green, rgb(22, 75, 22));
-    color: rgb(16, 16, 197);
+    color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
