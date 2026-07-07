@@ -1,0 +1,45 @@
+<main class="gallery">
+  <article class="card" data-title="Chien Balloon LV & Keith Haring" data-price="300">
+    <a href="html/pVendu1.html">
+      <img src="photo/8993961900560639874.jpeg">
+      <h2 class="link-h2">
+        Chien Balloon LV & Keith Haring
+      </h2>
+    </a>
+    <p class="price">300€</p>
+    <button class="fav-btn inactive" type="button" aria-disabled="true" disabled>
+      Ajouter aux favoris
+    </button>
+  </article>
+
+  <article class="card" data-title="Playmobil Porsche XXL" data-price="450">
+    <a href="html/pVendu2.html">
+      <img src="./site de vente/photo/1612031597558616028.jpeg">
+      <h2 class="link-h2">
+        Playmobil Porsche XXL
+      </h2>
+    </a>
+    <p class="price">450€</p>
+    <button class="fav-btn inactive" type="button" aria-disabled="true" disabled>
+      Ajouter aux favoris
+    </button>
+  </article>
+</main>
+
+
+
+
+
+
+
+.fav-btn.inactive {
+  background-color: #2e8b57;
+  color: #fff;
+  cursor: not-allowed;
+  opacity: 0.95;
+}
+
+.fav-btn.inactive:hover {
+  background-color: #2e8b57;
+  transform: none;
+}
