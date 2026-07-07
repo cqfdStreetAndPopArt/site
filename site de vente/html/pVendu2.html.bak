@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playmobil Porsche XXL - CQFD</title>
+  <link rel="stylesheet" href="../style-vendus.css" />
+  
+</head>
+<body>
+
+  <header>
+    <h1>CQFD</h1>
+    <nav>
+      <a href="../../index.html">🎨 Galerie</a>
+      <a href="#" onclick="toggleCart()" role="button">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+    </nav>
+  </header>
+
+  <main class="product-detail">
+    <div class="container">
+      <div class="thumbnails">
+        <img src="../photo/1612031597558616028.jpeg" onclick="changeImage(this)" alt="Playmobil Porsche XXL - Vue 1">
+      </div>
+
+      <div class="main-image" id="zoom-container">
+        <img id="largeImage" src="../photo/1612031597558616028.jpeg" alt="Playmobil Porsche XXL">
+        <div id="zoom-result"></div>
+      </div>
+
+      <div class="product-info">
+        <div class="art-card">
+            <h1 class="art-title">Playmobil Porsche XXL</h1>
+            <div class="art-subtitle">Techniques mixtes — 67 cm</div>
+
+            <div class="art-spec">
+                <span>Finition :</span> Satin
+            </div>
+
+            <div class="art-description">
+                <p>Playmobil XXL noir et logo Porsche Rouge.</p>
+                <p>Cette œuvre représente deux emblèmes forts : celui de notre enfance et celui des voitures sportives de luxe.</p>
+                <p>Une œuvre <strong>indécemment régressive</strong> qui repousse les limites du jeu et du plaisir !</p>
+            </div>
+
+            <div class="purchase-section">
+                <div class="price-tag">450€</div>
+                <button type="button" class="fav-btn inactive" aria-disabled="true" disabled>
+                    Ajouter aux favoris
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <aside id="cart">
+      <button id="close-cart">✕</button>
+      <h3>⭐️ Vos Favoris</h3>
+      <ul id="cart-items"></ul>
+      <p>Total : <span id="cart-total">0</span> €</p>
+      <a href="./contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
+    </aside>
+  </main>
+
+  <script>
+    const container = document.getElementById('zoom-container');
+    const img = document.getElementById('largeImage');
+    const result = document.getElementById('zoom-result');
+
+    container.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 992) return;
+      result.style.display = "block";
+      result.style.backgroundImage = `url('${img.src}')`;
+      
+      // ZOOM RÉGLÉ SUR 2 COMME LES AUTRES
+      const zoomLevel = 2; 
+      
+      result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      result.style.backgroundPosition = `${(x / img.offsetWidth) * 100}% ${(y / img.offsetHeight) * 100}%`;
+    });
+
+    container.addEventListener('mouseleave', () => result.style.display = "none");
+
+    function changeImage(thumbnail) { img.src = thumbnail.src; }
+
+    // LOGIQUE FAVORIS
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
+    function addToCart(title, price) {
+      return false;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+      if (!cartItems) return;
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.style.marginBottom = "10px";
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[Supprimer]</button>`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      cartTotal.textContent = total;
+      cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
+    document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
+
+    window.onload = updateCartDisplay;
+  </script>
+</body>
+</html>
