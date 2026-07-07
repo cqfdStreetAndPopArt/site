@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chien Balloon LV & Keith Haring - CQFD</title>
+  <title>Playmobil Porsche XXL - CQFD</title>
   <link rel="stylesheet" href="../style-vendus.css" />
   
   <style>
@@ -23,38 +23,49 @@
       background: #fff;
       border: 1px solid #ccc;
       padding: 15px;
-      width: 250px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 280px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
       z-index: 1000;
+      border-radius: 8px;
     }
     #cart.open { display: block; }
 
     #close-cart {
       position: absolute;
-      top: 5px;
-      right: 5px;
-      background: red;
+      top: 10px;
+      right: 10px;
+      background: #ff4d4d;
       color: white;
       border: none;
-      width: 24px;
-      height: 24px;
-      font-size: 16px;
+      width: 28px;
+      height: 28px;
       cursor: pointer;
-      border-radius: 4px;
+      border-radius: 50%;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .container {
+    #cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    #cart-items li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
       display: flex;
-      flex-wrap: wrap;
-      gap: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 40px 20px;
-      align-items: flex-start;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
     }
 
     /* ========================================== */
-    /* IMAGES ET ZOOM (HARMONISÉ 300x300)         */
+    /* IMAGES ET ZOOM (MODIFIÉ POUR HARMONIE)     */
     /* ========================================== */
     .thumbnails {
       display: flex;
@@ -148,6 +159,7 @@
         line-height: 1.8;
         color: #444;
         margin-bottom: 30px;
+        text-align: justify;
     }
 
     .purchase-section {
@@ -166,7 +178,7 @@
 
     .fav-btn {
         background-color: #1a1a1a;
-        color: #ffffff;
+        color: white;
         border: none;
         padding: 14px 28px;
         cursor: pointer;
@@ -204,30 +216,31 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="../photo/8993961900560639874.jpeg" onclick="changeImage(this)" alt="Vue 1">
+        <img src="../photo/1612031597558616028.jpeg" onclick="changeImage(this)" alt="Playmobil Porsche XXL - Vue 1">
       </div>
 
       <div class="main-image" id="zoom-container">
-        <img id="largeImage" src="../photo/8993961900560639874.jpeg" alt="Chien Balloon LV & Keith Haring">
+        <img id="largeImage" src="../photo/1612031597558616028.jpeg" alt="Playmobil Porsche XXL">
         <div id="zoom-result"></div>
       </div>
 
       <div class="product-info">
         <div class="art-card">
-            <h1 class="art-title">Chien Balloon LV & Keith Haring</h1>
-            <div class="art-subtitle">Techniques mixtes — 30 cm</div>
+            <h1 class="art-title">Playmobil Porsche XXL</h1>
+            <div class="art-subtitle">Techniques mixtes — 67 cm</div>
 
             <div class="art-spec">
-                <span>Finition :</span> Verni brillant
+                <span>Finition :</span> Satin
             </div>
 
             <div class="art-description">
-                <p><strong>D'après Koons.</strong> Ce chien balloon doré arbore les dessins emblématiques de Keith Haring.</p>
-                <p>Une œuvre unique qui allie avec humour la culture du luxe et la pop culture. Cette sculpture élégante accroche le regard et fascine par la finesse d'exécution des personnages.</p>
+                <p>Playmobil XXL noir et logo Porsche Rouge.</p>
+                <p>Cette œuvre représente deux emblèmes forts : celui de notre enfance et celui des voitures sportives de luxe.</p>
+                <p>Une œuvre <strong>indécemment régressive</strong> qui repousse les limites du jeu et du plaisir !</p>
             </div>
 
             <div class="purchase-section">
-                <div class="price-tag">300€</div>
+                <div class="price-tag">450€</div>
                 <button type="button" class="fav-btn inactive" aria-disabled="true" disabled>
                     Ajouter aux favoris
                 </button>
@@ -255,7 +268,7 @@
       result.style.display = "block";
       result.style.backgroundImage = `url('${img.src}')`;
       
-      // ZOOM RÉGLÉ SUR 2
+      // ZOOM RÉGLÉ SUR 2 COMME LES AUTRES
       const zoomLevel = 2; 
       
       result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
@@ -269,7 +282,7 @@
 
     function changeImage(thumbnail) { img.src = thumbnail.src; }
 
-    // GESTION PANIER / FAVORIS
+    // LOGIQUE FAVORIS
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 

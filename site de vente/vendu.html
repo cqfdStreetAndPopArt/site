@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="CQFD — œuvres uniques et objets d'art à vendre.">
-<link rel="stylesheet" href="./style.css">
+<link rel="stylesheet" href="./style-vendus.css">
 
 <title>CQFD</title>
 
@@ -307,22 +307,22 @@ z-index:1;
       </h2>
     </a>
     <p class="price">300€</p>
-    <button class="fav-btn" onclick="addToCart(this)">
+    <button class="fav-btn inactive" type="button" aria-disabled="true" disabled>
       Ajouter aux favoris
     </button>
   </article>
 </main>
 
 <main class="gallery">
-  <article class="card" data-title="Chien Balloon LV & Keith Haring" data-price="300">
-    <a href="html/pVendu1.html">
-      <img src="photo/8993961900560639874.jpeg">
+  <article class="card" data-title="Playmobil Porsche XXL" data-price="450">
+    <a href="html/pVendu2.html">
+      <img src="./site de vente/photo/1612031597558616028.jpeg">
       <h2 class="link-h2">
-        Chien Balloon LV & Keith Haring
+        Playmobil Porsche XXL
       </h2>
     </a>
-    <p class="price">300€</p>
-    <button class="fav-btn1" onclick="addToCart(this)">
+    <p class="price">450€</p>
+    <button class="fav-btn inactive" type="button" aria-disabled="true" disabled>
       Ajouter aux favoris
     </button>
   </article>
@@ -352,7 +352,6 @@ Passer à la commande
 <script>
 
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
 
 function updateCartDisplay(){
 
@@ -392,27 +391,7 @@ localStorage.setItem('cart',JSON.stringify(cart));
 
 
 function addToCart(button){
-
-const card=button.closest('.card');
-
-const title=card.getAttribute('data-title');
-
-const price=parseFloat(card.getAttribute('data-price'));
-
-if(cart.some(it=>it.title===title)){
-
-alert('Déjà dans vos favoris.');
-
-return;
-
-}
-
-cart.push({title,price});
-
-updateCartDisplay();
-
-document.getElementById('cart').classList.add('open');
-
+return false;
 }
 
 
