@@ -15,7 +15,12 @@ body {
 /* ========================================== */
 /* HEADER ET NAVIGATION                      */
 /* ========================================== */
-
+header {
+    background: linear-gradient(135deg, yellow, orange);
+    color: rgb(16, 16, 197);
+    padding: 30px 20px;
+    text-align: center;
+}
 
 header h1 {
     margin: 0;
