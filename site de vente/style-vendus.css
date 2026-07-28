@@ -16,7 +16,8 @@ body {
 /* HEADER ET NAVIGATION                      */
 /* ========================================== */
 header {
-    background: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.85) !important;
+    background-image: none !important;
     color: rgb(16, 16, 197);
     padding: 30px 20px;
     text-align: center;
