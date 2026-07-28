@@ -16,15 +16,7 @@ body {
 /* HEADER ET NAVIGATION                      */
 /* ========================================== */
 header {
-    background: rgba(255, 255, 255, 0.85) !important;
-    background-image: none !important;
-    color: rgb(16, 16, 197);
-    padding: 30px 20px;
-    text-align: center;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.7);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    display: none !important;
 }
 
 header h1 {
