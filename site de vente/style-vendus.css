@@ -16,13 +16,8 @@ body {
 /* HEADER ET NAVIGATION                      */
 /* ========================================== */
 header {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 0 !important;
-    overflow: hidden !important;
+    text-align: center;
+    padding: 30px 0;
 }
 
 header h1 {
