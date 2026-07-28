@@ -15,41 +15,26 @@ body {
 /* ========================================== */
 /* HEADER ET NAVIGATION                      */
 /* ========================================== */
-header {
-    display: block !important;
-    visibility: visible !important;
-    height: auto !important;
-    text-align: center;
-    padding: 30px 20px;
-    background: rgba(255,255,255,0.9);
-    border-bottom: 2px solid #d4af37;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+
 
 header h1 {
-    margin: 0 0 8px;
-    font-size: 3rem;
-    letter-spacing: 4px;
-    color: #1a1a1a;
+    margin: 0;
+    font-size: 2.5em;
 }
 
 header nav {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 12px 18px;
-    margin-top: 12px;
+    margin-top: 15px;
 }
 
 header nav a {
-    color: #1a1a1a;
+    color: rgb(16, 16, 197);
     text-decoration: none;
+    margin: 0 15px;
     font-weight: bold;
 }
 
 header nav a:hover {
     text-decoration: underline;
-    color: #d4af37;
 }
 
 /* ========================================== */
