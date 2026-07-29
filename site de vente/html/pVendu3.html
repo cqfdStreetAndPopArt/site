@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>She Rose Anyway - CQFD</title>
-  <link rel="stylesheet" href="../style.css" />
+  <title>Téléphone PacMan - CQFD</title>
+  <link rel="stylesheet" href="../style-vendus.css" />
   
   <style>
     /* ========================================== */
@@ -65,7 +65,7 @@
     }
 
     /* ========================================== */
-    /* IMAGES ET ZOOM (MODIFIÉ POUR HARMONIE)     */
+    /* IMAGES ET ZOOM (HARMONISÉ)                 */
     /* ========================================== */
     .thumbnails {
       display: flex;
@@ -146,7 +146,7 @@
     }
 
     .art-spec {
-        margin-bottom: 25px;
+        margin-bottom: 15px;
         font-size: 0.85rem;
         text-transform: uppercase;
         letter-spacing: 1px;
@@ -190,7 +190,7 @@
     }
 
     .fav-btn:hover {
-        background-color: #d4af37;
+        background-color: #d4af37; 
         transform: translateY(-2px);
     }
 
@@ -218,39 +218,39 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails">
-        <img src="../photo/20260218_125754.jpg" onclick="changeImage(this)" alt="gorille rose sur socle noir - Vue 1">
-        <img src="../photo/20260218_125809.jpg" onclick="changeImage(this)" alt="gorille rose sur socle noir - Vue 2">
-        <img src="../photo/20260218_125818.jpg" onclick="changeImage(this)" alt="gorille rose sur socle noir - Vue 3">
-        <img src="../photo/20260218_125827.jpg" onclick="changeImage(this)" alt="gorille rose sur socle noir - Vue 4">
+        <img src="../photo/20260218_130142.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 1">
+        <img src="../photo/20260218_130156.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 2">
+        <img src="../photo/20260218_130207.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 3">
+        <img src="../photo/20260218_130218.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 4">
+        <img src="../photo/20260218_130232.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 5">
+        <img src="../photo/20260218_130239.jpg" onclick="changeImage(this)" alt="Téléphone PacMan - Vue 6">
       </div>
 
       <div class="main-image" id="zoom-container">
-        <img id="largeImage" src="../photo/20260218_125754.jpg" alt="gorille rose sur socle noir">
+        <img id="largeImage" src="../photo/20260218_130142.jpg" alt="Téléphone PacMan">
         <div id="zoom-result"></div>
       </div>
 
       <div class="product-info">
         <div class="art-card">
-            <h1 class="art-title">gorille rose sur socle noir</h1>
-            <div class="art-subtitle">Dimensions : 25x10x10 cm</div>
+            <h1 class="art-title">Téléphone PacMan</h1>
+            <div class="art-subtitle">Matériau : Bakélite — Années 80</div>
 
             <div class="art-spec">
-                <span>Finition :</span> Brillante
+                <span>Technique :</span> Technique mixte
+            </div>
+            <div class="art-spec">
+                <span>Finition :</span> Verni brillant
             </div>
 
             <div class="art-description">
-                <p>gorille rose sur socle noir</p>
-                <p>La technique ancestrale du Kintsugi vise à réparer , à embellir et à solidifier un objet qui a ete cassé. Ici, 
-                   c'est un véritable Kong d'Orlinsky qui nous incite à nous relever de nos épreuves, de nos blessures et à affirmer notre puissance retrouvée. </p>
-                <p>Cette œuvre, chère à l'artiste, est une ôde à la résilience (She rose anyway : elle s'est relevée malgré tout).
-                   Une exhortation à se battre envers et malgrétout, une acclamation faite au courage des femmes.</p>
-
-                <p>Envoi rapide et toujours soigné. Vendu avec certificat d'authenticité. </p>
+                <p>Véritable téléphone des années 80 avec son cadran fonctionnel, entièrement revisité par l'univers <strong>retrogaming</strong> coloré de PacMan.</p>
+                <p>Une œuvre unique qui transforme un objet iconique du quotidien en une pièce d'art nostalgique et vibrante.</p>
             </div>
 
             <div class="purchase-section">
-                <div class="price-tag">250€</div>
-                <button type="button" class="fav-btn" onclick="addToCart('Balloon Dog with Wings', 250)">
+                <div class="price-tag">300€</div>
+                <button type="button" class="fav-btn" onclick="addToCart('Téléphone PacMan', 300)">
                     Ajouter aux favoris
                 </button>
             </div>
@@ -277,7 +277,7 @@
       result.style.display = "block";
       result.style.backgroundImage = `url('${img.src}')`;
       
-      // ZOOM RÉGLÉ SUR 2 COMME LES AUTRES
+      // ZOOM RÉGLÉ SUR 2
       const zoomLevel = 2; 
       
       result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
