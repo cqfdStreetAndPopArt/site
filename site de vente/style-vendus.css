@@ -327,6 +327,20 @@ button.fav-btn.inactive:hover {
     background: linear-gradient(135deg, #27ae60, #1b6b36);
 }
 
+.checkout-button {
+    display: block;
+    text-align: center;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.checkout-button:hover {
+    background: #0056d6;
+}
+
 #progress-wrap {
     position: fixed;
     right: 30px;
