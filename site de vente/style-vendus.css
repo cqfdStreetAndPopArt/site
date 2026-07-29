@@ -194,3 +194,287 @@ aside#cart.open {
     .thumbnails { flex-direction: row; margin: 10px 0; }
     .main-image { width: 100%; max-width: 400px; }
 }
+
+/* ========================================== */
+/* VENDU / PAGES PRODUIT                      */
+/* ========================================== */
+#cart {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: 280px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 8px;
+}
+#cart.open { display: block; }
+
+#close-cart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#cart-items {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#cart-items li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.gallery .card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+.gallery .card:hover {
+    transform: translateY(-5px);
+}
+
+.gallery .card img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.link-h2 {
+    font-size: 1rem;
+    margin: 10px 0;
+    color: #333;
+    text-decoration: none;
+    min-height: 2.4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.fav-btn {
+    background-color: #1a1a1a;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+button.fav-btn:hover {
+    background-color: #d4af37;
+}
+
+button.fav-btn.inactive {
+    background: linear-gradient(135deg, #2ecc71, #1f8f4c);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    text-align: center;
+}
+
+button.fav-btn.inactive:hover {
+    background: linear-gradient(135deg, #27ae60, #1b6b36);
+}
+
+#progress-wrap {
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    height: 46px;
+    width: 46px;
+    cursor: pointer;
+    display: block;
+    border-radius: 50px;
+    box-shadow: inset 0 0 0 2px rgba(0,0,0,0.1);
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: all 200ms linear;
+    background-color: #fff;
+}
+
+#progress-wrap.active-progress {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#progress-wrap::after {
+    position: absolute;
+    content: '↑';
+    text-align: center;
+    line-height: 46px;
+    width: 46px;
+    font-size: 22px;
+    color: #1a1a1a;
+    left: 0;
+    top: 0;
+    height: 46px;
+    z-index: 1;
+    transition: all 200ms linear;
+}
+
+#progress-wrap:hover::after {
+    color: #d4af37;
+}
+
+#progress-wrap svg path {
+    fill: none;
+}
+
+#progress-wrap svg.progress-circle path {
+    stroke: rgb(16, 16, 197);
+    stroke-width: 4;
+    box-sizing: border-box;
+    transition: all 200ms linear;
+}
+
+.product-detail {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.product-info {
+    flex: 1;
+    min-width: 350px;
+}
+
+.art-card {
+    padding: 40px;
+    background-color: #fff;
+    color: #1a1a1a;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.art-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin: 0 0 10px 0;
+    color: #000;
+}
+
+.art-subtitle {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.art-spec {
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.art-spec span {
+    font-weight: bold;
+    color: #999;
+}
+
+.art-description {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+.purchase-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 25px;
+    border-top: 1px solid #eee;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.price-tag {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #000;
+}
+
+.thumbnails {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.thumbnails img {
+    width: 80px;
+    height: 100px;
+    cursor: pointer;
+    object-fit: cover;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+}
+
+.thumbnails img:hover {
+    border-color: #000;
+}
+
+#zoom-result {
+    width: 300px;
+    height: 300px;
+    border: 1px solid #ccc;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    border-radius: 4px;
+}
+
