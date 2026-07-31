@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dirty Rolex - CQFD</title>
+  <link rel="stylesheet" href="../style.css" />
+  
+  </head>
+<body>
+
+  <header>
+    <h1>CQFD</h1>
+    <nav>
+      <a href="../../index.html">🎨 Galerie</a>
+      <a href="../html/contact.html">📱 Contact</a>
+      <a href="#" onclick="toggleCart(); return false;">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+      <a href="../vendu.html">❌ Vendu</a>
+    </nav>
+  </header>
+
+  <main class="product-detail">
+    <div class="container">
+      <div class="thumbnails">
+        <img src="../photo/20260704_182815.jpg" onclick="changeImage(this)" alt="Vue 1">
+        <img src="../photo/20260704_182850.jpg" onclick="changeImage(this)" alt="Vue 2">
+        <img src="../photo/20260704_182843.jpg" onclick="changeImage(this)" alt="Vue 3">
+        <img src="../photo/20260704_182834.jpg" onclick="changeImage(this)" alt="Vue 4">
+        <img src="../photo/20260704_182824.jpg" onclick="changeImage(this)" alt="Vue 5">
+        <img src="../photo/20260704_182920.jpg" onclick="changeImage(this)" alt="Vue 6">
+        <img src="../photo/20260704_182859.jpg" onclick="changeImage(this)" alt="Vue 7">
+        <img src="../photo/20260704_182907.jpg" onclick="changeImage(this)" alt="Vue 8">
+      </div>
+
+      <div class="main-image" id="zoom-container">
+        <img id="largeImage" src="../photo/20260704_182815.jpg" alt="Dirty Rolex">
+        <div id="zoom-result"></div>
+      </div>
+
+      <div class="product-info">
+        <div class="art-card">
+            <h1 class="art-title">Dirty Rolex</h1>
+            <div class="art-subtitle">Sculpture en résine acrylique, peinture au pistolet, détails peints à la main, aérosol — 48 x 20 x 24 cm</div>
+
+            <div class="art-spec">
+                <span>Finition :</span> finition laquée
+            </div>
+
+            <div class="art-description">
+                <p>"Dirty Rolex" s'inscrit dans la lignée des œuvres pop art qui réinterprètent les icônes de la culture populaire et les confrontent aux symboles du luxe et de la consommation. Cette sculpture d'un ours en peluche stylisé, à la fois tendre et espiègle, est parée d'une finition d'un rose vibrant, obtenue par une application soignée de peinture au pistolet.</p>
+                <p>L'artiste bouscule les codes de la représentation enfantine en ornant l'ours de détails somptueux et inattendus. Les oreilles, le museau et les pattes sont rehaussés d'or, apportant une touche de raffinement et de sophistication. Le logo emblématique de Rolex, la célèbre couronne, ainsi que le nom de la marque sont méticuleusement placés sur le torse de l'ursidé, comme une estampille de prestige.</p>
+                <p>Cette œuvre, par son contraste audacieux entre l'innocence de l'enfance et l'opulence d'une marque de luxe, interpelle le spectateur sur notre rapport aux objets et aux symboles de statut social.</p>
+                <p>"Dirty Rolex" est une sculpture à la fois ludique et provocatrice, qui ne manquera pas de marquer les esprits et d'enrichir toute collection d'art contemporain.</p>
+                <p>Œuvre unique, vendue avec Certificat d'authenticité.</p>
+            </div>
+
+            <div class="purchase-section">
+                <div class="price-tag">150€</div>
+                <button type="button" class="fav-btn" onclick="addToCart('Dirty Rolex', 150)">
+                    Ajouter aux favoris
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <aside id="cart">
+      <button id="close-cart">✕</button>
+      <h3>⭐️ Vos Favoris</h3>
+      <ul id="cart-items"></ul>
+      <p>Total : <span id="cart-total">0</span> €</p>
+      <a href="./contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
+    </aside>
+  </main>
+
+  <script>
+    const container = document.getElementById('zoom-container');
+    const img = document.getElementById('largeImage');
+    const result = document.getElementById('zoom-result');
+
+    container.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 992) return;
+      result.style.display = "block";
+      result.style.backgroundImage = `url('${img.src}')`;
+      
+      // NIVEAU DE ZOOM LÉGÈREMENT RÉDUIT POUR LE PETIT FORMAT
+      const zoomLevel = 2; 
+      
+      result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      result.style.backgroundPosition = `${(x / img.offsetWidth) * 100}% ${(y / img.offsetHeight) * 100}%`;
+    });
+
+    container.addEventListener('mouseleave', () => result.style.display = "none");
+
+    function changeImage(thumbnail) { img.src = thumbnail.src; }
+
+    // GESTION DES FAVORIS
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
+    function addToCart(title, price) {
+      if (cart.some(it => it.title === title)) { alert('Déjà dans vos favoris.'); return; }
+      cart.push({ title, price });
+      saveCart();
+      updateCartDisplay();
+      toggleCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+      if (!cartItems) return;
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.style.marginBottom = "10px";
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[Supprimer]</button>`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      cartTotal.textContent = total;
+      cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
+    document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
+
+    window.onload = updateCartDisplay;
+  </script>
+</body>
+</html>
