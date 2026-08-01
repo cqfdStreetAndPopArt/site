@@ -10,6 +10,13 @@ body {
     background-size: cover;
     background-position: center;
     color: #333;
+    overflow-x: hidden;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 /* ========================================== */
@@ -396,6 +403,123 @@ button.fav-btn.inactive:hover {
     stroke-width: 4;
     box-sizing: border-box;
     transition: all 200ms linear;
+}
+
+@media (max-width: 768px) {
+    body {
+        background-attachment: scroll;
+    }
+
+    header {
+        padding: 20px 12px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    header nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 10px;
+    }
+
+    header nav a {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 20px 12px;
+        gap: 12px;
+    }
+
+    .gallery .card img {
+        height: auto;
+        max-height: 220px;
+    }
+
+    .container {
+        flex-direction: column;
+        padding: 12px;
+    }
+
+    .product-info {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .main-image {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #zoom-result {
+        display: none !important;
+    }
+
+    .thumbnails {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 10px 0;
+    }
+
+    .thumbnails img {
+        width: 70px;
+        height: 70px;
+    }
+
+    #cart {
+        width: calc(100% - 24px);
+        right: 12px;
+        left: 12px;
+        top: auto;
+        bottom: 0;
+        max-height: 70vh;
+        overflow: auto;
+    }
+
+    aside#cart.open {
+        right: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery {
+        grid-template-columns: 1fr;
+    }
+
+    header nav {
+        flex-direction: column;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    .gallery .card img {
+        max-height: 180px;
+    }
+
+    .art-card {
+        padding: 20px;
+    }
+
+    .art-title {
+        font-size: 1.6rem;
+    }
+
+    .price-tag {
+        font-size: 1.3rem;
+    }
+
+    .purchase-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
 
 .product-detail {
