@@ -21,7 +21,8 @@
   <header>
     <h1>CQFD</h1>
     <p>Oeuvres Uniques à Vendre</p>
-    <nav>
+    <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
+    <nav class="main-nav">
       <a href="#">🎨 Galerie</a>
       <a href="./site de vente/html/contact.html">📱 Contact</a>
       <a href="#" onclick="toggleCart(); return false;">⭐️ Favoris (<span id="cart-count">0</span>)</a>
@@ -31,6 +32,7 @@
   </header>
 
   <main class="gallery">
+    <div class="gallery-list">
     <article class="card" data-title="La Muse et son Corsaire" data-price="600">
       <a href="./site de vente/html/produit1.html">
         <img src="./site de vente/photo/4996423612537855616.jpeg" alt="La Muse et son Corsaire">
@@ -140,6 +142,8 @@
     </article>
 
 
+    </div>
+
     <aside id="cart">
       <button id="close-cart">✕</button>
       <h3>⭐️ Vos Favoris</h3>
@@ -151,6 +155,55 @@
 
   <script>
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const header = document.querySelector('header');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const mainNav = document.querySelector('.main-nav');
+
+    if (menuToggle && mainNav && header) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = header.classList.toggle('nav-open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+    }
+
+    function initGalleryCarousel() {
+      const galleryList = document.querySelector('.gallery-list');
+      if (!galleryList) return;
+
+      const cardCount = galleryList.querySelectorAll('.card').length;
+      if (cardCount > 4) {
+        galleryList.classList.add('carousel-mode');
+
+        let isDragging = false;
+        let startX = 0;
+        let scrollLeft = 0;
+
+        galleryList.addEventListener('wheel', (event) => {
+          if (window.innerWidth <= 768) {
+            event.preventDefault();
+            galleryList.scrollLeft += event.deltaY;
+          }
+        }, { passive: false });
+
+        galleryList.addEventListener('touchstart', (event) => {
+          isDragging = true;
+          startX = event.touches[0].pageX - galleryList.offsetLeft;
+          scrollLeft = galleryList.scrollLeft;
+        }, { passive: true });
+
+        galleryList.addEventListener('touchmove', (event) => {
+          if (!isDragging) return;
+          const x = event.touches[0].pageX - galleryList.offsetLeft;
+          const walk = (x - startX) * 1.2;
+          galleryList.scrollLeft = scrollLeft - walk;
+        }, { passive: true });
+
+        galleryList.addEventListener('touchend', () => {
+          isDragging = false;
+        });
+      }
+    }
 
     // Gestion de la progression du cercle
     const progressWrap = document.getElementById('progress-wrap');
@@ -221,6 +274,7 @@
     document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
 
     window.onload = function() {
+      initGalleryCarousel();
       updateCartDisplay();
       updateProgress();
     };

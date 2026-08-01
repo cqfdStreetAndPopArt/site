@@ -26,6 +26,7 @@ header {
     color: rgb(16, 16, 197);
     padding: 30px 20px;
     text-align: center;
+    position: relative;
 }
 
 header h1 {
@@ -33,25 +34,45 @@ header h1 {
     font-size: 2.5em;
 }
 
-header nav {
+header .main-nav {
     margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 16px;
 }
 
-header nav a {
+header .main-nav a {
     color: rgb(16, 16, 197);
     text-decoration: none;
-    margin: 0 15px;
+    margin: 0;
     font-weight: bold;
 }
 
-header nav a:hover {
+header .main-nav a:hover {
     text-decoration: underline;
+}
+
+.menu-toggle {
+    display: none;
+    margin: 10px auto 0;
+    border: 0;
+    background: rgba(255,255,255,0.9);
+    color: rgb(16, 16, 197);
+    font-size: 1.3rem;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 /* ========================================== */
 /* GALERIE ET CARTES PRODUITS                */
 /* ========================================== */
 .gallery {
+    display: block;
+}
+
+.gallery-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
@@ -478,16 +499,16 @@ body.page-login {
     font-size: 0.9rem;
 }
 
-.gallery {
+.gallery-list {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 25px;
     max-width: 1200px;
     margin: 20px auto;
     padding: 0 20px;
 }
 
-.gallery .card {
+.gallery-list .card {
     background: #fff;
     padding: 15px;
     border-radius: 8px;
@@ -496,11 +517,11 @@ body.page-login {
     transition: transform 0.2s;
 }
 
-.gallery .card:hover {
+.gallery-list .card:hover {
     transform: translateY(-5px);
 }
 
-.gallery .card img {
+.gallery-list .card img {
     width: 100%;
     height: 250px;
     object-fit: contain;
@@ -606,25 +627,53 @@ button.fav-btn:hover {
         font-size: 2rem;
     }
 
-    header nav {
-        display: flex;
-        flex-wrap: wrap;
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
-        gap: 8px 10px;
     }
 
-    header nav a {
-        margin: 0;
-        font-size: 0.95rem;
+    header .main-nav {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        margin-top: 12px;
+        padding: 12px;
+        background: rgba(255,255,255,0.95);
+        border-radius: 10px;
+        box-shadow: 0 10px 24px rgba(0,0,0,0.12);
     }
 
-    .gallery {
+    header.nav-open .main-nav {
+        display: flex;
+    }
+
+    .gallery-list {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         padding: 20px 12px;
         gap: 12px;
     }
 
-    .gallery .card img {
+    .gallery-list.carousel-mode {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x mandatory;
+        padding: 12px 4px 24px;
+        gap: 12px;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+    }
+
+    .gallery-list.carousel-mode .card {
+        flex: 0 0 min(82vw, 280px);
+        max-width: 280px;
+        scroll-snap-align: start;
+    }
+
+    .gallery-list .card img {
         height: auto;
         max-height: 220px;
     }
@@ -676,8 +725,12 @@ button.fav-btn:hover {
 }
 
 @media (max-width: 480px) {
-    .gallery {
+    .gallery-list {
         grid-template-columns: 1fr;
+    }
+
+    .gallery-list.carousel-mode .card {
+        flex-basis: min(88vw, 260px);
     }
 
     header nav {
