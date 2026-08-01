@@ -22,12 +22,10 @@
   <main class="product-detail">
     <div class="container">
       <div class="thumbnails-wrapper">
-        <button class="thumb-nav" type="button" onclick="changeThumb(-1)">‹</button>
-        <div class="thumbnails">
+                <div class="thumbnails">
           <img src="../photo/8993961900560639874.jpeg" onclick="changeImage(this)" alt="Vue 1" class="active-thumb">
         </div>
-        <button class="thumb-nav" type="button" onclick="changeThumb(1)">›</button>
-      </div>
+              </div>
 
       <div class="main-image" id="zoom-container">
         <img id="largeImage" src="../photo/8993961900560639874.jpeg" alt="Chien Balloon LV & Keith Haring">
@@ -96,14 +94,6 @@
       img.src = thumbnail.src;
       thumbnails.forEach((item, index) => item.classList.toggle('active-thumb', item === thumbnail));
       activeIndex = thumbnails.indexOf(thumbnail);
-    }
-
-    function changeThumb(step) {
-      activeIndex = (activeIndex + step + thumbnails.length) % thumbnails.length;
-      const nextThumb = thumbnails[activeIndex];
-      if (nextThumb) {
-        changeImage(nextThumb);
-      }
     }
 
     // GESTION PANIER / FAVORIS
