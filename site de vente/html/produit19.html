@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Lego Thrower - CQFD</title>
+  <link rel="stylesheet" href="../style.css" />
+  
+  </head>
+<body>
+
+  <header>
+    <h1>CQFD</h1>
+    <nav>
+      <a href="../../index.html">🎨 Galerie</a>
+      <a href="../html/contact.html">📱 Contact</a>
+      <a href="#" onclick="toggleCart(); return false;">⭐️ Favoris (<span id="cart-count">0</span>)</a>
+      <a href="../vendu.html">❌ Vendu</a>
+    </nav>
+  </header>
+
+  <main class="product-detail">
+    <div class="container">
+      <div class="thumbnails">
+        <img src="../photo/20260722_134640.jpg" onclick="changeImage(this)" alt="Vue 1">
+        <img src="../photo/20260722_134652.jpg" onclick="changeImage(this)" alt="Vue 2">
+        <img src="../photo/20260722_134658.jpg" onclick="changeImage(this)" alt="Vue 3">
+        <img src="../photo/20260722_134706.jpg" onclick="changeImage(this)" alt="Vue 4">
+        <img src="../photo/20260722_134711.jpg" onclick="changeImage(this)" alt="Vue 5">
+        <img src="../photo/20260722_134734.jpg" onclick="changeImage(this)" alt="Vue 6">
+        <img src="../photo/20260722_134719.jpg" onclick="changeImage(this)" alt="Vue 7">
+      </div>
+
+      <div class="main-image" id="zoom-container">
+        <img id="largeImage" src="../photo/20260722_134640.jpg" alt="New Lego Thrower">
+        <div id="zoom-result"></div>
+      </div>
+
+      <div class="product-info">
+        <div class="art-card">
+            <h1 class="art-title">New Lego Thrower</h1>
+            <div class="art-subtitle">Techniques mixtes - Signé à la main - 2026 — 50 x 40 cm</div>
+
+            <div class="art-spec">
+                <span>Finition :</span> Vernis
+            </div>
+
+            <div class="art-description">
+                <p>Dans cette œuvre, l'artiste opère un télescopage audacieux entre la culture populaire ludique et l'imagerie contestataire de la rue. En détournant l'un des pochoirs les plus emblématiques du Street Art mondial, New Lego Thrower remplace la silhouette humaine par celle, géométrique et modulaire, d’une figurine LEGO.</p>
+                <p>Le contraste est immédiat : la rudesse du décor urbain — travaillé avec des nuances de gris profonds, des textures de béton et des collages d'affiches vintage — vient se heurter à la naïveté symbolique du personnage. Ce petit « bonhomme » masqué, figé dans un geste de jet, ne lance pas une brique mais un bouquet de fleurs éclatant.</p>
+                <p>Ici, l'artiste suggère que la paix et la beauté sont des éléments que l'on assemble, pièce par pièce. Les fleurs, seules touches de couleurs vives et saturées, jaillissent de ce monde monochrome comme un cri d'espoir nécessaire. Entre nostalgie de l'enfance et conscience sociale, cette toile nous rappelle que même dans un environnement bétonné, il suffit d'un geste pour changer la structure de notre réalité. Une révolution à construire, brique par brique.</p>
+                <p>Œuvre unique, vendue avec Certificat d'authenticité.</p>
+            </div>
+
+            <div class="purchase-section">
+                <div class="price-tag">150€</div>
+                <button type="button" class="fav-btn" onclick="addToCart('New Lego Thrower', 150)">
+                    Ajouter aux favoris
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <aside id="cart">
+      <button id="close-cart">✕</button>
+      <h3>⭐️ Vos Favoris</h3>
+      <ul id="cart-items"></ul>
+      <p>Total : <span id="cart-total">0</span> €</p>
+      <a href="./contact.html" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
+    </aside>
+  </main>
+
+  <script>
+    const container = document.getElementById('zoom-container');
+    const img = document.getElementById('largeImage');
+    const result = document.getElementById('zoom-result');
+
+    container.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 992) return;
+      result.style.display = "block";
+      result.style.backgroundImage = `url('${img.src}')`;
+      
+      // NIVEAU DE ZOOM LÉGÈREMENT RÉDUIT POUR LE PETIT FORMAT
+      const zoomLevel = 2; 
+      
+      result.style.backgroundSize = `${img.offsetWidth * zoomLevel}px ${img.offsetHeight * zoomLevel}px`;
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      result.style.backgroundPosition = `${(x / img.offsetWidth) * 100}% ${(y / img.offsetHeight) * 100}%`;
+    });
+
+    container.addEventListener('mouseleave', () => result.style.display = "none");
+
+    function changeImage(thumbnail) { img.src = thumbnail.src; }
+
+    // GESTION DES FAVORIS
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
+
+    function addToCart(title, price) {
+      if (cart.some(it => it.title === title)) { alert('Déjà dans vos favoris.'); return; }
+      cart.push({ title, price });
+      saveCart();
+      updateCartDisplay();
+      toggleCart();
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      saveCart();
+      updateCartDisplay();
+    }
+
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      const cartCount = document.getElementById('cart-count');
+      if (!cartItems) return;
+      cartItems.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.style.marginBottom = "10px";
+        li.innerHTML = `${item.title} - ${item.price}€ <button onclick="removeFromCart(${index})" style="background:none; border:none; color:red; cursor:pointer; font-size:10px;">[Supprimer]</button>`;
+        cartItems.appendChild(li);
+        total += item.price;
+      });
+      cartTotal.textContent = total;
+      cartCount.textContent = cart.length;
+    }
+
+    function toggleCart() { document.getElementById('cart').classList.toggle('open'); }
+    document.getElementById('close-cart').onclick = () => document.getElementById('cart').classList.remove('open');
+
+    window.onload = updateCartDisplay;
+  </script>
+</body>
+</html>
