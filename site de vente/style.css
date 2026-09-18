@@ -5,7 +5,7 @@ body {
     margin: 0;
     font-family: 'Arial', sans-serif;
     /* Intégration de l'image de fond */
-    background-image: url("./photo/IMG_6200.jpeg"); 
+    background-image: url("./photo/Gemini_Generated_Image_5p6oa25p6oa25p6o.png"); 
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -297,7 +297,6 @@ aside#cart.open {
 
 body.page-login {
     background-color: #f0f4f8;
-    background-image: none;
     display: flex;
     justify-content: center;
     align-items: center;
