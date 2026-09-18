@@ -19,6 +19,21 @@ img {
     height: auto;
 }
 
+.page-contact .insta-icon {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    flex: 0 0 42px;
+    margin-right: 8px;
+}
+
+body.page-contact {
+    background-image: url("./photo/Gemini_Generated_Image_5p6oa25p6oa25p6o.png");
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
 /* ========================================== */
 /* HEADER ET NAVIGATION                      */
 /* ========================================== */
