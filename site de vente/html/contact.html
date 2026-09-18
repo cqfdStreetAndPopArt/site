@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact - CQFD</title>
-  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../contact.css" />
   </head>
 <body class="page-contact">
 
-  <header>
+  <header class="contact-header">
     <h1>Contact</h1>
-    <nav class="main-nav">
+    <nav class="contact-nav">
       <a href="../../index.html">🎨 Galerie</a>
       <a href="#">📱 Contact</a>
       <a href="#" onclick="toggleCart(); return false;">⭐️ Favoris (<span id="cart-count">0</span>)</a>
@@ -18,12 +18,12 @@
     </nav>
   </header>
 
-  <main>
-    <div class="contact-wrap">
+  <main class="contact-main">
+    <div class="contact-panel">
       <h2>Contactez-nous</h2>
-      <p class="hint">Remplissez le formulaire ci-dessous ou envoyez-nous un message via Instagram.</p>
+      <p class="contact-hint">Remplissez le formulaire ci-dessous ou envoyez-nous un message via Instagram.</p>
 
-      <form id="contactForm">
+      <form id="contactForm" class="contact-form">
         <label for="name">Nom</label>
         <input id="name" name="name" type="text" required>
 
@@ -36,22 +36,22 @@
         <button type="submit">Envoyer</button>
       </form>
 
-      <div style="margin-top: 30px;">
-        <a href="https://www.instagram.com/cqfd_street_and_pop_art" target="_blank" style="color : linear-gradient(135deg, yellow, orange); font-weight: bold; display: inline-flex; align-items: center;">
-        <img src="../photo/insta.JPG.png" alt="Instagram" class="insta-icon">
-        <span style="color : linear-gradient(135deg, yellow, orange); font-weight: bold; display: inline-flex; align-items: center;">Instagram @cqfd_street_and_pop_art</span>
+      <div>
+        <a class="instagram-link" href="https://www.instagram.com/cqfd_street_and_pop_art" target="_blank" rel="noopener noreferrer">
+          <img src="../photo/insta.JPG.png" alt="Instagram" class="insta-icon">
+          <span>Instagram @cqfd_street_and_pop_art</span>
         </a>
       </div>
 
-      <div id="form-status" style="margin-top:12px; font-weight: bold;"></div>
+      <div id="form-status"></div>
     </div>
 
-    <aside id="cart">
+    <aside id="cart" class="contact-cart">
       <button id="close-cart">✕</button>
       <h3>⭐️ Vos Favoris</h3>
       <ul id="cart-items"></ul>
       <p>Total : <span id="cart-total">0</span> €</p>
-      <a href="#" class="checkout-button" style="display:block; text-align:center; background:#007bff; color:white; padding:10px; border-radius:5px; text-decoration:none;">Passer à la commande</a>
+      <a href="#" class="checkout-button">Passer à la commande</a>
     </aside>
   </main>
 
@@ -73,7 +73,7 @@
       const mailtoLink = `mailto:cqfd.street.popart@gmail.com?subject=${subject}&body=${body}`;
 
       window.open(mailtoLink, '_blank', 'noopener,noreferrer');
-      statusEl.innerHTML = 'Si votre messagerie ne s’ouvre pas, utilisez ce lien : <a href="' + mailtoLink + '" style="color:#ff6b00;">Envoyer le message</a>';
+      statusEl.innerHTML = 'Si votre messagerie ne s’ouvre pas, utilisez ce lien : <a class="mailto-link" href="' + mailtoLink + '">Envoyer le message</a>';
     });
 
     // Gestion du panier (Favoris)

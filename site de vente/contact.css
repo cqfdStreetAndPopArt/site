@@ -1,0 +1,235 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body.page-contact {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background-color: #dfe8f0;
+  background-image: url("./photo/Gemini_Generated_Image_5p6oa25p6oa25p6o.png");
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.contact-header {
+  padding: 30px 20px 20px;
+  text-align: center;
+  color: rgb(16, 16, 197);
+}
+
+.contact-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+}
+
+.contact-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 16px;
+  margin-top: 15px;
+}
+
+.contact-nav a {
+  color: rgb(16, 16, 197);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.contact-nav a:hover,
+.contact-nav a:focus-visible {
+  text-decoration: underline;
+}
+
+.contact-main {
+  width: min(100% - 24px, 800px);
+  margin: 30px auto 60px;
+}
+
+.contact-panel {
+  padding: 40px;
+  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.contact-panel h2 {
+  margin: 0 0 10px;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.contact-hint {
+  margin: 0 0 25px;
+  line-height: 1.5;
+}
+
+.contact-form label {
+  display: block;
+  margin: 15px 0 5px;
+  color: #444;
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font: inherit;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: 2px solid rgba(16, 16, 197, 0.3);
+  border-color: rgb(16, 16, 197);
+}
+
+.contact-form button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  border: 0;
+  border-radius: 6px;
+  background: #ff6b00;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.contact-form button:hover,
+.contact-form button:focus-visible {
+  background: #e65a00;
+}
+
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 30px;
+  color: #d35400;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.instagram-link:hover,
+.instagram-link:focus-visible {
+  text-decoration: underline;
+}
+
+.instagram-link .insta-icon {
+  display: block;
+  width: 42px;
+  height: 42px;
+  max-width: 42px;
+  object-fit: contain;
+  flex: 0 0 42px;
+}
+
+#form-status {
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+#form-status a,
+.mailto-link {
+  color: #ff6b00;
+}
+
+#cart.contact-cart {
+  position: fixed;
+  top: 80px;
+  right: -340px;
+  z-index: 10;
+  width: min(300px, calc(100% - 20px));
+  padding: 20px;
+  background: #fff;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s ease;
+}
+
+#cart.contact-cart.open {
+  right: 10px;
+}
+
+.contact-cart #close-cart {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: #ff4d4d;
+  color: #fff;
+  cursor: pointer;
+}
+
+.contact-cart h3 {
+  margin-top: 0;
+}
+
+.contact-cart ul {
+  max-height: 300px;
+  padding: 0;
+  margin: 15px 0;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.contact-cart li {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+}
+
+.checkout-button {
+  display: block;
+  padding: 10px;
+  border-radius: 5px;
+  background: #007bff;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  body.page-contact {
+    background-attachment: scroll;
+  }
+
+  .contact-header {
+    padding: 20px 12px;
+  }
+
+  .contact-header h1 {
+    font-size: 2rem;
+  }
+
+  .contact-nav {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .contact-panel {
+    padding: 25px 20px;
+  }
+}
